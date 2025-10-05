@@ -78,7 +78,7 @@ const Inventory = () => {
     console.log("drag over");
   };
 
-  const handleDrop = (e, index) => {
+  /* const handleDrop = (e, index) => {
     const draggedIndex = e.dataTransfer.getData("draggedIndex");
     console.log("draggedIndex");
     //if (draggedIndex === null) return;
@@ -90,7 +90,28 @@ const Inventory = () => {
       updatedItems[index] = draggedItem;
       setItems(updatedItems);
     }
+  }; */
+
+  const handleDrop = (e, index) => {
+    const draggedIndex = e.dataTransfer.getData("draggedIndex");
+    const updatedItems = [...items];
+
+    // Prevent dropping on the same cell
+    if (draggedIndex === index.toString()) return;
+
+    // Swap items if the target cell is occupied, otherwise place the dragged item
+    if (updatedItems[index]) {
+      // Swap items
+      [updatedItems[draggedIndex], updatedItems[index]] = [updatedItems[index], updatedItems[draggedIndex]];
+    } else {
+      // Place dragged item in empty cell
+      updatedItems[index] = updatedItems[draggedIndex];
+      updatedItems[draggedIndex] = null;
+    }
+
+    setItems(updatedItems);
   };
+  
 
   return (
     <Fragment>
