@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 const MusicPlayer = () => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [volume, setVolume] = useState(1); // Volume initial à 100%
+  const [volume, setVolume] = useState(0.4); // Volume initial à 40%
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -23,7 +23,7 @@ const MusicPlayer = () => {
 
   return (
     <div style={{ position: "relative", width: "200px" }}>
-      <audio ref={audioRef} src="/HearthstoneMainTitle.mp3" autoPlay loop />
+      <audio ref={audioRef} src="/D&DThemeGuitarCover.mp3" autoPlay loop />
       <button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"}</button>
       <div style={{ position: "absolute", top: "40px", left: "0" }}>
         <input

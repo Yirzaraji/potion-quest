@@ -2,33 +2,39 @@ import React, { Fragment, useState } from "react";
 import Modal from "@/components/Modal/Base";
 import Profil from "@/components/Modal/Profil";
 import Inventory from "@/components/Modal/Inventory";
+import Shop from "@/components/Modal/Shop"
 import "./Menu.css";
 
 const Menu = ({ playerLevel }) => {
   const [selectedBtn, setSelectedBtn] = useState(null);
   const [menuBtn, setMenuBtn] = useState([
     {
-      id: 0,
+      id:0,
+      name: "Shop",
+      component: <Shop/>
+    },
+    {
+      id: 1,
       name: "Inventaire",
       component: <Inventory />,
     },
     {
-      id: 1,
+      id: 2,
       name: "Grimoire",
       component: <Profil />,
     },
     {
-      id: 2,
+      id: 3,
       name: "Quete",
       component: <Profil />,
     },
     {
-      id: 3,
+      id: 4,
       name: "Profil",
       component: <Profil playerLevel={playerLevel} />,
     },
     {
-      id: 4,
+      id: 5,
       name: "Aides",
       component: <Profil />,
     },
@@ -61,7 +67,10 @@ const Menu = ({ playerLevel }) => {
       <div
         className={`${selectedBtn !== null ? "" : "hidden"} container-modal`}
       >
-        <Modal name={menuBtn[selectedBtn]?.name}>
+        <Modal 
+          name={menuBtn[selectedBtn]?.name}
+          width={menuBtn[selectedBtn]?.name === "Shop" ? "1000px" : undefined} // Largeur de modal spécifique pour Shop
+        >
           {selectedBtn !== null ? menuBtn[selectedBtn].component : ""}
         </Modal>
       </div>
