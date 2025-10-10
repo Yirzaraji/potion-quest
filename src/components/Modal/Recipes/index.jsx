@@ -348,7 +348,7 @@ const Recipes = () => {
         {recipes.map((recipe, index) => (
           <div key={index} className="recipe-item text-white">
             <div
-              className="recipe-title flex cursor-pointer p-2 mb-2 hover:bg-purple-900 duration-500"
+              className={`recipe-title flex cursor-pointer p-2 hover:bg-purple-900 duration-500 ${openIndex === index ? 'bg-purple-900' : ''}`}
               onClick={() => toggleRecipe(index)}
             >   
               <div className="recipe-decription-icon flex items-center">
@@ -375,7 +375,7 @@ const Recipes = () => {
                     ))}
                   </div>
                   <div className="recipe-reminder cursor-pointer">
-                    <div className="btn-reminder bg-green-600 uppercase p-5 text-center">Marquer</div>
+                    <div className="btn-reminder uppercase p-5 text-center">Marquer</div>
                   </div>
                 </div>
               </div>
