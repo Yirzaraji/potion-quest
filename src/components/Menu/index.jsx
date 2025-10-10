@@ -2,7 +2,8 @@ import React, { Fragment, useState } from "react";
 import Modal from "@/components/Modal/Base";
 import Profil from "@/components/Modal/Profil";
 import Inventory from "@/components/Modal/Inventory";
-import Shop from "@/components/Modal/Shop"
+import Shop from "@/components/Modal/Shop";
+import Recipes from "@/components/Modal/Recipes";
 import "./Menu.css";
 
 const Menu = ({ playerLevel }) => {
@@ -20,8 +21,8 @@ const Menu = ({ playerLevel }) => {
     },
     {
       id: 2,
-      name: "Grimoire",
-      component: <Profil />,
+      name: "Recettes",
+      component: <Recipes />,
     },
     {
       id: 3,
