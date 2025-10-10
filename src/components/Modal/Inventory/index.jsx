@@ -113,7 +113,7 @@ const Inventory = () => {
     }
 
     setItems(updatedItems);
-    setStartIndex(null); // Réinitialise après drop
+    setStartIndex(null); // Réinitialise après le drag drop
   };
   
 

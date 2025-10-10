@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 const MusicPlayer = () => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [volume, setVolume] = useState(0.4); // Volume initial à 40%
+  const [volume, setVolume] = useState(0.1); // Volume initial à 40%
 
   const togglePlay = () => {
     if (isPlaying) {

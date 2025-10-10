@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
+import { FaBook } from "react-icons/fa6";
 import "./Base.css";
 
 
 
-const Base = ({ name, children, width, className = "modal shop-modal p-4 bg-gray-900 rounded-lg shadow" }) => {
+const Base = ({ name, children, width, className = "modal shop-modal p-4 rounded-lg shadow" }) => {
   /* const handleSubmit = () => {
     console.log("isSubmit");
   }; */
@@ -15,10 +16,11 @@ const Base = ({ name, children, width, className = "modal shop-modal p-4 bg-gray
         <div className={`${className}`} style={width ? { width } : {}}>
           <div className="modal-content">
             <div className="modal-header mb-5">
-              <h5 className="modal-title text-lg font-bold mb-1 text-left">
-                {name}
+              <h5 className="modal-title text-lg font-bold mb-1 text-left uppercase border-b border-gray-600">
+                <span className="inline-flex gap-2"> {<FaBook className="text-4xl" />}
+                  <h2 className="self-end">{name}</h2>
+                </span>
               </h5>
-              <hr />
             </div>
             <div className="modal-body mt-4 text-left">{children}</div>
             {/* <div className="modal-footer mt-4 text-center absolute hover:bg-green-900 bg-green-500 cursor-pointer rounded-lg">

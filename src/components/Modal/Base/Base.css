@@ -1,8 +1,10 @@
 .modal {
   width: 550px;
   min-height: 300px;
-  
+  background-color: #1c2024;
+  color: rgb(185, 185, 185);
   opacity: 0.97;
+  font-family: 'BBH Sans Hegarty';
 }
 
 .classe {

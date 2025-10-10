@@ -4,6 +4,7 @@ import Profil from "@/components/Modal/Profil";
 import Inventory from "@/components/Modal/Inventory";
 import Shop from "@/components/Modal/Shop";
 import Recipes from "@/components/Modal/Recipes";
+import { FaBook } from "react-icons/fa6";
 import "./Menu.css";
 
 const Menu = ({ playerLevel }) => {
@@ -11,31 +12,37 @@ const Menu = ({ playerLevel }) => {
   const [menuBtn, setMenuBtn] = useState([
     {
       id:0,
+      icon: <FaBook/>,
       name: "Shop",
       component: <Shop/>
     },
     {
       id: 1,
+      icon: <FaBook/>,
       name: "Inventaire",
       component: <Inventory />,
     },
     {
       id: 2,
+      icon: <FaBook/>,
       name: "Recettes",
       component: <Recipes />,
     },
     {
       id: 3,
+      icon: <FaBook/>,
       name: "Quete",
       component: <Profil />,
     },
     {
       id: 4,
+      icon: <FaBook/>,
       name: "Profil",
       component: <Profil playerLevel={playerLevel} />,
     },
     {
       id: 5,
+      icon: <FaBook/>,
       name: "Aides",
       component: <Profil />,
     },
@@ -59,7 +66,7 @@ const Menu = ({ playerLevel }) => {
                   selectedBtn === index ? "bg-green-500" : "bg-blue-500"
                 } cursor-pointer pt-2 pb-2 hover:bg-green-500`}
               >
-                {btn.name}
+                {btn.icon}{btn.name}
               </li>
             );
           })}

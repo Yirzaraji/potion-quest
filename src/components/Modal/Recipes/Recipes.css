@@ -1,0 +1,50 @@
+.recipe-item{
+ 
+}
+.recipe-title {
+    background-color: #0a1315;
+    color: rgb(185, 185, 185);
+}
+.recipe-title h4{
+    font-family: 'BBH Sans Hegarty';
+    
+}
+.recipe-title p{
+   font-family: 'Oswald';
+}
+.recipe-instructions{
+    background-color: #0a1315;
+    color: rgb(185, 185, 185);
+    font-family: 'Oswald';
+}
+.recipe-ingredients{
+    background-color: #0a1315;
+}
+
+.recipe-ingredients span{
+    font-family: 'Oswald';
+}
+
+.title-ingredient{
+    font-family: 'BBH Sans Hegarty';
+    color: rgb(185, 185, 185);
+
+}
+
+.recipe-reminder{
+   width:200px;
+   margin:0 auto;
+}
+
+.recipe-content {
+  transition: max-height 1s;
+  overflow: hidden;
+}
+
+.recipe-content.open {
+  max-height: 1000px; /* Ajuste selon le contenu max attendu */
+}
+
+.recipe-content.closed {
+  max-height: 0;
+}
