@@ -1,4 +1,25 @@
 import React from "react";
+import { FaBottleWater } from "react-icons/fa6";
+import { FaOilCan, FaWineBottle } from "react-icons/fa";
+import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
+import { RiFlowerFill } from "react-icons/ri";
+import { GiFlowerStar, 
+  GiFrontTeeth, 
+  GiZigzagLeaf, 
+  GiDeathcab, 
+  GiFizzingFlask, 
+  GiJasmine, 
+  GiLeafSkeleton, 
+  GiSunflower, 
+  GiTreeRoots,
+  GiClothJar, 
+  GiTwoCoins, 
+  GiHealthPotion, 
+  GiPotionBall, 
+  GiPotionOfMadness,
+  GiHerbsBundle, 
+  GiFlowerEmblem 
+} from "react-icons/gi";
 
 const GameData = {
   items:{
@@ -8,21 +29,21 @@ const GameData = {
         name: "Vin",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: FaWineBottle,
       },
       {
         id: 1,
         name: "Eau",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: FaBottleWater,
       },
       {
         id:2,
         name: "Huile",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: FaOilCan,
       },
     ],
     herbs: [
@@ -31,7 +52,7 @@ const GameData = {
         name: "Pétale de rose",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: PiFlowerTulipFill,
         isTransform: false,
       },
       {
@@ -39,7 +60,7 @@ const GameData = {
         name: "Flacon vide",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiClothJar,
         isTransform: false,
       },
       {
@@ -47,7 +68,7 @@ const GameData = {
         name: "Hibiscus",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiHerbsBundle,
         isTransform: false,
       },
       {
@@ -55,7 +76,7 @@ const GameData = {
         name: "Racine de mandragore",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiTreeRoots,
         isTransform: false,
       },
       {
@@ -63,7 +84,7 @@ const GameData = {
         name: "Pissenlit",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiFlowerEmblem,
         isTransform: false,
       },
       {
@@ -71,7 +92,7 @@ const GameData = {
         name: "Feuillereve",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiZigzagLeaf,
         isTransform: false,
       },
       {
@@ -79,7 +100,7 @@ const GameData = {
         name: "Feuille de bellombre",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiLeafSkeleton,
         isTransform: false,
       },
       {
@@ -87,7 +108,7 @@ const GameData = {
         name: "Essence de Noxsombre",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiDeathcab,
         isTransform: false,
       },
       {
@@ -95,7 +116,7 @@ const GameData = {
         name: "Dent de Lion",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiFrontTeeth,
         isTransform: false,
       },
       {
@@ -103,7 +124,7 @@ const GameData = {
         name: "Fleur ardente",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiSunflower,
         isTransform: false,
       },
       {
@@ -111,7 +132,7 @@ const GameData = {
         name: "Essence de Jasmin",
         price: 50,
         sellPrice: 25,
-        icon:"https://placehold.co/40x40",
+        icon: GiJasmine,
         isTransform: false,
       },
     ],
@@ -120,31 +141,31 @@ const GameData = {
         id: 0,
         name: "Potion de Lune",
         sellPrice: 150,
-        icon:"https://placehold.co/40x40",
+        icon: GiPotionBall,
       },
       {
         id: 1,
         name: "Potion de vie",
         sellPrice: 150,
-        icon:"https://placehold.co/40x40",
+        icon: GiPotionBall,
       },
       {
         id: 2,
         name: "Potion de souffle mortel",
         sellPrice: 150,
-        icon:"https://placehold.co/40x40",
+        icon: GiPotionOfMadness,
       },
       {
         id: 3,
         name: "Potion du Hardi",
         sellPrice: 150,
-        icon:"https://placehold.co/40x40",
+        icon: GiPotionBall,
       },
       {
         id: 4,
         name: "Elixir d'amour",
         sellPrice: 150,
-        icon:"https://placehold.co/40x40",
+        icon: GiHealthPotion,
       },
     ],
   },

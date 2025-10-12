@@ -1,24 +1,38 @@
 import React, { Fragment, useState } from "react";
 import GameData from '@/components/GameDatas/Items';
-import { PiFlowerTulipFill } from "react-icons/pi";
-import { GiFlowerStar } from "react-icons/gi";
-import {
-  GiTwoCoins,
-  GiHealthPotion,
-  GiPotionBall,
-  GiPotionOfMadness,
+import { FaBottleWater } from "react-icons/fa6";
+import { FaOilCan, FaWineBottle } from "react-icons/fa";
+import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
+import { RiFlowerFill } from "react-icons/ri";
+import { GiFlowerStar,
+  GiFrontTeeth, 
+  GiZigzagLeaf, 
+  GiDeathcab, 
+  GiFizzingFlask, 
+  GiJasmine, 
+  GiLeafSkeleton, 
+  GiSunflower, 
+  GiTreeRoots, 
+  GiClothJar,
+  GiTwoCoins, 
+  GiHealthPotion, 
+  GiPotionBall, 
+  GiPotionOfMadness, 
+  GiHerbsBundle, 
+  GiFlowerEmblem 
 } from "react-icons/gi";
 import "./shop.css";
 
 const Shop = () => {
   //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
+  
   const { items } = GameData;
   const mergedItems = items.potions.concat(items.diluents).concat(items.herbs)
-  const shopitemBis = mergedItems.map((item, index) => ({
+  const shopItemBis = mergedItems.map((item, index) => ({
     id: index,
     ...item,
   }))
-  console.log(shopitemBis)
+  console.log(shopItemBis)
 
   const shopItems = [
     {
@@ -101,8 +115,9 @@ const Shop = () => {
     null,
   ];
   const [itemes, setItems] = useState(shopItems);
+  const [shopSlots] = useState(Array.from({ length: 63 }));
   const [startIndex, setStartIndex] = useState(null);
-  const [tests, setTests] = useState(shopitemBis);
+  const [tests, setTests] = useState(shopItemBis);
   
 
 
@@ -119,25 +134,23 @@ const Shop = () => {
       </div>
       <hr />
       <div className="shop-items flex flex-wrap mt-1 mb-5">
-        {tests.map((item, index) => {
-            //console.log(item)
-          //const item = items.find((item) => item.id === index);
-          return (
-            <div
-              key={index}
-              className={`item-box flex justify-center items-center hover:border-blue-500 border-4 bg-gray-500 m-1`}
-            >
-              {item && (
-                <div
-                id={index}
-                className="item cursor-move"
-                >
-                {item.icon}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {shopSlots.map((_, index) => (
+          <div
+            key={index}
+            className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
+          >
+            {index < shopItemBis.length && shopItemBis[index].icon ? (
+              (() => {
+                const Icon = shopItemBis[index].icon; // (tricky solution) Assigne a une variable qui a une majuscule pour le passer comme composant 
+                return <Icon style={{fontSize: "2.5rem",color: "white",}} />;
+              })()
+            ) : (
+              <div id={index} className="item cursor-move">
+                .
+              </div>
+            )}
+          </div>
+        ))}
       </div>
       <hr />
       <div className="inventory-bank text-right">

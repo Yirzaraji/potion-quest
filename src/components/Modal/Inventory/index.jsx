@@ -137,7 +137,7 @@ const Inventory = () => {
               key={index}
               onDragOver={handleDragOver}
               onDrop={(e) => handleDrop(e, index)}
-              className={`item-box flex justify-center items-center hover:border-blue-500 border-4 bg-gray-500 m-1`}
+              className={`item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1`}
             >
               {/* slot {index + 1} */}
               {item && (

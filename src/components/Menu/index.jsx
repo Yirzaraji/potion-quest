@@ -77,7 +77,7 @@ const Menu = ({ playerLevel }) => {
       >
         <Modal 
           name={menuBtn[selectedBtn]?.name}
-          width={menuBtn[selectedBtn]?.name === "Shop" ? "1000px" : undefined} // Largeur de modal spécifique pour Shop
+          width={menuBtn[selectedBtn]?.name === "Shop" ? "645px" : undefined} // Largeur de modal spécifique pour Shop
         >
           {selectedBtn !== null ? menuBtn[selectedBtn].component : ""}
         </Modal>
