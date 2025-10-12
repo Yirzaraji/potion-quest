@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import GameData from '@/components/GameDatas/Items';
 import { PiFlowerTulipFill } from "react-icons/pi";
 import { GiFlowerStar } from "react-icons/gi";
 import {
@@ -11,6 +12,13 @@ import "./shop.css";
 
 const Shop = () => {
   //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
+  const { items } = GameData;
+  const mergedItems = items.potions.concat(items.diluents).concat(items.herbs)
+  const shopitemBis = mergedItems.map((item, index) => ({
+    id: index,
+    ...item,
+  }))
+  console.log(shopitemBis)
 
   const shopItems = [
     {
@@ -92,8 +100,11 @@ const Shop = () => {
     null,
     null,
   ];
-  const [items, setItems] = useState(shopItems);
+  const [itemes, setItems] = useState(shopItems);
   const [startIndex, setStartIndex] = useState(null);
+  const [tests, setTests] = useState(shopitemBis);
+  
+
 
   return (
     <Fragment>
@@ -108,8 +119,8 @@ const Shop = () => {
       </div>
       <hr />
       <div className="shop-items flex flex-wrap mt-1 mb-5">
-        {items.map((item, index) => {
-            console.log(item)
+        {tests.map((item, index) => {
+            //console.log(item)
           //const item = items.find((item) => item.id === index);
           return (
             <div
