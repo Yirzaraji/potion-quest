@@ -11,7 +11,7 @@ import "./Inventory.css";
 
 const Inventory = () => {
   //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
-
+  const [initialSlots] = useState(Array.from({ length: 42 }));
   const initialItems = [
     {
       id: 0,
@@ -79,24 +79,6 @@ const Inventory = () => {
     e.preventDefault();
     console.log("drag over");
   };
-  /* const handleDragStart = (e, index) => {
-    e.dataTransfer.setData("startIndex", index);
-  }; */
-
-
-  /* const handleDrop = (e, index) => {
-    const startIndex = e.dataTransfer.getData("startIndex");
-    console.log("startIndex");
-    //if (startIndex === null) return;
-    const updatedItems = [...items];
-    const draggedItem = items[startIndex];
-
-    if (startIndex !== index) {
-      updatedItems[startIndex] = null;
-      updatedItems[index] = draggedItem;
-      setItems(updatedItems);
-    }
-  }; */
 
   const handleDrop = (e, endIndex) => {
       //Si cellule identique
@@ -130,8 +112,20 @@ const Inventory = () => {
       </div>
       <hr />
       <div className="inventory-items flex flex-wrap mt-1 mb-5">
-        {items.map((item, index) => {
-          //const item = items.find((item) => item.id === index);
+        {items.length > 0 ? (
+          initialSlots.map((_, index) => {
+            return(
+              <div
+                  key={index}
+                  className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
+                >
+                  <div id={index} className="item cursor-move">.</div> 
+                </div>
+              );
+          })
+        ) : ( <p>Chargement des items...</p> )}
+        {/* {items.length > 0 ? (
+          items.map((item, index) => {
           return (
             <div
               key={index}
@@ -139,7 +133,6 @@ const Inventory = () => {
               onDrop={(e) => handleDrop(e, index)}
               className={`item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1`}
             >
-              {/* slot {index + 1} */}
               {item && (
                 <div
                   id={index}
@@ -152,7 +145,7 @@ const Inventory = () => {
               )}
             </div>
           );
-        })}
+        })) : ( <p>Chargement des items...</p> )} */}
       </div>
       <hr />
       <div className="inventory-bank text-right">
