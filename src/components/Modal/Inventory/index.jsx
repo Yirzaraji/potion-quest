@@ -1,90 +1,83 @@
-import React, { Fragment, useState } from "react";
-import { PiFlowerTulipFill } from "react-icons/pi";
-import { GiFlowerStar } from "react-icons/gi";
+import React, { Fragment, useState, useEffect } from "react";
+import { FaBottleWater } from "react-icons/fa6";
+import { FaOilCan, FaWineBottle } from "react-icons/fa";
+import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
+import { RiFlowerFill } from "react-icons/ri";
 import {
+  GiFlowerStar,
+  GiFrontTeeth,
+  GiZigzagLeaf,
+  GiDeathcab,
+  GiFizzingFlask,
+  GiJasmine,
+  GiLeafSkeleton,
+  GiSunflower,
+  GiTreeRoots,
+  GiClothJar,
   GiTwoCoins,
   GiHealthPotion,
   GiPotionBall,
   GiPotionOfMadness,
+  GiHerbsBundle,
+  GiFlowerEmblem,
 } from "react-icons/gi";
 import "./Inventory.css";
 
 const Inventory = () => {
   //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
-  const [initialSlots] = useState(Array.from({ length: 42 }));
-  const initialItems = [
+  const purchasedItems = [
     {
       id: 0,
-      name: "Fiole Vide",
-      icon: (
-        <GiPotionBall
-          style={{
-            fontSize: "3.5rem",
-            color: "white",
-          }}
-        />
-      ),
+      name: "Vin",
+      price: 50,
+      sellPrice: 25,
+      icon: FaWineBottle,
     },
     {
       id: 1,
-      name: "Feuillereve",
-      icon: (
-        <GiFlowerStar
-          style={{
-            fontSize: "3.5rem",
-            color: "white",
-          }}
-        />
-      ),
+      name: "Pétale de rose",
+      price: 50,
+      sellPrice: 25,
+      icon: PiFlowerTulipFill,
+      isTransform: false,
     },
     {
       id: 2,
-      name: "Tulipe",
-      icon: (
-        <PiFlowerTulipFill
-          style={{
-            fontSize: "3.5rem",
-            color: "white",
-          }}
-        />
-      ),
+      name: "Flacon vide",
+      price: 50,
+      sellPrice: 25,
+      icon: GiClothJar,
+      isTransform: false,
     },
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  ];
-  const [items, setItems] = useState(initialItems);
-  const [startIndex, setStartIndex] = useState(null);
+  ]
+  const [initialSlots] = useState(Array.from({ length: 42 }));
+  const [inventoryItems, setInventoryItems] = useState([]);
+
+  useEffect(() => {
+      console.log(purchasedItems)
+      setInventoryItems(purchasedItems)
+  }, []);
+
+  //DEBUG ASYNCHRONE
+  useEffect(() => {
+    console.log(inventoryItems)
+  }, [inventoryItems]);
 
   const handleDragStart = (e, index) => {
-    console.log(index)
-    setStartIndex(index); // Stocke l'index comme nombre plutot qu'utiliser e.dataTransfer.setData("startIndex", index); qui donne une string
+    if (inventoryItems[index] === null) return; // Ne drague pas les slots vides
+    e.dataTransfer.setData('text/plain', index.toString());
   };
   
-  const handleDragOver = (e) => {
-    e.preventDefault();
-    console.log("drag over");
-  };
-
   const handleDrop = (e, endIndex) => {
-      //Si cellule identique
-    if (startIndex === null || startIndex === endIndex) return;
+    e.preventDefault();
+    const startIndex = parseInt(e.dataTransfer.getData('text/plain'), 10); // Récupère l'index source
 
-    const updatedItems = [...items];
+    if (startIndex === endIndex) {
+      console.log('Drop ignoré: invalide ou même cellule');
+      return;
+    }
+    // Clone immutable du tableau
+    const updatedItems = [...inventoryItems];
     if (updatedItems[endIndex]) {
       // Swap si cellule occupée
       [updatedItems[startIndex], updatedItems[endIndex]] = [updatedItems[endIndex], updatedItems[startIndex]]; 
@@ -93,11 +86,14 @@ const Inventory = () => {
       updatedItems[endIndex] = updatedItems[startIndex];
       updatedItems[startIndex] = null;
     }
-
-    setItems(updatedItems);
-    setStartIndex(null); // Réinitialise après le drag drop
+    setInventoryItems(updatedItems);
+    console.log('Drop success: from', startIndex, 'to', endIndex);
   };
   
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    console.log("drag over");
+  };
 
   return (
     <Fragment>
@@ -112,40 +108,33 @@ const Inventory = () => {
       </div>
       <hr />
       <div className="inventory-items flex flex-wrap mt-1 mb-5">
-        {items.length > 0 ? (
+        {inventoryItems.length > 0 ? (
           initialSlots.map((_, index) => {
             return(
               <div
                   key={index}
+                  onDragOver={handleDragOver}
+                  onDrop={(e) => handleDrop(e, index)}
                   className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
                 >
-                  <div id={index} className="item cursor-move">.</div> 
+                  {index < inventoryItems.length && inventoryItems[index]?.icon ? (
+                    (() => {
+                      const Icon = inventoryItems[index].icon;
+                      return <Fragment><div 
+                        id={index}
+                        onDragStart={(e) => handleDragStart(e, index)}
+                        draggable={true} 
+                        className="item cursor-move">
+                        <Icon style={{ fontSize: "2.5rem", color: "white" }} />
+                      </div></Fragment>;
+                    })()
+                  ) : (
+                    <div id={index} className="item empty-slot"></div>
+                  )}
                 </div>
               );
           })
         ) : ( <p>Chargement des items...</p> )}
-        {/* {items.length > 0 ? (
-          items.map((item, index) => {
-          return (
-            <div
-              key={index}
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, index)}
-              className={`item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1`}
-            >
-              {item && (
-                <div
-                  id={index}
-                  onDragStart={(e) => handleDragStart(e, index)}
-                  draggable={true}
-                  className="item cursor-move"
-                >
-                  {item.icon}
-                </div>
-              )}
-            </div>
-          );
-        })) : ( <p>Chargement des items...</p> )} */}
       </div>
       <hr />
       <div className="inventory-bank text-right">
