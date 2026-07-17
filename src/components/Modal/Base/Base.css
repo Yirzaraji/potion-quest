@@ -18,3 +18,28 @@
   width: 100%;
   bottom: 0;
 }
+
+.modal-window {
+  user-select: none;
+}
+
+.modal-window .modal-body {
+  user-select: text;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: rgb(185, 185, 185);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: rgba(220, 38, 38, 0.85);
+  color: #fff;
+}
