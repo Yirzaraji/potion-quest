@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Modal from "@/components/Modal/Base";
 import Profil from "@/components/Modal/Profil";
 import Inventory from "@/components/Modal/Inventory";
@@ -7,20 +7,21 @@ import Recipes from "@/components/Modal/Recipes";
 import { FaBook } from "react-icons/fa6";
 import "./Menu.css";
 
-const Menu = ({ playerLevel }) => {
+const Menu = ({ playerLevel, shopCoins, handleCoinsChange, liftInventoryItems, addItemToInventory, inventoryCoins, inventoryCoinsChange }) => {
   const [selectedBtn, setSelectedBtn] = useState(null);
   const [menuBtn, setMenuBtn] = useState([
     {
       id:0,
       icon: <FaBook/>,
       name: "Shop",
-      component: <Shop/>
+      component: <Shop shopCoins={shopCoins} handleCoinsChange={handleCoinsChange}/>
     },
     {
       id: 1,
       icon: <FaBook/>,
       name: "Inventaire",
-      component: <Inventory />,
+      component: <Inventory prop="hellothere" liftInventoryItems={liftInventoryItems} 
+        addItemToInventory={addItemToInventory} inventoryCoins={inventoryCoins} inventoryCoinsChange={inventoryCoinsChange}/>,
     },
     {
       id: 2,
@@ -47,6 +48,49 @@ const Menu = ({ playerLevel }) => {
       component: <Profil />,
     },
   ]);
+
+  //re render quand shopCoins se met a jour
+  useEffect(() => {
+    setMenuBtn([
+      {
+        id: 0,
+        icon: <FaBook />,
+        name: "Shop",
+        component: <Shop shopCoins={shopCoins} handleCoinsChange={handleCoinsChange} />
+      },
+      {
+        id: 1,
+        icon: <FaBook/>,
+        name: "Inventaire",
+        component: <Inventory prop="hellothere" liftInventoryItems={liftInventoryItems} 
+        addItemToInventory={addItemToInventory} inventoryCoins={inventoryCoins} inventoryCoinsChange={inventoryCoinsChange}/>,
+      },
+      {
+        id: 2,
+        icon: <FaBook/>,
+        name: "Recettes",
+        component: <Recipes />,
+      },
+      {
+        id: 3,
+        icon: <FaBook/>,
+        name: "Quete",
+        component: <Profil />,
+      },
+      {
+        id: 4,
+        icon: <FaBook/>,
+        name: "Profil",
+        component: <Profil playerLevel={playerLevel} />,
+      },
+      {
+        id: 5,
+        icon: <FaBook/>,
+        name: "Aides",
+        component: <Profil />,
+      },
+    ]);
+  }, [shopCoins]);
 
   //console.log(menuBtn[3].inventory);
   const handleClick = (event, index) => {

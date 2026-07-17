@@ -23,55 +23,30 @@ import {
 } from "react-icons/gi";
 import "./Inventory.css";
 
-const Inventory = () => {
+const Inventory = ({liftInventoryItems, addItemToInventory, inventoryCoins, inventoryCoinsChange}) => {
   //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
-  const purchasedItems = [
-    {
-      id: 0,
-      name: "Vin",
-      price: 50,
-      sellPrice: 25,
-      icon: FaWineBottle,
-    },
-    {
-      id: 1,
-      name: "Pétale de rose",
-      price: 50,
-      sellPrice: 25,
-      icon: PiFlowerTulipFill,
-      isTransform: false,
-    },
-    {
-      id: 2,
-      name: "Flacon vide",
-      price: 50,
-      sellPrice: 25,
-      icon: GiClothJar,
-      isTransform: false,
-    },
-  ]
+  console.log(liftInventoryItems)
   const [initialSlots] = useState(Array.from({ length: 42 }));
   const [inventoryItems, setInventoryItems] = useState([]);
 
   useEffect(() => {
-      console.log(purchasedItems)
-      setInventoryItems(purchasedItems)
-  }, []);
+      //console.log(purchasedItems)
+      setInventoryItems(liftInventoryItems)
+  }, [liftInventoryItems]);
 
   //DEBUG ASYNCHRONE
   useEffect(() => {
     console.log(inventoryItems)
   }, [inventoryItems]);
 
-  const handleDragStart = (e, index) => {
-    if (inventoryItems[index] === null) return; // Ne drague pas les slots vides
-    e.dataTransfer.setData('text/plain', index.toString());
+  const handleDragStart = (event, index) => {
+    if (inventoryItems[index] === null) return; // Ne drag pas les slots vides
+    event.dataTransfer.setData('text/plain', index.toString());
   };
   
   const handleDrop = (e, endIndex) => {
     e.preventDefault();
     const startIndex = parseInt(e.dataTransfer.getData('text/plain'), 10); // Récupère l'index source
-
     if (startIndex === endIndex) {
       console.log('Drop ignoré: invalide ou même cellule');
       return;
@@ -90,8 +65,8 @@ const Inventory = () => {
     console.log('Drop success: from', startIndex, 'to', endIndex);
   };
   
-  const handleDragOver = (e) => {
-    e.preventDefault();
+  const handleDragOver = (event) => {
+    event.preventDefault();
     console.log("drag over");
   };
 
@@ -115,7 +90,7 @@ const Inventory = () => {
                   key={index}
                   onDragOver={handleDragOver}
                   onDrop={(e) => handleDrop(e, index)}
-                  className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
+                  className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"                 
                 >
                   {index < inventoryItems.length && inventoryItems[index]?.icon ? (
                     (() => {
@@ -138,7 +113,7 @@ const Inventory = () => {
       </div>
       <hr />
       <div className="inventory-bank text-right">
-        <b>1439 </b>
+        <b>{inventoryCoins}</b>
         <GiTwoCoins
           style={{
             fontSize: "1.3rem",

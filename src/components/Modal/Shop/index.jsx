@@ -24,11 +24,19 @@ import {
 } from "react-icons/gi";
 import "./shop.css";
 
-const Shop = () => {
+const Shop = ({ shopCoins, handleCoinsChange }) => {
 
+  console.log(handleCoinsChange)
   const [shopItems, setShopItems] = useState([]);
   // État pour les slots (fixe à 63)
   const [shopSlots] = useState(Array.from({ length: 63 }));
+
+  const addCoins = () =>{
+    console.log('clicked')
+    const sum = shopCoins + 33
+    console.log(sum)
+    handleCoinsChange(sum)
+  }
 
   useEffect(() => {
     const loadItems = () => {
@@ -92,7 +100,7 @@ const Shop = () => {
           shopSlots.map((_, index) => (
             <div
               key={index}
-              className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
+              onClick={addCoins} className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
             >
               {index < shopItems.length && shopItems[index]?.icon ? (
                 (() => {
@@ -112,7 +120,7 @@ const Shop = () => {
       </div>
       <hr />
       <div className="inventory-bank text-right">
-        <b>1439 </b>
+        <b>{shopCoins ?? "Chargement..."}</b>
         <GiTwoCoins
           style={{
             fontSize: "1.3rem",
