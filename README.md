@@ -69,25 +69,28 @@ npm run lint      # Analyse le code avec ESLint
 ---
 
 ## 📁 Structure du projet
+
+```
 src/
 ├── assets/               # Images, audio, fichiers statiques
 ├── components/
 │   ├── App/              # Composant racine et routing
 │   ├── ErrorPage/        # Page d'erreur
 │   ├── Game/             # Écran de jeu principal
-│   ├── GameDatas/         # Données du jeu (Character, Items, Quests, Recipes)
-│   ├── Menu/              # Barre latérale + gestion des fenêtres ouvertes
+│   ├── GameDatas/        # Données du jeu (Character, Items, Quests, Recipes)
+│   ├── Menu/             # Barre latérale + gestion des fenêtres ouvertes
 │   ├── Modal/
-│   │   ├── Base/          # Fenêtre générique (draggable, fermable)
-│   │   ├── Shop/          # Boutique
-│   │   ├── Inventory/     # Inventaire
-│   │   ├── Recipes/       # Recettes
-│   │   ├── Profil/        # Profil / Quêtes / Aide
-│   │   └── Creation/       # Création de personnage
-│   ├── MusicPlayer/       # Lecteur audio
-│   └── StartGame/         # Écran de démarrage
+│   │   ├── Base/         # Fenêtre générique (draggable, fermable)
+│   │   ├── Shop/         # Boutique
+│   │   ├── Inventory/    # Inventaire
+│   │   ├── Recipes/      # Recettes
+│   │   ├── Profil/       # Profil / Quêtes / Aide
+│   │   └── Creation/     # Création de personnage
+│   ├── MusicPlayer/      # Lecteur audio
+│   └── StartGame/        # Écran de démarrage
 ├── index.css
-└── main.jsx               # Point d'entrée de l'application
+└── main.jsx              # Point d'entrée de l'application
+```
 
 
 ## 📄 Licence
