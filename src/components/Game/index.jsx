@@ -29,7 +29,7 @@ import Shop from "@/components/Modal/Shop"
 
 const Game = () => {
   const [buyItems, setBuyItems] = useState([]);
-  const [shopCoins, setShopCoins] = useState(999999);
+  const [shopCoins, setShopCoins] = useState(10000);
   const [inventoryCoins, setInventoryCoins] = useState(1789);
   const [inventoryItems, setInventoryItems] = useState([
       {
@@ -90,33 +90,38 @@ const Game = () => {
   };
 
   // Vend un exemplaire de l'item (identifié par son nom) depuis l'inventaire vers
-  // le shop : crédite le joueur du sellPrice, et retire une unité de la pile
-  // (ou l'item entier si c'était le dernier exemplaire). Ne modifie jamais le
-  // catalogue du shop : un item vendu ne s'y ajoute pas.
+  // le shop : crédite le joueur du sellPrice et débite ce même montant de la
+  // banque du shop, puis retire une unité de l'inventaire (ou l'item entier si
+  // c'était le dernier exemplaire). Ne modifie jamais le catalogue du shop.
+  // Retourne { success, sellPrice, reason } pour permettre à l'UI d'afficher
+  // le bon message (ex: le shop n'a pas assez d'or pour racheter l'objet).
   const sellItemFromInventory = (itemName) => {
-    setInventoryItems((prevItems) => {
-      const index = prevItems.findIndex(
-        (invItem) => invItem && invItem.name === itemName
-      );
-      if (index === -1) return prevItems;
+    const index = inventoryItems.findIndex(
+      (invItem) => invItem && invItem.name === itemName
+    );
+    if (index === -1) return { success: false, reason: "not_found" };
 
-      const item = prevItems[index];
-      const sellPrice = typeof item.sellPrice === "number" ? item.sellPrice : 0;
-      const quantity = item.quantity || 1;
+    const item = inventoryItems[index];
+    const sellPrice = typeof item.sellPrice === "number" ? item.sellPrice : 0;
 
-      // Crédite la banque du joueur avec le prix de vente d'une unité
-      setInventoryCoins((prevCoins) => prevCoins + sellPrice);
+    if (shopCoins < sellPrice) {
+      return { success: false, reason: "shop_insufficient_funds" };
+    }
 
-      const updatedItems = [...prevItems];
-      if (quantity > 1) {
-        // Il reste des exemplaires -> on décrémente juste la pile
-        updatedItems[index] = { ...item, quantity: quantity - 1 };
-      } else {
-        // Dernier exemplaire -> l'item disparaît complètement de l'inventaire
-        updatedItems.splice(index, 1);
-      }
-      return updatedItems;
-    });
+    const quantity = item.quantity || 1;
+    const updatedItems = [...inventoryItems];
+    if (quantity > 1) {
+      // Il reste des exemplaires -> on décrémente juste la pile
+      updatedItems[index] = { ...item, quantity: quantity - 1 };
+    } else {
+      // Dernier exemplaire -> l'item disparaît complètement de l'inventaire
+      updatedItems.splice(index, 1);
+    }
+    setInventoryItems(updatedItems);
+    setInventoryCoins((prevCoins) => prevCoins + sellPrice);
+    setShopCoins((prevShop) => prevShop - sellPrice);
+
+    return { success: true, sellPrice };
   };
   
 

@@ -375,7 +375,7 @@ const Recipes = () => {
                     ))}
                   </div>
                   <div className="recipe-reminder cursor-pointer">
-                    <div className="btn-reminder uppercase p-5 text-center">Marquer</div>
+                    <div className="btn-reminder uppercase p-5 text-center">Suivre</div>
                   </div>
                 </div>
               </div>

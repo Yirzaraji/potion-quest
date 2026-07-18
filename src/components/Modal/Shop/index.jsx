@@ -104,8 +104,9 @@ const Shop = ({
       return;
     }
 
-    // Débite la banque du joueur
+    // Débite la banque du joueur, crédite la banque du shop du même montant
     inventoryCoinsChange(inventoryCoins - item.price);
+    handleCoinsChange(shopCoins + item.price);
 
     // Envoie une copie de l'item dans l'inventaire avec un identifiant unique
     // (évite toute collision avec un item déjà présent dans l'inventaire)

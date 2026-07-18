@@ -87,8 +87,8 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
   };
 
   // Vente d'un item de l'inventaire au clic droit : crédite le joueur du
-  // sellPrice de l'item et retire une unité de l'inventaire (le shop n'est
-  // jamais modifié par une vente).
+  // sellPrice de l'item (le shop est débité du même montant). Bloqué si le
+  // shop n'a pas assez d'or pour racheter l'objet.
   const handleSellItem = (event, index) => {
     event.preventDefault(); // empêche le menu contextuel du navigateur
 
@@ -100,8 +100,17 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
       return;
     }
 
-    sellItemFromInventory(item.name);
-    showFeedback(`${item.name} vendu (+${item.sellPrice} or)`, "success");
+    const result = sellItemFromInventory(item.name);
+    if (!result.success) {
+      if (result.reason === "shop_insufficient_funds") {
+        showFeedback("Le shop n'a pas assez d'or pour racheter cet objet.", "error");
+      } else {
+        showFeedback(`Impossible de vendre ${item.name}.`, "error");
+      }
+      return;
+    }
+
+    showFeedback(`${item.name} vendu (+${result.sellPrice} or)`, "success");
   };
 
   return (
