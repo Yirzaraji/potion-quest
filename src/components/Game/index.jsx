@@ -65,10 +65,29 @@ const Game = () => {
     setInventoryCoins(value)
   }
 
-  const addItemToInventory = (obj) => {
-    
-    setInventoryItems(prevItems => [...prevItems, obj]);
-  }
+  const addItemToInventory = (itemToAdd) => {
+    setInventoryItems((prevItems) => {
+      // Cherche si un item du même nom est déjà présent dans l'inventaire (empilable)
+      const existingIndex = prevItems.findIndex(
+        (invItem) => invItem && invItem.name === itemToAdd.name
+      );
+
+      if (existingIndex !== -1) {
+        // Déjà présent -> on incrémente la quantité de la pile existante
+        // au lieu de prendre une nouvelle case d'inventaire.
+        const updatedItems = [...prevItems];
+        const existingItem = updatedItems[existingIndex];
+        updatedItems[existingIndex] = {
+          ...existingItem,
+          quantity: (existingItem.quantity || 1) + 1,
+        };
+        return updatedItems;
+      }
+
+      // Nouvel item -> nouvelle case, quantité initiale de 1
+      return [...prevItems, { ...itemToAdd, quantity: 1 }];
+    });
+  };
   
 
   return (

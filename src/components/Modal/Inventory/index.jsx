@@ -95,12 +95,16 @@ const Inventory = ({liftInventoryItems, addItemToInventory, inventoryCoins, inve
                   {index < inventoryItems.length && inventoryItems[index]?.icon ? (
                     (() => {
                       const Icon = inventoryItems[index].icon;
+                      const quantity = inventoryItems[index].quantity || 1;
                       return <Fragment><div 
                         id={index}
                         onDragStart={(e) => handleDragStart(e, index)}
                         draggable={true} 
                         className="item cursor-move">
                         <Icon style={{ fontSize: "2.5rem", color: "white" }} />
+                        {quantity > 1 && (
+                          <span className="item-quantity-badge">x{quantity}</span>
+                        )}
                       </div></Fragment>;
                     })()
                   ) : (

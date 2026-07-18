@@ -3,6 +3,23 @@
   height: 60px;
 }
 
+.item {
+  position: relative;
+}
+
+.item-quantity-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 1px 4px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
 .empty-slot {
   position: relative;/* Nécessaire pour ::after */
   cursor: default;
