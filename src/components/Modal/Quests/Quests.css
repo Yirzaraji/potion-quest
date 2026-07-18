@@ -1,0 +1,103 @@
+.quests-layout {
+  align-items: stretch;
+}
+
+.quests-chapters-column {
+  width: 50%;
+  border-right: 1px solid rgb(63, 63, 63);
+}
+
+.quests-details-column {
+  width: 50%;
+}
+
+.chapter-title {
+  background-color: #0a1315;
+  color: rgb(185, 185, 185);
+  margin-top: 0.4rem;
+}
+
+.chapter-title h4 {
+  font-family: 'BBH Sans Hegarty';
+}
+
+.chapter-title p {
+  font-family: 'Oswald';
+}
+
+.chapter-content {
+  transition: max-height 0.6s;
+  overflow: hidden;
+  background-color: #1c2024;
+}
+
+.chapter-content.open {
+  max-height: 600px;
+}
+
+.chapter-content.closed {
+  max-height: 0;
+}
+
+.quest-list-item {
+  font-family: 'Oswald';
+  color: rgb(185, 185, 185);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.quest-list-item:not(.locked):hover {
+  background-color: #451e6b;
+  color: #fff;
+}
+
+.quest-list-item.active {
+  background-color: #451e6b;
+  color: #fff;
+  font-weight: 600;
+}
+
+.quest-list-item.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quest-available-icon {
+  color: #6ee7b7; /* petite pastille verte pour signaler une quête active non encore sélectionnée */
+}
+
+.quest-detail-title {
+  font-family: 'BBH Sans Hegarty';
+  color: rgb(185, 185, 185);
+}
+
+.quest-detail-description {
+  font-family: 'Oswald';
+  color: rgb(185, 185, 185);
+}
+
+.title-ingredient {
+  font-family: 'BBH Sans Hegarty';
+  color: rgb(185, 185, 185);
+}
+
+.quest-tag {
+  font-family: 'Oswald';
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: #451e6b;
+  color: #fff;
+}
+
+.quest-tag-required {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.quest-tag-provided {
+  border: 1px solid rgba(255, 215, 94, 0.4);
+}
+
+.quest-xp {
+  color: #ffd75e;
+  font-family: 'Oswald';
+}

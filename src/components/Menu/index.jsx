@@ -4,6 +4,7 @@ import Profil from "@/components/Modal/Profil";
 import Inventory from "@/components/Modal/Inventory";
 import Shop from "@/components/Modal/Shop";
 import Recipes from "@/components/Modal/Recipes";
+import Quests from "@/components/Modal/Quests";
 import { FaBook } from "react-icons/fa6";
 import "./Menu.css";
 
@@ -113,7 +114,7 @@ const Menu = ({
       case 2:
         return <Recipes />;
       case 3:
-        return <Profil />;
+        return <Quests />;
       case 4:
         return <Profil playerLevel={playerLevel} />;
       case 5:
@@ -148,7 +149,13 @@ const Menu = ({
           <Modal
             key={id}
             name={btn.name}
-            width={btn.name === "Shop" ? "645px" : undefined} // Largeur de modal spécifique pour Shop
+            width={
+              btn.name === "Shop"
+                ? "645px"
+                : btn.name === "Quete"
+                ? "950px"
+                : undefined
+            }
             defaultPosition={windowState.position}
             zIndex={windowState.zIndex}
             onClose={() => closeWindow(id)}
