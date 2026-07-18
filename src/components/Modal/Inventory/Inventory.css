@@ -36,3 +36,7 @@
   color: #dadada;              
   pointer-events: none;/* Le point ne capte pas les clics/drags */
 }
+
+.inventory-feedback {
+  font-weight: 500;
+}

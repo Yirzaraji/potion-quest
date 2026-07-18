@@ -14,7 +14,7 @@ const BASE_Y = 80;
 // Définition statique des boutons du menu (id, icône, nom). Le contenu réel de
 // chaque fenêtre (renderModalContent) est calculé au rendu à partir des props
 // actuelles de Menu, afin qu'il soit toujours à jour (ex: inventoryCoins juste
-// après un achat) plutôt que figé dans un composant stocké en state.
+// après un achat/une vente) plutôt que figé dans un composant stocké en state.
 const MENU_ITEMS = [
   { id: 0, icon: <FaBook />, name: "Shop" },
   { id: 1, icon: <FaBook />, name: "Inventaire" },
@@ -30,6 +30,7 @@ const Menu = ({
   handleCoinsChange,
   liftInventoryItems,
   addItemToInventory,
+  sellItemFromInventory,
   inventoryCoins,
   inventoryCoinsChange,
 }) => {
@@ -104,6 +105,7 @@ const Menu = ({
           <Inventory
             liftInventoryItems={liftInventoryItems}
             addItemToInventory={addItemToInventory}
+            sellItemFromInventory={sellItemFromInventory}
             inventoryCoins={inventoryCoins}
             inventoryCoinsChange={inventoryCoinsChange}
           />

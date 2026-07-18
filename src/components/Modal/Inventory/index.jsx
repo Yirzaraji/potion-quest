@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import { FaBottleWater } from "react-icons/fa6";
 import { FaOilCan, FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
@@ -23,11 +23,27 @@ import {
 } from "react-icons/gi";
 import "./Inventory.css";
 
-const Inventory = ({liftInventoryItems, addItemToInventory, inventoryCoins, inventoryCoinsChange}) => {
+const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventory, inventoryCoins, inventoryCoinsChange}) => {
   //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
   console.log(liftInventoryItems)
   const [initialSlots] = useState(Array.from({ length: 42 }));
   const [inventoryItems, setInventoryItems] = useState([]);
+
+  // Petit retour visuel après une vente (succès ou erreur), auto-effacé après 2s
+  const [feedback, setFeedback] = useState(null); // { text: string, type: "success" | "error" }
+  const feedbackTimeoutRef = useRef(null);
+
+  const showFeedback = (text, type = "success") => {
+    setFeedback({ text, type });
+    if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
+    feedbackTimeoutRef.current = setTimeout(() => setFeedback(null), 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
       //console.log(purchasedItems)
@@ -70,6 +86,24 @@ const Inventory = ({liftInventoryItems, addItemToInventory, inventoryCoins, inve
     console.log("drag over");
   };
 
+  // Vente d'un item de l'inventaire au clic droit : crédite le joueur du
+  // sellPrice de l'item et retire une unité de l'inventaire (le shop n'est
+  // jamais modifié par une vente).
+  const handleSellItem = (event, index) => {
+    event.preventDefault(); // empêche le menu contextuel du navigateur
+
+    const item = inventoryItems[index];
+    if (!item) return;
+
+    if (typeof item.sellPrice !== "number") {
+      showFeedback(`${item.name} ne peut pas être vendu.`, "error");
+      return;
+    }
+
+    sellItemFromInventory(item.name);
+    showFeedback(`${item.name} vendu (+${item.sellPrice} or)`, "success");
+  };
+
   return (
     <Fragment>
       <div className="inventory-search-bar mb-1">
@@ -82,6 +116,11 @@ const Inventory = ({liftInventoryItems, addItemToInventory, inventoryCoins, inve
         />
       </div>
       <hr />
+      {feedback && (
+        <p className={`inventory-feedback mt-1 mb-0 text-sm ${feedback.type === "success" ? "text-green-400" : "text-red-400"}`}>
+          {feedback.text}
+        </p>
+      )}
       <div className="inventory-items flex flex-wrap mt-1 mb-5">
         {inventoryItems.length > 0 ? (
           initialSlots.map((_, index) => {
@@ -90,6 +129,14 @@ const Inventory = ({liftInventoryItems, addItemToInventory, inventoryCoins, inve
                   key={index}
                   onDragOver={handleDragOver}
                   onDrop={(e) => handleDrop(e, index)}
+                  onContextMenu={(event) => handleSellItem(event, index)}
+                  title={
+                    index < inventoryItems.length && inventoryItems[index]
+                      ? typeof inventoryItems[index].sellPrice === "number"
+                        ? `${inventoryItems[index].name} — ${inventoryItems[index].sellPrice} or (clic droit pour vendre)`
+                        : inventoryItems[index].name
+                      : undefined
+                  }
                   className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"                 
                 >
                   {index < inventoryItems.length && inventoryItems[index]?.icon ? (

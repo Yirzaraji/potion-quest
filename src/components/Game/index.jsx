@@ -88,6 +88,36 @@ const Game = () => {
       return [...prevItems, { ...itemToAdd, quantity: 1 }];
     });
   };
+
+  // Vend un exemplaire de l'item (identifié par son nom) depuis l'inventaire vers
+  // le shop : crédite le joueur du sellPrice, et retire une unité de la pile
+  // (ou l'item entier si c'était le dernier exemplaire). Ne modifie jamais le
+  // catalogue du shop : un item vendu ne s'y ajoute pas.
+  const sellItemFromInventory = (itemName) => {
+    setInventoryItems((prevItems) => {
+      const index = prevItems.findIndex(
+        (invItem) => invItem && invItem.name === itemName
+      );
+      if (index === -1) return prevItems;
+
+      const item = prevItems[index];
+      const sellPrice = typeof item.sellPrice === "number" ? item.sellPrice : 0;
+      const quantity = item.quantity || 1;
+
+      // Crédite la banque du joueur avec le prix de vente d'une unité
+      setInventoryCoins((prevCoins) => prevCoins + sellPrice);
+
+      const updatedItems = [...prevItems];
+      if (quantity > 1) {
+        // Il reste des exemplaires -> on décrémente juste la pile
+        updatedItems[index] = { ...item, quantity: quantity - 1 };
+      } else {
+        // Dernier exemplaire -> l'item disparaît complètement de l'inventaire
+        updatedItems.splice(index, 1);
+      }
+      return updatedItems;
+    });
+  };
   
 
   return (
@@ -100,6 +130,7 @@ const Game = () => {
         handleCoinsChange={handleCoinsChange} 
         liftInventoryItems={inventoryItems} 
         addItemToInventory={addItemToInventory} 
+        sellItemFromInventory={sellItemFromInventory}
         inventoryCoins={inventoryCoins}
         inventoryCoinsChange={inventoryCoinsChange} />
       </div>
