@@ -21,6 +21,8 @@ import {
   GiHerbsBundle,
   GiFlowerEmblem,
 } from "react-icons/gi";
+import Tooltip from "@/components/Tooltip";
+import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
 import "./Inventory.css";
 
 const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventory, inventoryCoins, inventoryCoinsChange}) => {
@@ -139,29 +141,28 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
                   onDragOver={handleDragOver}
                   onDrop={(e) => handleDrop(e, index)}
                   onContextMenu={(event) => handleSellItem(event, index)}
-                  title={
-                    index < inventoryItems.length && inventoryItems[index]
-                      ? typeof inventoryItems[index].sellPrice === "number"
-                        ? `${inventoryItems[index].name} — ${inventoryItems[index].sellPrice} or (clic droit pour vendre)`
-                        : inventoryItems[index].name
-                      : undefined
-                  }
                   className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"                 
                 >
                   {index < inventoryItems.length && inventoryItems[index]?.icon ? (
                     (() => {
-                      const Icon = inventoryItems[index].icon;
-                      const quantity = inventoryItems[index].quantity || 1;
-                      return <Fragment><div 
-                        id={index}
-                        onDragStart={(e) => handleDragStart(e, index)}
-                        draggable={true} 
-                        className="item cursor-move">
-                        <Icon style={{ fontSize: "2.5rem", color: "white" }} />
-                        {quantity > 1 && (
-                          <span className="item-quantity-badge">x{quantity}</span>
-                        )}
-                      </div></Fragment>;
+                      const item = inventoryItems[index];
+                      const Icon = item.icon;
+                      const quantity = item.quantity || 1;
+                      return (
+                        <Tooltip content={<ItemTooltipContent item={item} />}>
+                          <div
+                            id={index}
+                            onDragStart={(e) => handleDragStart(e, index)}
+                            draggable={true}
+                            className="item cursor-move"
+                          >
+                            <Icon style={{ fontSize: "2.5rem", color: "white" }} />
+                            {quantity > 1 && (
+                              <span className="item-quantity-badge">x{quantity}</span>
+                            )}
+                          </div>
+                        </Tooltip>
+                      );
                     })()
                   ) : (
                     <div id={index} className="item empty-slot"></div>

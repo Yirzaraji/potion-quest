@@ -22,6 +22,8 @@ import {
   GiHerbsBundle,
   GiFlowerEmblem,
 } from "react-icons/gi";
+import Tooltip from "@/components/Tooltip";
+import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
 import "./shop.css";
 
 const Shop = ({
@@ -146,19 +148,19 @@ const Shop = ({
             <div
               key={index}
               onContextMenu={(event) => handleBuyItem(event, index)}
-              title={
-                index < shopItems.length && shopItems[index]
-                  ? typeof shopItems[index].price === "number"
-                    ? `${shopItems[index].name} — ${shopItems[index].price} or (clic droit pour acheter)`
-                    : shopItems[index].name
-                  : undefined
-              }
               className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
             >
               {index < shopItems.length && shopItems[index]?.icon ? (
                 (() => {
-                  const Icon = shopItems[index].icon;
-                  return <Icon style={{ fontSize: "2.5rem", color: "white" }} />;
+                  const item = shopItems[index];
+                  const Icon = item.icon;
+                  return (
+                    <Tooltip content={<ItemTooltipContent item={item} />}>
+                      <div className="item cursor-move">
+                        <Icon style={{ fontSize: "2.5rem", color: "white" }} />
+                      </div>
+                    </Tooltip>
+                  );
                 })()
               ) : (
                 <div id={index} className="item cursor-move">
