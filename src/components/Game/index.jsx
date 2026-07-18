@@ -26,6 +26,7 @@ import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
 import Inventory from "@/components/Modal/Inventory"
 import Shop from "@/components/Modal/Shop"
+import { ToastProvider } from "@/components/Toast/ToastContext";
 
 const Game = () => {
   const [buyItems, setBuyItems] = useState([]);
@@ -127,18 +128,20 @@ const Game = () => {
 
   return (
     <Fragment>
-      <div className="test backgroundImageGame back text-center">
-        <MusicPlayer />
-        <Menu 
-        playerLevel={1} 
-        shopCoins={shopCoins} 
-        handleCoinsChange={handleCoinsChange} 
-        liftInventoryItems={inventoryItems} 
-        addItemToInventory={addItemToInventory} 
-        sellItemFromInventory={sellItemFromInventory}
-        inventoryCoins={inventoryCoins}
-        inventoryCoinsChange={inventoryCoinsChange} />
-      </div>
+      <ToastProvider>
+        <div className="test backgroundImageGame back text-center">
+          <MusicPlayer />
+          <Menu 
+          playerLevel={1} 
+          shopCoins={shopCoins} 
+          handleCoinsChange={handleCoinsChange} 
+          liftInventoryItems={inventoryItems} 
+          addItemToInventory={addItemToInventory} 
+          sellItemFromInventory={sellItemFromInventory}
+          inventoryCoins={inventoryCoins}
+          inventoryCoinsChange={inventoryCoinsChange} />
+        </div>
+      </ToastProvider>
     </Fragment>
   );
 };

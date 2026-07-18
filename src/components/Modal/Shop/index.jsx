@@ -24,6 +24,7 @@ import {
 } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
+import { useToast } from "@/components/Toast/ToastContext";
 import "./shop.css";
 
 const Shop = ({
@@ -33,25 +34,10 @@ const Shop = ({
   inventoryCoinsChange,
   addItemToInventory,
 }) => {
+  const { showToast } = useToast();
   const [shopItems, setShopItems] = useState([]);
   // État pour les slots (fixe à 63)
   const [shopSlots] = useState(Array.from({ length: 63 }));
-
-  // Petit retour visuel après un achat (succès ou erreur), auto-effacé après 2s
-  const [feedback, setFeedback] = useState(null); // { text: string, type: "success" | "error" }
-  const feedbackTimeoutRef = useRef(null);
-
-  const showFeedback = (text, type = "success") => {
-    setFeedback({ text, type });
-    if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
-    feedbackTimeoutRef.current = setTimeout(() => setFeedback(null), 2000);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
-    };
-  }, []);
 
   useEffect(() => {
     const loadItems = () => {
@@ -97,12 +83,12 @@ const Shop = ({
     // Certains items (ex: les potions, qui n'ont qu'un sellPrice) n'ont pas de
     // prix d'achat défini : ils ne sont pas en vente dans la boutique.
     if (typeof item.price !== "number") {
-      showFeedback(`${item.name} n'est pas en vente.`, "error");
+      showToast(`${item.name} n'est pas en vente.`, "error");
       return;
     }
 
     if (inventoryCoins < item.price) {
-      showFeedback("Or insuffisant pour acheter cet objet.", "error");
+      showToast("Or insuffisant pour acheter cet objet.", "error");
       return;
     }
 
@@ -117,7 +103,7 @@ const Shop = ({
       uid: `${item.name}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     });
 
-    showFeedback(`${item.name} acheté (-${item.price} or)`, "success");
+    showToast(`${item.name} acheté (-${item.price} or)`, "success");
   };
 
   // Debug
@@ -137,11 +123,6 @@ const Shop = ({
         />
       </div>
       <hr />
-      {feedback && (
-        <p className={`shop-feedback mt-1 mb-0 text-sm ${feedback.type === "success" ? "text-green-400" : "text-red-400"}`}>
-          {feedback.text}
-        </p>
-      )}
       <div className="shop-items flex flex-wrap mt-1 mb-5">
         {shopItems.length > 0 ? (
           shopSlots.map((_, index) => (
