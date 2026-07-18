@@ -23,15 +23,29 @@ import {
 } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
-import { useToast } from "@/components/Toast/ToastContext";
 import "./Inventory.css";
 
 const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventory, inventoryCoins, inventoryCoinsChange}) => {
   //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
   console.log(liftInventoryItems)
-  const { showToast } = useToast();
   const [initialSlots] = useState(Array.from({ length: 42 }));
   const [inventoryItems, setInventoryItems] = useState([]);
+
+  // Petit retour visuel après une vente (succès ou erreur), auto-effacé après 2s
+  const [feedback, setFeedback] = useState(null); // { text: string, type: "success" | "error" }
+  const feedbackTimeoutRef = useRef(null);
+
+  const showFeedback = (text, type = "success") => {
+    setFeedback({ text, type });
+    if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
+    feedbackTimeoutRef.current = setTimeout(() => setFeedback(null), 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimeoutRef.current) clearTimeout(feedbackTimeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
       //console.log(purchasedItems)
@@ -84,21 +98,21 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
     if (!item) return;
 
     if (typeof item.sellPrice !== "number") {
-      showToast(`${item.name} ne peut pas être vendu.`, "error");
+      showFeedback(`${item.name} ne peut pas être vendu.`, "error");
       return;
     }
 
     const result = sellItemFromInventory(item.name);
     if (!result.success) {
       if (result.reason === "shop_insufficient_funds") {
-        showToast("Le shop n'a pas assez d'or pour racheter cet objet.", "error");
+        showFeedback("Le shop n'a pas assez d'or pour racheter cet objet.", "error");
       } else {
-        showToast(`Impossible de vendre ${item.name}.`, "error");
+        showFeedback(`Impossible de vendre ${item.name}.`, "error");
       }
       return;
     }
 
-    showToast(`${item.name} vendu (+${result.sellPrice} or)`, "success");
+    showFeedback(`${item.name} vendu (+${result.sellPrice} or)`, "success");
   };
 
   return (
@@ -113,6 +127,11 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
         />
       </div>
       <hr />
+      {feedback && (
+        <p className={`inventory-feedback mt-1 mb-0 text-sm ${feedback.type === "success" ? "text-green-400" : "text-red-400"}`}>
+          {feedback.text}
+        </p>
+      )}
       <div className="inventory-items flex flex-wrap mt-1 mb-5">
         {inventoryItems.length > 0 ? (
           initialSlots.map((_, index) => {

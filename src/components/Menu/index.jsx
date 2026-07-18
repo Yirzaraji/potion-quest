@@ -5,24 +5,22 @@ import Inventory from "@/components/Modal/Inventory";
 import Shop from "@/components/Modal/Shop";
 import Recipes from "@/components/Modal/Recipes";
 import Quests from "@/components/Modal/Quests";
-import { FaBook } from "react-icons/fa6";
+import Tooltip from "@/components/Tooltip";
+import { GiShop, GiBackpack, GiOpenBook, GiScrollUnfurled, GiPerson } from "react-icons/gi";
+import { FaCircleQuestion } from "react-icons/fa6";
 import "./Menu.css";
 
 const CASCADE_OFFSET = 32;
 const BASE_X = 260;
 const BASE_Y = 80;
 
-// Définition statique des boutons du menu (id, icône, nom). Le contenu réel de
-// chaque fenêtre (renderModalContent) est calculé au rendu à partir des props
-// actuelles de Menu, afin qu'il soit toujours à jour (ex: inventoryCoins juste
-// après un achat/une vente) plutôt que figé dans un composant stocké en state.
 const MENU_ITEMS = [
-  { id: 0, icon: <FaBook />, name: "Shop" },
-  { id: 1, icon: <FaBook />, name: "Inventaire" },
-  { id: 2, icon: <FaBook />, name: "Recettes" },
-  { id: 3, icon: <FaBook />, name: "Quete" },
-  { id: 4, icon: <FaBook />, name: "Profil" },
-  { id: 5, icon: <FaBook />, name: "Aides" },
+  { id: 0, icon: <GiShop style={{ fontSize: "2rem" }} />, name: "Shop" },
+  { id: 1, icon: <GiBackpack style={{ fontSize: "2rem" }} />, name: "Inventaire" },
+  { id: 2, icon: <GiOpenBook style={{ fontSize: "2rem" }} />, name: "Recettes" },
+  { id: 3, icon: <GiScrollUnfurled style={{ fontSize: "2rem" }} />, name: "Quête" },
+  { id: 4, icon: <GiPerson style={{ fontSize: "2rem" }} />, name: "Profil" },
+  { id: 5, icon: <FaCircleQuestion style={{ fontSize: "2rem" }} />, name: "Aide" },
 ];
 
 const Menu = ({
@@ -126,17 +124,20 @@ const Menu = ({
 
   return (
     <Fragment>
-      <div className="bg-gray-800 sidebar flex flex-col justify-center opacity-95">
+      <div className="sidebar flex flex-col justify-center">
         <ul>
           {MENU_ITEMS.map((btn, index) => (
-            <li
-              key={btn.id}
-              onClick={() => handleClick(index)}
-              className={`mb-2 text-center ${
-                openWindows[btn.id] ? "bg-green-500" : "bg-blue-500"
-              } cursor-pointer pt-2 pb-2 hover:bg-green-500`}
-            >
-              {btn.icon}{btn.name}
+            <li key={btn.id}>
+              <Tooltip content={btn.name} placement="left">
+                <button
+                  type="button"
+                  onClick={() => handleClick(index)}
+                  aria-label={btn.name}
+                  className={`menu-btn ${openWindows[btn.id] ? "menu-btn-active" : ""}`}
+                >
+                  {btn.icon}
+                </button>
+              </Tooltip>
             </li>
           ))}
         </ul>
@@ -152,7 +153,7 @@ const Menu = ({
             width={
               btn.name === "Shop"
                 ? "645px"
-                : btn.name === "Quete"
+                : btn.name === "Quête"
                 ? "950px"
                 : undefined
             }
