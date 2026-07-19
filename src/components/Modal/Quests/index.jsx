@@ -123,6 +123,9 @@ const Quests = () => {
                   +{selectedQuest.rewards.xp} XP
                 </span>
               </div>
+              <div className="quest-start-btn w-full flex items-center justify-center h-12 cursor-pointer uppercase font-bold mt-4">
+                Accepter
+              </div>
             </Fragment>
           ) : (
             <p className="text-center mt-10">
