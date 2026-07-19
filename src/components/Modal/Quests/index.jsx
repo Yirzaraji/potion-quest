@@ -1,49 +1,53 @@
 import React, { Fragment, useState } from "react";
-import { GiScrollUnfurled, GiPotionBall, GiStarsStack } from "react-icons/gi";
-import QuestsObject from "@/components/GameDatas/Quests";
+import { GiScrollUnfurled, GiPotionBall, GiStarsStack, GiTwoCoins } from "react-icons/gi";
+import { GAME_QUESTS } from "@/components/GameDatas/Quests";
 import "./Quests.css";
 
-// XP fixe par quête pour l'instant (300, comme convenu). À terme, ce serait
-// bien d'ajouter un champ `xpReward` directement sur chaque quête dans
-// GameDatas/Quests pour pouvoir varier ce montant par quête si besoin.
-const XP_PER_QUEST = 300;
+// Regroupe la liste plate de quêtes par chapitre, uniquement pour l'affichage
+// en accordéon de la colonne de gauche (GAME_QUESTS lui-même reste une simple
+// liste plate, on ne le transforme pas en place).
+const groupByChapter = (quests) => {
+  const chaptersMap = new Map();
+  quests.forEach((quest) => {
+    if (!chaptersMap.has(quest.chapter)) {
+      chaptersMap.set(quest.chapter, {
+        chapter: quest.chapter,
+        chapterTitle: quest.chapterTitle,
+        chapterSubtitle: quest.chapterSubtitle,
+        quests: [],
+      });
+    }
+    chaptersMap.get(quest.chapter).quests.push(quest);
+  });
+  return Array.from(chaptersMap.values()).sort((a, b) => a.chapter - b.chapter);
+};
 
-// Donnée statique du jeu : un seul appel au chargement du module (pas besoin
-// de la recalculer à chaque rendu, ce n'est pas de la donnée dynamique).
-const gameData = QuestsObject()[0];
-const chapters = gameData?.chapters ?? [];
+const chapters = groupByChapter(GAME_QUESTS);
 
 const Quests = () => {
   // Accordéon des chapitres : un seul ouvert à la fois (premier ouvert par défaut)
   const [openChapterIndex, setOpenChapterIndex] = useState(0);
 
-  // On ne stocke que les identifiants de la quête sélectionnée (pas l'objet
-  // entier) et on le retrouve dans `chapters` au moment du rendu -> toujours
-  // synchronisé avec la donnée source, jamais de référence figée/périmée.
-  const firstActiveQuest = chapters[0]?.quests.find((q) => q.isActive);
-  const [selected, setSelected] = useState(
-    firstActiveQuest
-      ? { chapterId: chapters[0].id, questId: firstActiveQuest.id }
-      : null
-  );
-
-  const selectedChapter = chapters.find((c) => c.id === selected?.chapterId);
-  const selectedQuest = selectedChapter?.quests.find((q) => q.id === selected?.questId);
+  // On ne stocke que l'id de la quête sélectionnée, on la retrouve dans
+  // GAME_QUESTS au moment du rendu -> jamais de référence figée/périmée.
+  const [selectedQuestId, setSelectedQuestId] = useState(chapters[0]?.quests[0]?.id ?? null);
+  const selectedQuest = GAME_QUESTS.find((quest) => quest.id === selectedQuestId);
 
   const toggleChapter = (index) => {
     setOpenChapterIndex(openChapterIndex === index ? null : index);
   };
 
-  const handleSelectQuest = (chapter, quest) => {
-    setSelected({ chapterId: chapter.id, questId: quest.id });
+  const handleSelectQuest = (quest) => {
+    setSelectedQuestId(quest.id);
   };
 
   return (
     <Fragment>
       <div className="quests-layout flex">
+        {/* Colonne gauche : chapitres (accordéon) + quêtes de chaque chapitre */}
         <div className="quests-chapters-column overflow-y-auto max-h-[540px]">
           {chapters.map((chapter, chapterIndex) => (
-            <div key={chapter.id} className="chapter-item text-white">
+            <div key={chapter.chapter} className="chapter-item text-white">
               <div
                 className={`chapter-title flex cursor-pointer p-2 hover:bg-purple-900 duration-500 ${
                   openChapterIndex === chapterIndex ? "bg-purple-900" : ""
@@ -54,8 +58,8 @@ const Quests = () => {
                   <GiScrollUnfurled className="text-4xl" />
                 </div>
                 <div className="chapter-description-container ml-3">
-                  <h4 className="uppercase">{chapter.title}</h4>
-                  <p>{chapter.description}</p>
+                  <h4 className="uppercase">{chapter.chapterTitle}</h4>
+                  <p>{chapter.chapterSubtitle}</p>
                 </div>
               </div>
               <div
@@ -63,79 +67,62 @@ const Quests = () => {
                   openChapterIndex === chapterIndex ? "open" : "closed"
                 }`}
               >
-                {chapter.quests.map((quest) => {
-                  const isSelected =
-                    selected?.chapterId === chapter.id && selected?.questId === quest.id;
-                  return (
-                    <div
-                      key={`chapitre${chapter.id}.quete${quest.id}`}
-                      onClick={() => handleSelectQuest(chapter, quest)}
-                      className={`quest-list-item cursor-pointer flex items-center justify-between p-2 pl-5 ${
-                        isSelected ? "active" : ""
-                      }`}
-                    >
-                      <span>{quest.title}</span>
-                    </div>
-                  );
-                })}
+                {chapter.quests.map((quest) => (
+                  <div
+                    key={quest.id}
+                    onClick={() => handleSelectQuest(quest)}
+                    className={`quest-list-item cursor-pointer p-2 pl-5 ${
+                      selectedQuestId === quest.id ? "active" : ""
+                    }`}
+                  >
+                    {quest.title}
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
 
+        {/* Colonne droite : détail de la quête sélectionnée */}
         <div className="quests-details-column p-5 text-white">
           {selectedQuest ? (
             <Fragment>
-                <div className="chapter-description-icon flex border-b border-gray-600 mb-3">
-                  <GiScrollUnfurled className="text-3xl" />
-                    <h4 className="quest-detail-title uppercase pl-2 mb-3">
-                        {selectedQuest.title}
-                    </h4>
-                </div>
+              <h4 className="quest-detail-title uppercase border-b border-gray-600 mb-3 pb-1">
+                {selectedQuest.title}
+              </h4>
+
               <div className="quest-detail-description text-justify mb-5">
                 {selectedQuest.description}
               </div>
 
-              {selectedQuest.requiredItems?.length > 0 && (
+              {selectedQuest.objectives?.length > 0 && (
                 <Fragment>
                   <h6 className="title-ingredient uppercase border-b border-gray-600 mb-2 w-full">
                     Objectif
                   </h6>
                   <div className="quest-detail-tags flex flex-wrap gap-2 mt-2 mb-4">
-                    {selectedQuest.requiredItems.map((itemName) => (
-                      <span key={itemName} className="quest-tag quest-tag-required">
-                        {itemName}
-                      <GiPotionBall className="text-5xl" /></span>
+                    {selectedQuest.objectives.map((objective) => (
+                      <span key={objective.itemId} className="quest-tag quest-tag-required">
+                        {objective.name} x{objective.quantity}
+                      </span>
                     ))}
                   </div>
                 </Fragment>
               )}
 
-              {selectedQuest.providedItems?.length > 0 && (
-                <Fragment>
-                  <h6 className="title-ingredient uppercase border-b border-gray-600 mb-2 w-full">
-                    Recompense
-                  </h6>
-                  <div className="quest-detail-tags flex flex-wrap gap-2 mt-2 mb-4">
-                    {selectedQuest.providedItems.map((itemName) => (
-                      <span key={itemName} className="quest-tag quest-tag-provided">
-                        {itemName}
-                      <GiPotionBall className="text-5xl" /></span>
-                    ))}
-                  </div>
-                </Fragment>
-              )}
-
-              <div className="quest-detail-rewards flex items-center gap-2 mt-2">
-                <span className="inline-flex items-center gap-2 quest-xp">
-                    <GiStarsStack className="text-3xl" />
-                    +{XP_PER_QUEST} XP
+              <h6 className="title-ingredient uppercase border-b border-gray-600 mb-2 w-full">
+                Récompense
+              </h6>
+              <div className="quest-detail-rewards flex items-center gap-6 mt-3">
+                <span className="inline-flex items-center gap-2 quest-gold">
+                  <GiTwoCoins className="text-3xl" />
+                  {selectedQuest.rewards.gold} or
                 </span>
-                </div>
-
-                <div className="quest-start-btn w-full flex items-center justify-center h-12 cursor-pointer uppercase font-bold mt-4">
-                  Accepter
-                </div>
+                <span className="inline-flex items-center gap-2 quest-xp">
+                  <GiStarsStack className="text-3xl" />
+                  +{selectedQuest.rewards.xp} XP
+                </span>
+              </div>
             </Fragment>
           ) : (
             <p className="text-center mt-10">

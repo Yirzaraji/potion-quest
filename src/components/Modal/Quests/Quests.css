@@ -110,3 +110,8 @@
 .quest-start-btn:hover{
 	background-color: #9bc547;
 }
+
+.quest-gold {
+  color: #ffd75e;
+  font-family: 'Oswald';
+}
