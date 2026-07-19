@@ -18,7 +18,7 @@ const MENU_ITEMS = [
   { id: 0, icon: <GiShop style={{ fontSize: "2rem" }} />, name: "Shop" },
   { id: 1, icon: <GiBackpack style={{ fontSize: "2rem" }} />, name: "Inventaire" },
   { id: 2, icon: <GiOpenBook style={{ fontSize: "2rem" }} />, name: "Recettes" },
-  { id: 3, icon: <GiScrollUnfurled style={{ fontSize: "2rem" }} />, name: "Quête" },
+  { id: 3, icon: <GiScrollUnfurled style={{ fontSize: "2rem" }} />, name: "Quete" },
   { id: 4, icon: <GiPerson style={{ fontSize: "2rem" }} />, name: "Profil" },
   { id: 5, icon: <FaCircleQuestion style={{ fontSize: "2rem" }} />, name: "Aide" },
 ];
@@ -153,7 +153,7 @@ const Menu = ({
             width={
               btn.name === "Shop"
                 ? "645px"
-                : btn.name === "Quête"
+                : btn.name === "Quete"
                 ? "950px"
                 : undefined
             }

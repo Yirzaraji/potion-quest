@@ -86,10 +86,12 @@ const Quests = () => {
         <div className="quests-details-column p-5 text-white">
           {selectedQuest ? (
             <Fragment>
-              <h4 className="quest-detail-title uppercase border-b border-gray-600 mb-3 pb-1">
-                {selectedQuest.title}
-              </h4>
-
+                <div className="chapter-description-icon flex border-b border-gray-600 mb-3">
+                  <GiScrollUnfurled className="text-3xl" />
+                    <h4 className="quest-detail-title uppercase pl-2 mb-3">
+                        {selectedQuest.title}
+                    </h4>
+                </div>
               <div className="quest-detail-description text-justify mb-5">
                 {selectedQuest.description}
               </div>
@@ -103,7 +105,7 @@ const Quests = () => {
                     {selectedQuest.requiredItems.map((itemName) => (
                       <span key={itemName} className="quest-tag quest-tag-required">
                         {itemName}
-                      </span>
+                      <GiPotionBall className="text-5xl" /></span>
                     ))}
                   </div>
                 </Fragment>
@@ -112,13 +114,13 @@ const Quests = () => {
               {selectedQuest.providedItems?.length > 0 && (
                 <Fragment>
                   <h6 className="title-ingredient uppercase border-b border-gray-600 mb-2 w-full">
-                    Récompense
+                    Recompense
                   </h6>
                   <div className="quest-detail-tags flex flex-wrap gap-2 mt-2 mb-4">
                     {selectedQuest.providedItems.map((itemName) => (
                       <span key={itemName} className="quest-tag quest-tag-provided">
                         {itemName}
-                      </span>
+                      <GiPotionBall className="text-5xl" /></span>
                     ))}
                   </div>
                 </Fragment>
@@ -126,10 +128,14 @@ const Quests = () => {
 
               <div className="quest-detail-rewards flex items-center gap-2 mt-2">
                 <span className="inline-flex items-center gap-2 quest-xp">
-                  <GiStarsStack className="text-3xl" />
-                  +{XP_PER_QUEST} XP
+                    <GiStarsStack className="text-3xl" />
+                    +{XP_PER_QUEST} XP
                 </span>
-              </div>
+                </div>
+
+                <div className="quest-start-btn w-full flex items-center justify-center h-12 cursor-pointer uppercase font-bold mt-4">
+                  Accepter
+                </div>
             </Fragment>
           ) : (
             <p className="text-center mt-10">

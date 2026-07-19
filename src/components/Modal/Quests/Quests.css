@@ -101,3 +101,12 @@
   color: #ffd75e;
   font-family: 'Oswald';
 }
+
+.quest-start-btn{
+	width: 100%;
+	background-color: #80ad29;
+}
+
+.quest-start-btn:hover{
+	background-color: #9bc547;
+}

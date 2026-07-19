@@ -12,7 +12,7 @@ const QuestsObject = () => [
             id: 0,
             title: "La Blessure du Roi",
             description: "Le roi Arthur a été blessé lors d'une bataille contre les Saxons. Sa bureau refuse de guérir malgré les efforts de Merlin. Désespéré, Arthur envoie un messager à votre boutique pour demander une potion de guérison. Le roi a besoin de cette potion pour se remettre sur pied et continuer à protéger Camelot. Préparez une potion puissante en utilisant des herbes rares et des écailles de dragon pour accélérer sa guérison.",
-            providedItems: ["Pétale de rose"],
+            providedItems: ["Nouvelle quete", 300, 150],
             requiredItems: ["Potion de soin"],
             questGiverImg: "/images/yoda.jpg",
             isActive: true,
