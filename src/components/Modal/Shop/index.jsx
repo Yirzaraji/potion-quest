@@ -57,13 +57,10 @@ const Shop = ({
           });
           setShopItems([]);
         }
-        // Fusion des items et remapping des ID du tableau apres concatenation
+        // Fusion des items — on garde leurs id fixes du catalogue tels quels,
+        // on ne les recalcule plus jamais à partir de leur position ici.
         const mergedItems = items.potions.concat(items.diluents).concat(items.herbs);
-        const mappedId = mergedItems.map((item, index) => ({
-          id: index,
-          ...item,
-        }));
-        setShopItems(mappedId);
+        setShopItems(mergedItems);
       } catch (error) {
         console.error("Erreur lors du chargement des items :", error);
         setShopItems([]);

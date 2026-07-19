@@ -21,25 +21,35 @@ import { GiFlowerStar,
   GiFlowerEmblem 
 } from "react-icons/gi";
 
+// IMPORTANT : ces `id` sont fixes et permanents. Une fois qu'un item existe
+// ici avec un id donné, ne JAMAIS réutiliser ce même id pour un autre item
+// (même après suppression), et ne jamais laisser un composant recalculer
+// ces id à partir d'une position dans un tableau (ex: `.map((item, i) => ...)`),
+// sinon toute référence externe (quêtes, recettes...) pointera dans le vide.
+//
+// Plage 1-19 : items déjà en vente dans le shop actuel.
+// Plage 101+ : réservée aux potions à venir, craftées via les quêtes
+// (voir GameDatas/Quests) — quand tu ajoutes une de ces potions ici,
+// donne-lui exactement l'id déjà utilisé en `itemId` dans la quête concernée.
 const GameData = {
   items:{
     diluents: [
       {
-        id: 0,
+        id: 1,
         name: "Vin",
         price: 50,
         sellPrice: 25,
         icon: FaWineBottle,
       },
       {
-        id: 1,
+        id: 2,
         name: "Eau",
         price: 50,
         sellPrice: 25,
         icon: FaBottleWater,
       },
       {
-        id:2,
+        id: 3,
         name: "Huile",
         price: 50,
         sellPrice: 25,
@@ -48,7 +58,7 @@ const GameData = {
     ],
     herbs: [
       {
-        id: 0,
+        id: 4,
         name: "Pétale de rose",
         price: 50,
         sellPrice: 25,
@@ -56,7 +66,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 1,
+        id: 5,
         name: "Flacon vide",
         price: 50,
         sellPrice: 25,
@@ -64,7 +74,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 2,
+        id: 6,
         name: "Hibiscus",
         price: 50,
         sellPrice: 25,
@@ -72,7 +82,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 3,
+        id: 7,
         name: "Racine de mandragore",
         price: 50,
         sellPrice: 25,
@@ -80,7 +90,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 4,
+        id: 8,
         name: "Pissenlit",
         price: 50,
         sellPrice: 25,
@@ -88,7 +98,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 5,
+        id: 9,
         name: "Feuillereve",
         price: 50,
         sellPrice: 25,
@@ -96,7 +106,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 6,
+        id: 10,
         name: "Feuille de bellombre",
         price: 50,
         sellPrice: 25,
@@ -104,7 +114,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 7,
+        id: 11,
         name: "Essence de Noxsombre",
         price: 50,
         sellPrice: 25,
@@ -112,7 +122,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 8,
+        id: 12,
         name: "Dent de Lion",
         price: 50,
         sellPrice: 25,
@@ -120,7 +130,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 9,
+        id: 13,
         name: "Fleur ardente",
         price: 50,
         sellPrice: 25,
@@ -128,7 +138,7 @@ const GameData = {
         isTransform: false,
       },
       {
-        id: 10,
+        id: 14,
         name: "Essence de Jasmin",
         price: 50,
         sellPrice: 25,
@@ -138,35 +148,35 @@ const GameData = {
     ],
     potions: [
       {
-        id: 0,
+        id: 15,
         name: "Potion de Lune",
         price: 0,
         sellPrice: 150,
         icon: GiPotionBall,
       },
       {
-        id: 1,
+        id: 16,
         name: "Potion de vie",
         price: 0,
         sellPrice: 150,
         icon: GiPotionBall,
       },
       {
-        id: 2,
+        id: 17,
         name: "Potion de souffle mortel",
         price: 0,
         sellPrice: 150,
         icon: GiPotionOfMadness,
       },
       {
-        id: 3,
+        id: 18,
         name: "Potion du Hardi",
         price: 0,
         sellPrice: 150,
-        icon: GiHealthPotion,
+        icon: GiPotionBall,
       },
       {
-        id: 4,
+        id: 19,
         name: "Elixir d'amour",
         price: 0,
         sellPrice: 150,
