@@ -4,6 +4,7 @@ import Profil from "@/components/Modal/Profil";
 import Inventory from "@/components/Modal/Inventory";
 import Shop from "@/components/Modal/Shop";
 import Recipes from "@/components/Modal/Recipes";
+import Helps from "@/components/Modal/Helps";
 import Quests from "@/components/Modal/Quests";
 import Tooltip from "@/components/Tooltip";
 import { GiShop, GiBackpack, GiOpenBook, GiScrollUnfurled, GiPerson } from "react-icons/gi";
@@ -116,7 +117,7 @@ const Menu = ({
       case 4:
         return <Profil playerLevel={playerLevel} />;
       case 5:
-        return <Profil />;
+        return <Helps />;
       default:
         return null;
     }

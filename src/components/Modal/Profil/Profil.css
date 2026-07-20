@@ -1,10 +1,156 @@
-.step {
-  width: 80px;
-  height: 80px;
+.profil-header {
+  padding: 8px 4px 20px 4px;
+  border-bottom: 1px solid rgb(63, 63, 63);
 }
 
+/* --- Avatar + badge de niveau --- */
+
+.profil-avatar-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profil-avatar,
 .img-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
   background-image: url("@/assets/mage.png");
-  width: 155px;
-  height: 155px;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #451e6b;
+  box-shadow: 0 0 12px rgba(69, 30, 107, 0.6);
+}
+
+.profil-level-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #ffd75e;
+  border: 2px solid #1c2024;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profil-level-number {
+  font-family: 'BBH Sans Hegarty';
+  color: #1c2024;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* --- Identite + barre d'XP --- */
+
+.profil-identity {
+  margin-left: 20px;
+  text-align: left;
+  flex: 1;
+}
+
+.profil-classe {
+  font-family: 'Oswald';
+  color: rgb(160, 160, 160);
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.profil-pseudo {
+  font-family: 'BBH Sans Hegarty';
+  color: #fff;
+  font-size: 1.6rem;
+  margin: 2px 0 10px 0;
+}
+
+.profil-xp-bar {
+  width: 100%;
+  max-width: 260px;
+  height: 10px;
+  border-radius: 6px;
+  background-color: #0a1315;
+  border: 1px solid rgb(63, 63, 63);
+  overflow: hidden;
+}
+
+.profil-xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #451e6b, #ffd75e);
+  border-radius: 6px 0 0 6px;
+  transition: width 0.4s ease;
+}
+
+.profil-xp-label {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: 'Oswald';
+  font-size: 0.75rem;
+  color: rgb(160, 160, 160);
+}
+
+/* --- Sections generales --- */
+
+.profil-section {
+  padding: 16px 4px;
+}
+
+.profil-section-title {
+  font-family: 'BBH Sans Hegarty';
+  color: rgb(185, 185, 185);
+}
+
+.profil-bio {
+  font-family: 'Oswald';
+  color: rgb(185, 185, 185);
+  line-height: 1.5;
+}
+
+.profil-bio b {
+  color: #fff;
+}
+
+/* --- Roadmap de progression --- */
+
+.profil-roadmap {
+  padding: 0 8px;
+}
+
+.profil-roadmap-step {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.profil-roadmap-step.current {
+  background-color: #451e6b;
+  color: #ffd75e;
+  border: 2px solid #ffd75e;
+  box-shadow: 0 0 10px rgba(255, 215, 94, 0.5);
+}
+
+.profil-roadmap-step.locked {
+  background-color: #0a1315;
+  color: rgb(120, 120, 120);
+  border: 2px solid rgb(63, 63, 63);
+  opacity: 0.6;
+}
+
+.profil-roadmap-step:hover {
+  transform: scale(1.08);
+}
+
+.profil-roadmap-connector {
+  flex: 1;
+  height: 2px;
+  background-color: rgb(63, 63, 63);
+  min-width: 12px;
 }

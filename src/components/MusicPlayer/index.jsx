@@ -9,24 +9,37 @@ const MusicPlayer = () => {
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.volume = 0.1; // volume par défaut à 50%
 
-    // .play() renvoie une promesse ; on la capture pour pouvoir l'ignorer
-    // proprement si l'effet est nettoyé avant qu'elle ne se résolve (ce que
-    // fait React.StrictMode exprès en dev, en montant l'effet deux fois).
+    audio.volume = 0.2; // volume par défaut à 50%
+
     const playPromise = audio.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Lecture bloquée ou interrompue (autoplay refusé, ou effet nettoyé
-        // avant la fin de la promesse) : rien à faire, l'utilisateur pourra
-        // toujours démarrer le son via le clic sur l'icône.
-      });
+      playPromise.catch(() => {});
     }
 
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // Les navigateurs bloquent le son tant qu'il n'y a pas eu d'interaction
+    // de l'utilisateur sur la page. On écoute donc sa toute première
+    // interaction (clic, tap, touche clavier) n'importe où sur /game pour
+    // activer le son automatiquement à ce moment-là, sans qu'il ait besoin
+    // de cliquer précisément sur l'icône.
+    const unmuteOnFirstInteraction = () => {
+      audio.muted = false;
+      setIsMuted(false);
+    };
+
+    window.addEventListener("pointerdown", unmuteOnFirstInteraction, { once: true });
+    window.addEventListener("keydown", unmuteOnFirstInteraction, { once: true });
+
     return () => {
-      // Ne PAS mettre audio.pause() ici : on veut que la musique continue en
-      // fond, ce cleanup sert juste à ne rien casser lors du double montage
-      // de StrictMode en dev.
+      window.removeEventListener("pointerdown", unmuteOnFirstInteraction);
+      window.removeEventListener("keydown", unmuteOnFirstInteraction);
     };
   }, []);
 

@@ -1,0 +1,77 @@
+.helps-section {
+  padding: 12px 4px 20px 4px;
+}
+
+.helps-section-last {
+  padding-bottom: 4px;
+}
+
+.helps-title {
+  font-family: 'BBH Sans Hegarty';
+  color: rgb(185, 185, 185);
+}
+
+.helps-text {
+  font-family: 'Oswald';
+  color: rgb(185, 185, 185);
+  line-height: 1.5;
+}
+
+.helps-steps {
+  font-family: 'Oswald';
+  color: rgb(185, 185, 185);
+  line-height: 1.5;
+  list-style: decimal;
+  padding-left: 1.2rem;
+}
+
+.helps-steps li {
+  margin-bottom: 10px;
+}
+
+.helps-steps strong,
+.helps-window-list strong {
+  color: #fff;
+}
+
+.helps-window-list {
+  font-family: 'Oswald';
+  color: rgb(185, 185, 185);
+  line-height: 1.6;
+  list-style: none;
+  padding-left: 0;
+}
+
+.helps-window-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.helps-window-list li:last-child {
+  border-bottom: none;
+}
+
+.helps-tip {
+  margin: 12px 4px 20px 4px;
+  padding: 12px 14px;
+  background-color: #451e6b;
+  border-left: 4px solid #ffd75e;
+  border-radius: 6px;
+}
+
+.helps-tip h5 {
+  font-family: 'BBH Sans Hegarty';
+  color: #ffd75e;
+  margin-bottom: 6px;
+}
+
+.helps-tip p {
+  font-family: 'Oswald';
+  color: rgb(220, 220, 220);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.helps-pseudo-player{
+    color:#ffd75e;
+}
