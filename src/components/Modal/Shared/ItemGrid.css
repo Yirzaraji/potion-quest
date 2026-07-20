@@ -1,0 +1,118 @@
+/* Styles partages entre Shop et Inventory : barre de recherche, grille de
+   slots, pied de page (or). Un seul fichier pour garder les deux fenetres
+   visuellement synchronisees. */
+
+/* --- Barre de recherche --- */
+
+.item-search-bar {
+  position: relative;
+}
+
+.item-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgb(140, 140, 140);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.item-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 32px;
+  background-color: #0a1315;
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 6px;
+  color: #fff;
+  font-family: 'Oswald';
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.item-search-input::placeholder {
+  color: rgb(120, 120, 120);
+}
+
+.item-search-input:focus {
+  border-color: #ffd75e;
+  box-shadow: 0 0 0 2px rgba(255, 215, 94, 0.2);
+}
+
+/* --- Separateurs --- */
+
+.item-divider {
+  border: none;
+  border-top: 1px solid rgb(63, 63, 63);
+  margin: 10px 0;
+}
+
+/* --- Grille de slots --- */
+
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 60px);
+  gap: 8px;
+  justify-content: start;
+}
+
+.item-slot {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #191d21, #0d0f11);
+  border: 2px solid rgb(50, 50, 50);
+  border-radius: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.item-slot.item-slot-filled:hover {
+  border-color: #ffd75e;
+  box-shadow: 0 0 10px rgba(255, 215, 94, 0.35);
+  transform: translateY(-2px);
+}
+
+.item-slot:not(.item-slot-filled):hover {
+  border-color: rgb(90, 90, 90);
+}
+
+.empty-slot {
+  position: relative; /* Necessaire pour ::after */
+  cursor: default;
+  user-select: none;
+}
+
+.empty-slot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgb(70, 70, 70);
+  pointer-events: none; /* Le point ne capte pas les clics/drags */
+}
+
+/* --- Pied de page : or --- */
+
+.item-bank {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 8px 12px;
+  background-color: #0a1315;
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 6px;
+}
+
+.item-bank b {
+  font-family: 'Oswald';
+  font-size: 1.1rem;
+  color: #ffd75e;
+}

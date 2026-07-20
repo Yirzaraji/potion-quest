@@ -1,42 +1,17 @@
-.item-box {
-  width: 60px;
-  height: 60px;
-}
-
 .item {
   position: relative;
 }
 
 .item-quantity-badge {
   position: absolute;
-  bottom: -2px;
-  right: -2px;
+  bottom: -4px;
+  right: -4px;
   font-size: 0.65rem;
   line-height: 1;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: 1px 4px;
+  font-weight: 600;
+  color: #1c2024;
+  background-color: #ffd75e;
+  padding: 1px 5px;
   border-radius: 4px;
   pointer-events: none;
-}
-
-.empty-slot {
-  position: relative;/* Nécessaire pour ::after */
-  cursor: default;
-  user-select: none;
-}
-
-.empty-slot::after {
-  content: '.';             
-  position: absolute;        
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -60%);/* Centre parfaitement */
-  font-size: 0.7rem;         
-  color: #dadada;              
-  pointer-events: none;/* Le point ne capte pas les clics/drags */
-}
-
-.inventory-feedback {
-  font-weight: 500;
 }

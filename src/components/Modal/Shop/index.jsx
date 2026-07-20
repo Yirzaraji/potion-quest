@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import GameData from '@/components/GameDatas/Items';
-import { FaBottleWater } from "react-icons/fa6";
+import { FaBottleWater, FaMagnifyingGlass } from "react-icons/fa6";
 import { FaOilCan, FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
 import { RiFlowerFill } from "react-icons/ri";
@@ -25,6 +25,7 @@ import {
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
 import { useToast } from "@/components/Toast/ToastContext";
+import "@/components/Modal/Shared/ItemGrid.css";
 import "./shop.css";
 
 const Shop = ({
@@ -110,56 +111,55 @@ const Shop = ({
 
   return (
     <Fragment>
-      <div className="inventory-search-bar mb-1">
+      <div className="item-search-bar mb-2">
+        <FaMagnifyingGlass className="item-search-icon" />
         <input
-          className="w-full p-1"
-          placeholder="Search"
+          className="item-search-input"
+          placeholder="Rechercher un objet..."
           type="text"
           name="searchbar"
           id="searchbar"
         />
       </div>
-      <hr />
-      <div className="shop-items flex flex-wrap mt-1 mb-5">
+      <hr className="item-divider" />
+      <div className="item-grid mt-2 mb-4">
         {shopItems.length > 0 ? (
-          shopSlots.map((_, index) => (
-            <div
-              key={index}
-              onContextMenu={(event) => handleBuyItem(event, index)}
-              className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"
-            >
-              {index < shopItems.length && shopItems[index]?.icon ? (
-                (() => {
-                  const item = shopItems[index];
-                  const Icon = item.icon;
-                  return (
-                    <Tooltip content={<ItemTooltipContent item={item} />}>
-                      <div className="item cursor-move">
-                        <Icon style={{ fontSize: "2.5rem", color: "white" }} />
-                      </div>
-                    </Tooltip>
-                  );
-                })()
-              ) : (
-                <div id={index} className="item cursor-move">
-                  .
-                </div>
-              )}
-            </div>
-          ))
+          shopSlots.map((_, index) => {
+            const item = index < shopItems.length ? shopItems[index] : null;
+            return (
+              <div
+                key={index}
+                onContextMenu={(event) => handleBuyItem(event, index)}
+                className={`item-slot ${item?.icon ? "item-slot-filled" : ""}`}
+              >
+                {item?.icon ? (
+                  (() => {
+                    const Icon = item.icon;
+                    return (
+                      <Tooltip content={<ItemTooltipContent item={item} />}>
+                        <div className="item cursor-move">
+                          <Icon style={{ fontSize: "2.2rem", color: "white" }} />
+                        </div>
+                      </Tooltip>
+                    );
+                  })()
+                ) : (
+                  <div className="item empty-slot"></div>
+                )}
+              </div>
+            );
+          })
         ) : (
           <p>Chargement des items...</p>
         )}
       </div>
-      <hr />
-      <div className="inventory-bank text-right">
+      <hr className="item-divider" />
+      <div className="item-bank">
         <b>{shopCoins ?? "Chargement..."}</b>
         <GiTwoCoins
           style={{
             fontSize: "1.3rem",
-            color: "yellow",
-            display: "inline",
-            verticalAlign: "middle",
+            color: "#ffd75e",
           }}
         />
       </div>

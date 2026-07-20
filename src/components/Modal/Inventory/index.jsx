@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { FaBottleWater } from "react-icons/fa6";
+import { FaBottleWater, FaMagnifyingGlass } from "react-icons/fa6";
 import { FaOilCan, FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
 import { RiFlowerFill } from "react-icons/ri";
@@ -24,6 +24,7 @@ import {
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
 import { useToast } from "@/components/Toast/ToastContext";
+import "@/components/Modal/Shared/ItemGrid.css";
 import "./Inventory.css";
 
 const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventory, inventoryCoins, inventoryCoinsChange}) => {
@@ -103,65 +104,64 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
 
   return (
     <Fragment>
-      <div className="inventory-search-bar mb-1">
+      <div className="item-search-bar mb-2">
+        <FaMagnifyingGlass className="item-search-icon" />
         <input
-          className="w-full p-1"
-          placeholder="Search"
+          className="item-search-input"
+          placeholder="Rechercher un objet..."
           type="text"
           name="searchbar"
           id="searchbar"
         />
       </div>
-      <hr />
-      <div className="inventory-items flex flex-wrap mt-1 mb-5">
+      <hr className="item-divider" />
+      <div className="item-grid mt-2 mb-4">
         {inventoryItems.length > 0 ? (
           initialSlots.map((_, index) => {
-            return(
+            const item = index < inventoryItems.length ? inventoryItems[index] : null;
+            return (
               <div
-                  key={index}
-                  onDragOver={handleDragOver}
-                  onDrop={(e) => handleDrop(e, index)}
-                  onContextMenu={(event) => handleSellItem(event, index)}
-                  className="item-box flex justify-center items-center hover:border-blue-900 border-4 bg-gray-900 m-1"                 
-                >
-                  {index < inventoryItems.length && inventoryItems[index]?.icon ? (
-                    (() => {
-                      const item = inventoryItems[index];
-                      const Icon = item.icon;
-                      const quantity = item.quantity || 1;
-                      return (
-                        <Tooltip content={<ItemTooltipContent item={item} />}>
-                          <div
-                            id={index}
-                            onDragStart={(e) => handleDragStart(e, index)}
-                            draggable={true}
-                            className="item cursor-move"
-                          >
-                            <Icon style={{ fontSize: "2.5rem", color: "white" }} />
-                            {quantity > 1 && (
-                              <span className="item-quantity-badge">x{quantity}</span>
-                            )}
-                          </div>
-                        </Tooltip>
-                      );
-                    })()
-                  ) : (
-                    <div id={index} className="item empty-slot"></div>
-                  )}
-                </div>
-              );
+                key={index}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, index)}
+                onContextMenu={(event) => handleSellItem(event, index)}
+                className={`item-slot ${item?.icon ? "item-slot-filled" : ""}`}
+              >
+                {item?.icon ? (
+                  (() => {
+                    const Icon = item.icon;
+                    const quantity = item.quantity || 1;
+                    return (
+                      <Tooltip content={<ItemTooltipContent item={item} />}>
+                        <div
+                          id={index}
+                          onDragStart={(e) => handleDragStart(e, index)}
+                          draggable={true}
+                          className="item cursor-move"
+                        >
+                          <Icon style={{ fontSize: "2.2rem", color: "white" }} />
+                          {quantity > 1 && (
+                            <span className="item-quantity-badge">x{quantity}</span>
+                          )}
+                        </div>
+                      </Tooltip>
+                    );
+                  })()
+                ) : (
+                  <div id={index} className="item empty-slot"></div>
+                )}
+              </div>
+            );
           })
         ) : ( <p>Chargement des items...</p> )}
       </div>
-      <hr />
-      <div className="inventory-bank text-right">
+      <hr className="item-divider" />
+      <div className="item-bank">
         <b>{inventoryCoins}</b>
         <GiTwoCoins
           style={{
             fontSize: "1.3rem",
-            color: "yellow",
-            display: "inline",
-            verticalAlign: "middle",
+            color: "#ffd75e",
           }}
         />
       </div>

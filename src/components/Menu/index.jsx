@@ -153,10 +153,12 @@ const Menu = ({
             name={btn.name}
             width={
               btn.name === "Shop"
-                ? "645px"
-                : btn.name === "Quete"
-                ? "950px"
-                : undefined
+              ? "645px"
+              : btn.name === "Quete"
+              ? "950px"
+              : btn.name === "Inventaire"
+              ? "440px"
+              : undefined
             }
             defaultPosition={windowState.position}
             zIndex={windowState.zIndex}
