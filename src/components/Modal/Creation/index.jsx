@@ -3,17 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { FaUser, FaHatWizard } from "react-icons/fa6";
 import { GiWizardStaff, GiOakLeaf, GiBatWing, GiQuillInk } from "react-icons/gi";
 import GameDatas from "@/components/GameDatas/Character";
+import mageAvatar from "@/assets/mage2.png";
+import druideAvatar from "@/assets/druide.png";
+import sorcierAvatar from "@/assets/sorcier.png";
 import "./Creation.css";
 
 // Theme visuel (couleur d'accent + icone) propre a chaque classe. Cle sur le
 // nom exact tel qu'ecrit dans GameDatas/Character. Fallback dore si jamais
 // une classe n'a pas (encore) de theme associe.
 const CLASS_THEME = {
-  Mage: { color: "#4f8fe0", icon: GiWizardStaff },
-  Druide: { color: "#5fae56", icon: GiOakLeaf },
-  Sorcier: { color: "#a13ad1", icon: GiBatWing },
+  Mage: { color: "#4f8fe0", icon: GiWizardStaff, avatar: mageAvatar },
+  Druide: { color: "#5fae56", icon: GiOakLeaf, avatar: druideAvatar },
+  Sorcier: { color: "#a13ad1", icon: GiBatWing, avatar: sorcierAvatar },
 };
-const DEFAULT_THEME = { color: "#ffd75e", icon: GiWizardStaff };
+const DEFAULT_THEME = { color: "#ffd75e", icon: GiWizardStaff, avatar: mageAvatar };
 
 const Modal = () => {
   const navigate = useNavigate();
@@ -107,7 +110,10 @@ const Modal = () => {
                     className={`creation-classe-card ${isSelected ? "selected" : ""}`}
                   >
                     <div className="creation-classe-avatar-wrapper">
-                      <div className="creation-classe-avatar"></div>
+                      <div
+                        className="creation-classe-avatar"
+                        style={{ backgroundImage: `url(${theme.avatar})` }}
+                      ></div>
                       <div className="creation-classe-icon-badge">
                         <ClasseIcon />
                       </div>
