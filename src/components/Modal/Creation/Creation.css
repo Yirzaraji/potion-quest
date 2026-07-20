@@ -250,6 +250,7 @@
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(255, 215, 94, 0.25);
   transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  width: 100%;
 }
 
 .creation-submit-btn:hover:not(:disabled) {
