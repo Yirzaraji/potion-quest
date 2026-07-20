@@ -56,7 +56,7 @@ const Base = ({
   return (
     <Fragment>
       <div
-        className={`${className} modal-window`}
+        className={`${className} modal-window `}
         style={{
           position: "fixed",
           left: position.x,

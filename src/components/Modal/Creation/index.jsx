@@ -64,7 +64,10 @@ const Modal = () => {
         <div className="creation-topbar"></div>
 
         <div className="creation-header">
-          <FaHatWizard className="creation-header-icon" />
+          <div className="logo-img flex justify-center items-center">
+            <img src="src/assets/logo2.png" alt="" className="w-40"/>
+          </div>
+          {/* <FaHatWizard className="creation-header-icon" /> */}
           <h5 className="creation-title uppercase">Creation du personnage</h5>
           <p className="creation-subtitle">
             Choisissez votre nom et votre voie avant de rejoindre Potion Quest

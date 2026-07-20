@@ -4,7 +4,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 550px;
-  min-height: 640px;
+  min-height: 870px;
   display: flex;
   flex-direction: column;
   background-color: #1c2024;
@@ -49,7 +49,6 @@
   font-family: 'BBH Sans Hegarty';
   font-size: 1.3rem;
   color: #fff;
-  margin: 4px 0 6px 0;
 }
 
 .creation-subtitle {
