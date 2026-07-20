@@ -1,18 +1,267 @@
-.modal {
+.creation-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 550px;
-  right: 40%;
-  top: 122px;
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+  background-color: #1c2024;
+  background-image: radial-gradient(
+    circle at 50% 0%,
+    rgba(69, 30, 107, 0.35),
+    transparent 60%
+  );
+  color: rgb(185, 185, 185);
+  border: 1px solid rgb(56, 56, 56);
+  border-radius: 10px;
+  overflow: hidden;
   opacity: 0.97;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
-.classe {
-  height: 100px;
-  width: 100px;
-  /* background-color: blueviolet; */
-  border-radius: 50%;
+.creation-modal.creation-hidden {
+  display: none;
 }
 
-.modal-footer {
+.creation-topbar {
+  height: 5px;
   width: 100%;
-  left: 0;
+  background: linear-gradient(90deg, #451e6b, #ffd75e, #451e6b);
+  flex-shrink: 0;
+}
+
+/* --- En-tete --- */
+
+.creation-header {
+  text-align: center;
+  padding: 22px 28px 18px 28px;
+}
+
+.creation-header-icon {
+  font-size: 1.8rem;
+  color: #ffd75e;
+  margin-bottom: 6px;
+}
+
+.creation-title {
+  font-family: 'BBH Sans Hegarty';
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 4px 0 6px 0;
+}
+
+.creation-subtitle {
+  font-family: 'Oswald';
+  font-size: 0.9rem;
+  color: rgb(150, 150, 150);
+  margin: 0;
+}
+
+/* --- Corps --- */
+
+.creation-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 28px 0 28px;
+}
+
+.creation-label {
+  font-family: 'BBH Sans Hegarty';
+  font-size: 0.9rem;
+  color: rgb(160, 160, 160);
+  letter-spacing: 1px;
+  display: block;
+}
+
+.creation-field {
+  margin-bottom: 28px;
+}
+
+.creation-input-wrapper {
+  position: relative;
+  margin-top: 8px;
+}
+
+.creation-input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgb(120, 120, 120);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.creation-input {
+  width: 100%;
+  padding: 11px 14px 11px 36px;
+  background-color: #0a1315;
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 6px;
+  color: #fff;
+  font-family: 'Oswald';
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.creation-input::placeholder {
+  color: rgb(110, 110, 110);
+}
+
+.creation-input:focus {
+  border-color: #ffd75e;
+  box-shadow: 0 0 0 2px rgba(255, 215, 94, 0.2);
+}
+
+/* --- Selection de classe --- */
+
+.creation-classes {
+  gap: 12px;
+}
+
+.creation-classe-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 10px;
+  transition: transform 0.15s ease;
+}
+
+.creation-classe-card:hover {
+  transform: translateY(-3px);
+}
+
+.creation-classe-avatar-wrapper {
+  position: relative;
+}
+
+.creation-classe-avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background-image: url("@/assets/mage.png");
+  background-size: cover;
+  background-position: center;
+  border: 3px solid rgb(63, 63, 63);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.creation-classe-card:hover .creation-classe-avatar {
+  border-color: var(--classe-accent, #451e6b);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--classe-accent, #451e6b) 55%, transparent);
+}
+
+.creation-classe-card.selected .creation-classe-avatar {
+  border-color: var(--classe-accent, #ffd75e);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--classe-accent, #ffd75e) 70%, transparent);
+}
+
+.creation-classe-icon-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--classe-accent, #ffd75e);
+  border: 2px solid #1c2024;
+  color: #1c2024;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.creation-classe-card:hover .creation-classe-icon-badge,
+.creation-classe-card.selected .creation-classe-icon-badge {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.creation-classe-name {
+  font-family: 'Oswald';
+  font-size: 0.9rem;
+  color: rgb(160, 160, 160);
+  transition: color 0.15s ease;
+}
+
+.creation-classe-card.selected .creation-classe-name {
+  color: var(--classe-accent, #ffd75e);
+  font-weight: 600;
+}
+
+/* --- Carte de description --- */
+
+.creation-description-card {
+  position: relative;
+  flex: 1;
+  margin-top: 22px;
+  padding: 16px 18px 16px 22px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border-left: 3px solid var(--classe-accent, #ffd75e);
+  border-radius: 0 8px 8px 0;
+  min-height: 130px;
+  transition: border-color 0.2s ease;
+}
+
+.creation-description-icon {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 1.4rem;
+  color: var(--classe-accent, #ffd75e);
+  opacity: 0.35;
+}
+
+.creation-description {
+  font-family: 'Oswald';
+  color: rgb(185, 185, 185);
+  line-height: 1.6;
+  padding-right: 24px;
+}
+
+/* --- Footer / bouton de validation --- */
+
+.creation-footer {
+  padding: 20px 28px 26px 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.creation-submit-btn {
+  font-family: 'BBH Sans Hegarty';
+  background-color: #ffd75e;
+  color: #1c2024;
+  border: none;
+  outline: none;
+  padding: 11px 40px;
+  border-radius: 6px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 215, 94, 0.25);
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.creation-submit-btn:hover:not(:disabled) {
+  background-color: #ffe38a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 215, 94, 0.35);
+}
+
+.creation-submit-btn:disabled {
+  background-color: rgb(80, 80, 80);
+  color: rgb(140, 140, 140);
+  cursor: not-allowed;
+  box-shadow: none;
+  width: 100%;
 }

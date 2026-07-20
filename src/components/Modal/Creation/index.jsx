@@ -1,109 +1,144 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaUser, FaHatWizard } from "react-icons/fa6";
+import { GiWizardStaff, GiOakLeaf, GiBatWing, GiQuillInk } from "react-icons/gi";
 import GameDatas from "@/components/GameDatas/Character";
 import "./Creation.css";
 
+// Theme visuel (couleur d'accent + icone) propre a chaque classe. Cle sur le
+// nom exact tel qu'ecrit dans GameDatas/Character. Fallback dore si jamais
+// une classe n'a pas (encore) de theme associe.
+const CLASS_THEME = {
+  Mage: { color: "#4f8fe0", icon: GiWizardStaff },
+  Druide: { color: "#5fae56", icon: GiOakLeaf },
+  Sorcier: { color: "#a13ad1", icon: GiBatWing },
+};
+const DEFAULT_THEME = { color: "#ffd75e", icon: GiWizardStaff };
+
 const Modal = () => {
   const navigate = useNavigate();
-  const [classeTxt, setClassTxt] = useState({
-    pseudo: "",
-    classe: "",
-    description: "",
-    isSubmit: false,
-    isSelected: false,
-    classeDatas: GameDatas,
-  });
-  const [selectedClasse, setSelectedClasse] = useState(null);
+  const [pseudo, setPseudo] = useState("");
+  const [selectedClasse, setSelectedClasse] = useState(null); // index de la classe choisie
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleSubmit = () => {
-    setClassTxt((prevState) => ({ ...prevState, isSubmit: true }));
-    console.log("isSubmit");
-  };
+  const selectedClasseData =
+    selectedClasse !== null ? GameDatas[selectedClasse] : null;
+  const selectedTheme = selectedClasseData
+    ? CLASS_THEME[selectedClasseData.name] || DEFAULT_THEME
+    : null;
+
+  const canSubmit = pseudo.trim().length > 0 && selectedClasseData !== null;
 
   const handleChange = (event) => {
-    const { value } = event.target;
-    setClassTxt((prevState) => ({ ...prevState, pseudo: value }));
+    setPseudo(event.target.value);
   };
 
-  const handleClickClasse = (event, index) => {
-    const { textContent } = event.target;
-    setClassTxt((prevState) => ({ ...prevState, classe: textContent }));
+  // On passe directement l'index (plutot que de relire event.target.textContent) :
+  // plus robuste, chaque carte contenant plusieurs elements imbriques (avatar,
+  // badge d'icone, nom).
+  const handleClickClasse = (index) => {
+    setSelectedClasse(index);
+  };
 
-    for (const classeData of classeTxt.classeDatas) {
-      if (textContent === classeData.name) {
-        setClassTxt((prevState) => ({
-          ...prevState,
-          description: classeData.description,
-        }));
-        setSelectedClasse(index);
-      }
-    }
+  const handleSubmit = () => {
+    if (!canSubmit) return;
+    setIsSubmit(true);
   };
 
   useEffect(() => {
-    if (classeTxt.isSubmit) {
-      const updatedClasseTxt = {
-        pseudo: classeTxt.pseudo,
-        classe: classeTxt.classe,
+    if (isSubmit && canSubmit) {
+      const userDatas = {
+        pseudo: pseudo.trim(),
+        classe: selectedClasseData.name,
       };
-      localStorage.setItem("userDatas", JSON.stringify(updatedClasseTxt));
-      console.log("Saved to localStorage:", updatedClasseTxt);
+      localStorage.setItem("userDatas", JSON.stringify(userDatas));
+      console.log("Saved to localStorage:", userDatas);
       navigate("/game");
     }
-  }, [classeTxt.isSubmit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmit]);
 
   return (
     <Fragment>
-      <div
-        className={`absolute modal ${
-          classeTxt.isSubmit ? "hidden" : ""
-        } p-4 bg-gray-900 rounded-lg shadow`}
-      >
-        <div className="modal-content">
-          <div className="modal-header mb-5">
-            <h5 className="modal-title text-lg font-bold text-center mb-1">
-              CREATION PERSONNAGE
-            </h5>
-            <hr />
-          </div>
-          <div className="modal-body mt-4">
-            <div className="form-group mb-5 text-center">
-              <form>
-                <label htmlFor="">PSEUDO</label>
-                <br />
-                <input onChange={handleChange} type="text" className="text" />
-              </form>
+      <div className={`creation-modal ${isSubmit ? "creation-hidden" : ""}`}>
+        <div className="creation-topbar"></div>
+
+        <div className="creation-header">
+          <FaHatWizard className="creation-header-icon" />
+          <h5 className="creation-title uppercase">Creation du personnage</h5>
+          <p className="creation-subtitle">
+            Choisissez votre nom et votre voie avant de rejoindre Potion Quest
+          </p>
+        </div>
+
+        <div className="creation-body">
+          <div className="creation-field mb-6">
+            <label htmlFor="pseudo" className="creation-label uppercase">
+              Pseudo
+            </label>
+            <div className="creation-input-wrapper">
+              <FaUser className="creation-input-icon" />
+              <input
+                id="pseudo"
+                type="text"
+                value={pseudo}
+                onChange={handleChange}
+                placeholder="Entrez votre pseudo..."
+                className="creation-input"
+              />
             </div>
-            <div className="classe-title text-center mb-1">CLASSE</div>
-            <hr />
-            <div className="form-group flex justify-evenly mt-5">
-              <hr />
-              {classeTxt.classeDatas.map((classeData, index) => {
+          </div>
+
+          <div className="creation-field">
+            <div className="creation-label uppercase mb-3">Classe</div>
+            <div className="creation-classes flex justify-evenly">
+              {GameDatas.map((classeData, index) => {
+                const theme = CLASS_THEME[classeData.name] || DEFAULT_THEME;
+                const ClasseIcon = theme.icon;
+                const isSelected = selectedClasse === index;
                 return (
                   <div
-                    key={index}
-                    onClick={(event) => handleClickClasse(event, index)}
-                    className={`classe ${
-                      selectedClasse === index ? "bg-green-500" : "bg-blue-500"
-                    } hover:bg-green-500 mr-5 cursor-pointer`}
+                    key={classeData.id}
+                    onClick={() => handleClickClasse(index)}
+                    style={{ "--classe-accent": theme.color }}
+                    className={`creation-classe-card ${isSelected ? "selected" : ""}`}
                   >
-                    {classeData.name}
+                    <div className="creation-classe-avatar-wrapper">
+                      <div className="creation-classe-avatar"></div>
+                      <div className="creation-classe-icon-badge">
+                        <ClasseIcon />
+                      </div>
+                    </div>
+                    <span className="creation-classe-name uppercase">
+                      {classeData.name}
+                    </span>
                   </div>
                 );
               })}
             </div>
-            <div className="classe-description text-justify mt-5 mb-5">
-              {classeTxt.description}
+          </div>
+
+          <div
+            className="creation-description-card"
+            style={{ "--classe-accent": selectedTheme?.color || "#ffd75e" }}
+          >
+            <GiQuillInk className="creation-description-icon" />
+            <div className="creation-description text-justify">
+              {selectedClasseData
+                ? selectedClasseData.description
+                : "Selectionnez une classe pour decouvrir ses aptitudes."}
             </div>
           </div>
-          <div className="modal-footer mt-4 text-center absolute hover:bg-green-900 bg-green-500 cursor-pointer rounded-lg">
-            <button
-              onClick={handleSubmit}
-              className="btn text-white px-4 py-2 rounded bg-green-500"
-            >
-              <b>VALIDER</b>
-            </button>
-          </div>
+        </div>
+
+        <div className="creation-footer">
+          <button
+            onClick={handleSubmit}
+            disabled={!canSubmit}
+            className="creation-submit-btn uppercase"
+          >
+            Valider
+          </button>
         </div>
       </div>
     </Fragment>
