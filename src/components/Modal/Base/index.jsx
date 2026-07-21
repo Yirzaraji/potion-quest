@@ -66,6 +66,7 @@ const Base = ({
         }}
         onMouseDown={() => onFocus && onFocus()}
       >
+        <div className="modal-topbar"></div>
         <div className="modal-content">
           <div
             className="modal-header mb-5 flex justify-between items-center border-b border-gray-600 cursor-move"

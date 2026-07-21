@@ -24,6 +24,16 @@
   user-select: none;
 }
 
+.modal-topbar {
+  height: 5px;
+  /* p-4 = 1rem de padding sur .modal-window : marges negatives egales pour
+     que la barre touche vraiment les bords de la fenetre plutot que de
+     rester inseree dans le padding. */
+  margin: -1rem -1rem 12px -1rem;
+  background: linear-gradient(90deg, #451e6b, #ffd75e, #451e6b);
+  border-radius: 8px 8px 0 0; /* suit l'arrondi rounded-lg des fenetres */
+}
+
 .modal-window .modal-body {
   user-select: text;
 }
