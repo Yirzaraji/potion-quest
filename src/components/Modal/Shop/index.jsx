@@ -130,6 +130,7 @@ const Shop = ({
               <div
                 key={index}
                 onContextMenu={(event) => handleBuyItem(event, index)}
+                data-sfx-hover={item?.icon ? "hover" : undefined}
                 className={`item-slot ${item?.icon ? "item-slot-filled" : ""}`}
               >
                 {item?.icon ? (

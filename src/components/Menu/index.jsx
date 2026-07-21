@@ -9,6 +9,7 @@ import Quests from "@/components/Modal/Quests";
 import Tooltip from "@/components/Tooltip";
 import { GiShop, GiBackpack, GiOpenBook, GiScrollUnfurled, GiPerson } from "react-icons/gi";
 import { FaCircleQuestion } from "react-icons/fa6";
+import { playSfx } from "@/components/Sfx/SfxManager";
 import "./Menu.css";
 
 const CASCADE_OFFSET = 32;
@@ -57,6 +58,11 @@ const Menu = ({
   };
 
   const closeWindow = (id) => {
+    // Joue le son AVANT l'appel a setState : ne jamais mettre d'effet de bord
+    // (comme playSfx) a l'interieur d'une fonction de mise a jour de state,
+    // React peut l'invoquer deux fois en dev (StrictMode) pour verifier
+    // qu'elle est pure, ce qui jouerait le son en double.
+    playSfx("modal-close");
     setOpenWindows((prev) => {
       const next = { ...prev };
       delete next[id];
@@ -68,7 +74,17 @@ const Menu = ({
   // (et la met au premier plan), ou la ferme si elle est déjà ouverte.
   // Ouvrir une fenêtre ne ferme plus les autres (plus de toggle exclusif).
   const handleClick = (index) => {
-    const { id } = MENU_ITEMS[index];
+    const { id, name } = MENU_ITEMS[index];
+    const isCurrentlyOpen = Boolean(openWindows[id]);
+
+    // Meme raison qu'au-dessus : on decide et on joue le son ici, jamais dans
+    // l'updater passe a setOpenWindows.
+    if (isCurrentlyOpen) {
+      playSfx("modal-close");
+    } else {
+      playSfx(`open-${name}`);
+    }
+
     setOpenWindows((prev) => {
       if (prev[id]) {
         const next = { ...prev };
@@ -134,6 +150,7 @@ const Menu = ({
                   type="button"
                   onClick={() => handleClick(index)}
                   aria-label={btn.name}
+                  data-sfx-hover="hover"
                   className={`menu-btn ${openWindows[btn.id] ? "menu-btn-active" : ""}`}
                 >
                   {btn.icon}

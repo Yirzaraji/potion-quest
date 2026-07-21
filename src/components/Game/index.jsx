@@ -27,6 +27,7 @@ import MusicPlayer from "@/components/MusicPlayer";
 import Inventory from "@/components/Modal/Inventory"
 import Shop from "@/components/Modal/Shop"
 import { ToastProvider } from "@/components/Toast/ToastContext";
+import SfxListener from "@/components/Sfx/SfxListener";
 
 const Game = () => {
   const [buyItems, setBuyItems] = useState([]);
@@ -131,6 +132,7 @@ const Game = () => {
       <ToastProvider>
         <div className="test backgroundImageGame back text-center">
           <MusicPlayer />
+          <SfxListener />
           <Menu 
           playerLevel={1} 
           shopCoins={shopCoins} 

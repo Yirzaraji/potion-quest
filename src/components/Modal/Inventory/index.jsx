@@ -24,6 +24,7 @@ import {
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
 import { useToast } from "@/components/Toast/ToastContext";
+import { playSfx } from "@/components/Sfx/SfxManager";
 import "@/components/Modal/Shared/ItemGrid.css";
 import "./Inventory.css";
 
@@ -47,6 +48,7 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
   const handleDragStart = (event, index) => {
     if (inventoryItems[index] === null) return; // Ne drag pas les slots vides
     event.dataTransfer.setData('text/plain', index.toString());
+    playSfx("drag");
   };
   
   const handleDrop = (e, endIndex) => {
@@ -67,6 +69,7 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
       updatedItems[startIndex] = null;
     }
     setInventoryItems(updatedItems);
+    playSfx("drop");
     console.log('Drop success: from', startIndex, 'to', endIndex);
   };
   
@@ -125,6 +128,7 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
                 onDragOver={handleDragOver}
                 onDrop={(e) => handleDrop(e, index)}
                 onContextMenu={(event) => handleSellItem(event, index)}
+                data-sfx-hover={item?.icon ? "hover" : undefined}
                 className={`item-slot ${item?.icon ? "item-slot-filled" : ""}`}
               >
                 {item?.icon ? (
