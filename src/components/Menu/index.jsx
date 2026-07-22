@@ -150,7 +150,6 @@ const Menu = ({
                   type="button"
                   onClick={() => handleClick(index)}
                   aria-label={btn.name}
-                  data-sfx-hover="hover"
                   className={`menu-btn ${openWindows[btn.id] ? "menu-btn-active" : ""}`}
                 >
                   {btn.icon}

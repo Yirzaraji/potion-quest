@@ -1,11 +1,21 @@
 import React, { Fragment } from "react";
 import { GiLaurelCrown, GiPadlock } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
+import mageAvatar from "@/assets/mage.png";
+import druideAvatar from "@/assets/druide.png";
+import sorcierAvatar from "@/assets/sorcier.png";
 import "./Profil.css";
 
+// Meme mapping classe -> avatar que dans Modal/Creation. Fallback sur le mage
+// si la classe stockee ne correspond a aucune entree connue.
+const CLASS_AVATARS = {
+  Mage: mageAvatar,
+  Druide: druideAvatar,
+  Sorcier: sorcierAvatar,
+};
+
 // Feuille de route des chapitres, uniquement pour l'affichage de la roadmap.
-// (Purement visuel pour l'instant, comme convenu -> la vraie logique de
-// progression sera branchee plus tard.)
+// (Purement visuel pour l'instant
 const CHAPTERS = [
   { id: 1, title: "Chapitre I" },
   { id: 2, title: "Chapitre II" },
@@ -28,6 +38,7 @@ const Profil = ({ playerLevel }) => {
   }
 
   const level = playerLevel || 1;
+  const avatarImage = CLASS_AVATARS[classe] || mageAvatar;
   // Barre d'XP purement decorative pour l'instant (pas encore de vraie donnee
   // de progression branchee) -> valeur fixe pour montrer le rendu visuel.
   const xpPercent = 35;
@@ -37,7 +48,10 @@ const Profil = ({ playerLevel }) => {
       <div className="profil-container overflow-y-auto max-h-[540px] text-white">
         <div className="profil-header flex items-center">
           <div className="profil-avatar-wrapper">
-            <div className="profil-avatar img-avatar"></div>
+            <div
+              className="profil-avatar img-avatar"
+              style={{ backgroundImage: `url(${avatarImage})` }}
+            ></div>
             <div className="profil-level-badge">
               <span className="profil-level-number">{level}</span>
             </div>

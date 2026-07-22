@@ -1,5 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { preloadSfx, unlockSfx, playSfx } from "./SfxManager";
+
+// Delai minimum entre deux sons de survol PORTANT LE MEME NOM (ms). Comme
+// "hover" n'est utilise que par le Shop et l'Inventaire pour l'instant, ca
+// revient a limiter specifiquement ces deux fenetres, sans avoir a detecter
+// "est-on dans Shop ou Inventory" -> si un autre son de hover distinct est
+// ajoute ailleurs plus tard, il aura son propre cooldown independant.
+const HOVER_COOLDOWN_MS = 50;
 
 /**
  * Composant sans rendu visuel, a monter UNE SEULE FOIS (dans Game). Il :
@@ -17,6 +24,8 @@ import { preloadSfx, unlockSfx, playSfx } from "./SfxManager";
  *   <div data-sfx-hover="hover">...</div>
  */
 const SfxListener = () => {
+  const lastHoverPlayedAt = useRef(new Map()); // nom du son -> timestamp
+
   useEffect(() => {
     preloadSfx();
 
@@ -44,7 +53,17 @@ const SfxListener = () => {
       // on entre vraiment dans target pour la premiere fois -> on joue le son.
       if (target.contains(event.relatedTarget)) return;
 
-      playSfx(target.getAttribute("data-sfx-hover"));
+      const soundName = target.getAttribute("data-sfx-hover");
+
+      // Cooldown supplementaire par nom de son : meme apres avoir filtre les
+      // faux survols ci-dessus, passer tres vite d'une case a l'autre dans
+      // une grille peut encore declencher plusieurs sons en quelques ms.
+      const now = performance.now();
+      const lastPlayedAt = lastHoverPlayedAt.current.get(soundName) || 0;
+      if (now - lastPlayedAt < HOVER_COOLDOWN_MS) return;
+      lastHoverPlayedAt.current.set(soundName, now);
+
+      playSfx(soundName);
     };
 
     document.addEventListener("click", handleClick);
