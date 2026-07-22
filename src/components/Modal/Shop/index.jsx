@@ -128,6 +128,7 @@ const Shop = ({
             const item = index < shopItems.length ? shopItems[index] : null;
             return (
               <div
+                data-sfx-click="click"
                 key={index}
                 onContextMenu={(event) => handleBuyItem(event, index)}
                 data-sfx-hover={item?.icon ? "hover" : undefined}
