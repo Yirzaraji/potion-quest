@@ -1,4 +1,4 @@
-// Gestionnaire de bruitages d'interface (Web Audio API native, sans librairie).
+// Gestionnaire de bruitages d'interface (Web Audio API native).
 // Independant du volume/mute de la musique d'ambiance (voir MusicPlayer).
 //
 // Principe : chaque son est precharge UNE SEULE FOIS au demarrage sous forme
@@ -8,7 +8,6 @@
 // couper les uns les autres, et rien n'est jamais redecode a la volee.
 
 // Registre des sons : nom logique -> chemin du fichier dans /public/sfx.
-// Ajoute ici tout nouveau son ; il sera precharge automatiquement au demarrage.
 const SOUND_FILES = {
   click: "/sfx/click.mp3",
   hover: "/sfx/hover.mp3",

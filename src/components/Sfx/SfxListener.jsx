@@ -29,7 +29,15 @@ const SfxListener = () => {
 
     const handleHover = (event) => {
       const target = event.target.closest("[data-sfx-hover]");
-      if (target) playSfx(target.getAttribute("data-sfx-hover"));
+      if (!target) return;
+
+      // event.relatedTarget = l'element d'ou vient la souris. S'il est deja
+      // "a l'interieur" de target (ou est target lui-meme), on n'a fait que
+      // bouger entre ses enfants -> pas un nouveau survol, on ignore. Sinon,
+      // on entre vraiment dans target pour la premiere fois -> on joue le son.
+      if (target.contains(event.relatedTarget)) return;
+
+      playSfx(target.getAttribute("data-sfx-hover"));
     };
 
     document.addEventListener("click", handleClick);

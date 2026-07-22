@@ -106,7 +106,7 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
   };
 
   return (
-    <Fragment>
+    <div onContextMenu={(event) => event.preventDefault()}>
       <div className="item-search-bar mb-2">
         <FaMagnifyingGlass className="item-search-icon" />
         <input
@@ -169,7 +169,7 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
           }}
         />
       </div>
-    </Fragment>
+    </div>
   );
 };
 

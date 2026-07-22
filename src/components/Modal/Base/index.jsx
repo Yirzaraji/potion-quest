@@ -13,6 +13,7 @@ const Base = ({
   zIndex = 1,
   onClose,
   onFocus,
+  icon = <FaBook className="text-4xl" />,
 }) => {
   const [position, setPosition] = useState(defaultPosition);
   const dragState = useRef({ dragging: false, offsetX: 0, offsetY: 0 });
@@ -73,7 +74,7 @@ const Base = ({
             onMouseDown={handleHeaderMouseDown}
           >
             <h5 className="modal-title text-lg font-bold text-left uppercase">
-              <span className="inline-flex gap-2 items-center"> {<FaBook className="text-4xl" />}
+               <span className="inline-flex gap-2 items-center"> {icon}
                 <span className="self-end">{name}</span>
               </span>
             </h5>

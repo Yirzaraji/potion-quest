@@ -168,6 +168,7 @@ const Menu = ({
           <Modal
             key={id}
             name={btn.name}
+            icon={btn.icon}
             width={
               btn.name === "Shop"
               ? "645px"

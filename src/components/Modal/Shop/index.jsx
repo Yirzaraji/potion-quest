@@ -110,7 +110,7 @@ const Shop = ({
   }, [shopItems]);
 
   return (
-    <Fragment>
+    <div onContextMenu={(event) => event.preventDefault()}>
       <div className="item-search-bar mb-2">
         <FaMagnifyingGlass className="item-search-icon" />
         <input
@@ -164,7 +164,7 @@ const Shop = ({
           }}
         />
       </div>
-    </Fragment>
+    </div>
   );
 };
 
