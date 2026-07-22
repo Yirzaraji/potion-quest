@@ -7,7 +7,7 @@ import Recipes from "@/components/Modal/Recipes";
 import Helps from "@/components/Modal/Helps";
 import Quests from "@/components/Modal/Quests";
 import Tooltip from "@/components/Tooltip";
-import { GiShop, GiBackpack, GiOpenBook, GiScrollUnfurled, GiPerson } from "react-icons/gi";
+import { GiShop, GiOpenBook, GiScrollUnfurled, GiCharacter, GiSwapBag } from "react-icons/gi";
 import { FaCircleQuestion } from "react-icons/fa6";
 import { playSfx } from "@/components/Sfx/SfxManager";
 import "./Menu.css";
@@ -18,10 +18,10 @@ const BASE_Y = 80;
 
 const MENU_ITEMS = [
   { id: 0, icon: <GiShop style={{ fontSize: "2rem" }} />, name: "Shop" },
-  { id: 1, icon: <GiBackpack style={{ fontSize: "2rem" }} />, name: "Inventaire" },
+  { id: 1, icon: <GiSwapBag style={{ fontSize: "2rem" }} />, name: "Inventaire" },
   { id: 2, icon: <GiOpenBook style={{ fontSize: "2rem" }} />, name: "Recettes" },
   { id: 3, icon: <GiScrollUnfurled style={{ fontSize: "2rem" }} />, name: "Quete" },
-  { id: 4, icon: <GiPerson style={{ fontSize: "2rem" }} />, name: "Profil" },
+  { id: 4, icon: <GiCharacter style={{ fontSize: "2rem" }} />, name: "Profil" },
   { id: 5, icon: <FaCircleQuestion style={{ fontSize: "2rem" }} />, name: "Aide" },
 ];
 
