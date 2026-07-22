@@ -129,6 +129,7 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
                 onDrop={(e) => handleDrop(e, index)}
                 onContextMenu={(event) => handleSellItem(event, index)}
                 data-sfx-hover={item?.icon ? "hover" : undefined}
+                data-sfx-rightclick={item?.icon ? "click" : undefined}
                 className={`item-slot ${item?.icon ? "item-slot-filled" : ""}`}
               >
                 {item?.icon ? (

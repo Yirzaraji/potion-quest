@@ -6,12 +6,14 @@ import { preloadSfx, unlockSfx, playSfx } from "./SfxManager";
  * - precharge tous les bruitages au demarrage,
  * - debloque l'audio a la premiere interaction utilisateur,
  * - pose une delegation d'evenements globale : n'importe quel element de
- *   l'app peut declencher un son au clic ou au survol simplement en portant
- *   un attribut `data-sfx-click="nom-du-son"` ou `data-sfx-hover="nom-du-son"`,
- *   sans avoir a cabler quoi que ce soit dans son propre composant.
+ *   l'app peut declencher un son au clic gauche, au clic droit ou au survol
+ *   simplement en portant un attribut `data-sfx-click`, `data-sfx-rightclick`
+ *   ou `data-sfx-hover`, sans avoir a cabler quoi que ce soit dans son propre
+ *   composant.
  *
  * Exemple d'utilisation sur n'importe quel element :
  *   <button data-sfx-click="click">...</button>
+ *   <div data-sfx-rightclick="click">...</div>
  *   <div data-sfx-hover="hover">...</div>
  */
 const SfxListener = () => {
@@ -25,6 +27,11 @@ const SfxListener = () => {
     const handleClick = (event) => {
       const target = event.target.closest("[data-sfx-click]");
       if (target) playSfx(target.getAttribute("data-sfx-click"));
+    };
+
+    const handleRightClick = (event) => {
+      const target = event.target.closest("[data-sfx-rightclick]");
+      if (target) playSfx(target.getAttribute("data-sfx-rightclick"));
     };
 
     const handleHover = (event) => {
@@ -41,12 +48,14 @@ const SfxListener = () => {
     };
 
     document.addEventListener("click", handleClick);
+    document.addEventListener("contextmenu", handleRightClick);
     document.addEventListener("mouseover", handleHover);
 
     return () => {
       window.removeEventListener("pointerdown", handleFirstInteraction);
       window.removeEventListener("keydown", handleFirstInteraction);
       document.removeEventListener("click", handleClick);
+      document.removeEventListener("contextmenu", handleRightClick);
       document.removeEventListener("mouseover", handleHover);
     };
   }, []);
