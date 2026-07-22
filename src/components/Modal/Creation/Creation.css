@@ -1,3 +1,14 @@
+.creation-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 90000; /* au-dessus des fenetres de jeu, sous la carte de creation */
+}
+
+.creation-backdrop.creation-hidden {
+  display: none;
+}
+
 .creation-modal {
   position: fixed;
   top: 50%;
@@ -19,6 +30,7 @@
   overflow: hidden;
   opacity: 0.97;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  z-index: 90001;
 }
 
 .creation-modal.creation-hidden {
@@ -29,6 +41,76 @@
   height: 5px;
   width: 100%;
   background: linear-gradient(90deg, #451e6b, #ffd75e, #451e6b);
+  flex-shrink: 0;
+}
+
+/* --- Message d'accueil / lore --- */
+
+.creation-welcome-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 28px 24px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.creation-welcome-title {
+  font-family: 'BBH Sans Hegarty';
+  font-size: 1.3rem;
+  color: #fff3bb;
+  text-align: center;
+  margin: 0 0 14px 0;
+}
+
+.creation-welcome-quote {
+  font-family: 'Oswald';
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #ffd75e;
+  border-left: 3px solid #ffd75e;
+  padding-left: 14px;
+  margin: 0 0 18px 0;
+}
+
+.creation-welcome-text {
+  font-family: 'Oswald';
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgb(185, 185, 185);
+  text-align: justify;
+  margin: 0 0 14px 0;
+}
+
+.creation-welcome-subtitle {
+  font-family: 'BBH Sans Hegarty';
+  font-size: 1rem;
+  color: #ffd75e;
+  margin: 6px 0 12px 0;
+}
+
+.creation-welcome-list {
+  font-family: 'Oswald';
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgb(185, 185, 185);
+  margin: 0 0 14px 0;
+  padding-left: 20px;
+}
+
+.creation-welcome-list li {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.creation-welcome-closing {
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+
+.creation-welcome-footer {
+  margin-top: 8px;
+  padding-top: 8px;
   flex-shrink: 0;
 }
 

@@ -6,6 +6,32 @@
   height: 100vh;
 }
 
+.start-play-btn {
+  font-family: 'BBH Sans Hegarty';
+  background-color: #ffd75e;
+  color: #1c2024;
+  border: none;
+  outline: none;
+  padding: 16px 56px;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(255, 215, 94, 0.35);
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+}
+
+.start-play-btn:hover {
+  background-color: #ffe38a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(255, 215, 94, 0.45);
+}
+
+.start-play-btn:active {
+  transform: translateY(0);
+}
+
 .backgroundImageGame {
   background-image: url("@/assets/game.png");
   background-size: cover;

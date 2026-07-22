@@ -24,6 +24,7 @@ import {
 import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
+import Creation from "@/components/Modal/Creation";
 import Inventory from "@/components/Modal/Inventory"
 import Shop from "@/components/Modal/Shop"
 import { ToastProvider } from "@/components/Toast/ToastContext";
@@ -131,6 +132,7 @@ const Game = () => {
     <Fragment>
       <ToastProvider>
         <div className="test backgroundImageGame back text-center">
+          <Creation />
           <MusicPlayer />
           <SfxListener />
           <Menu 

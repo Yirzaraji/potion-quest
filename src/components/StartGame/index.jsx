@@ -1,14 +1,20 @@
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import "./StarGame.css";
-import Modal from "@/components/Modal/Creation";
 
 const Home = () => {
-  //const [isModalSubmit, setIsModalSubmit] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Fragment>
-      <div className="backgroundImage">
-        <Modal />
+      <div className="backgroundImage flex items-center justify-center">
+        <button
+          type="button"
+          onClick={() => navigate("/game")}
+          className="start-play-btn uppercase"
+        >
+          Jouer
+        </button>
       </div>
     </Fragment>
   );

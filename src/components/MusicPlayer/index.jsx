@@ -10,7 +10,7 @@ const MusicPlayer = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.2; // volume par défaut à 50%
+    audio.volume = 0.5; // volume par défaut à 50%
 
     const playPromise = audio.play();
     if (playPromise !== undefined) {
@@ -52,7 +52,7 @@ const MusicPlayer = () => {
 
   return (
     <>
-      <audio ref={audioRef} src="/D&DThemeGuitarCover.mp3" loop autoPlay muted />
+      <audio ref={audioRef} src="/D&DThemeGuitarCover.mp3" autoPlay />
       <button
         type="button"
         onClick={toggleMute}
