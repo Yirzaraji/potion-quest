@@ -18,14 +18,14 @@
   font-weight: 700;
   letter-spacing: 2px;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgba(255, 215, 94, 0.35);
+  box-shadow: 0 4px 18px rgb(0 0 0 / 67%);
   transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
 }
 
 .start-play-btn:hover {
   background-color: #ffe38a;
   transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(255, 215, 94, 0.45);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
 }
 
 .start-play-btn:active {

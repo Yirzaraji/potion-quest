@@ -7,7 +7,8 @@ const Home = () => {
 
   return (
     <Fragment>
-      <div className="backgroundImage flex items-center justify-center">
+      <div className="backgroundImage flex items-end justify-center pb-8">
+        
         <button
           type="button"
           onClick={() => navigate("/game")}
