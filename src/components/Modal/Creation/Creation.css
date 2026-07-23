@@ -3,6 +3,13 @@
   inset: 0;
   background-color: rgba(0, 0, 0, 0.65);
   z-index: 90000; /* au-dessus des fenetres de jeu, sous la carte de creation */
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.creation-backdrop.creation-leaving {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .creation-backdrop.creation-hidden {
@@ -31,6 +38,14 @@
   opacity: 0.97;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   z-index: 90001;
+  filter: blur(0px);
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.creation-modal.creation-leaving {
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
 }
 
 .creation-modal.creation-hidden {

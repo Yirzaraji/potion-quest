@@ -24,6 +24,9 @@ const Modal = () => {
   const [selectedClasse, setSelectedClasse] = useState(null); // index de la classe choisie
   const [isSubmit, setIsSubmit] = useState(false);
 
+  // Passe a true UNIQUEMENT une fois la transition de fondu+flou terminee 
+  const [isHidden, setIsHidden] = useState(false);
+
   const selectedClasseData =
     selectedClasse !== null ? GameDatas[selectedClasse] : null;
   const selectedTheme = selectedClasseData
@@ -56,18 +59,28 @@ const Modal = () => {
       };
       localStorage.setItem("userDatas", JSON.stringify(userDatas));
       console.log("Saved to localStorage:", userDatas);
-      // Plus de navigate ici : la modale vit desormais directement sur /game,
-      // se cacher (creation-hidden) suffit a reveler le jeu en dessous.
+
+      // Laisse le temps a la transition CSS (fondu + flou, voir .creation-leaving
+      // dans Creation.css) de se jouer avant de retirer completement la modale
+      const timeout = setTimeout(() => setIsHidden(true), 500);
+      return () => clearTimeout(timeout);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmit]);
-
   return (
     <Fragment>
       {/* Bloque toute interaction avec le jeu tant que le personnage n'est pas cree */}
-      <div className={`creation-backdrop ${isSubmit ? "creation-hidden" : ""}`}></div>
+      <div
+        className={`creation-backdrop ${isSubmit ? "creation-leaving" : ""} ${
+          isHidden ? "creation-hidden" : ""
+        }`}
+      ></div>
 
-      <div className={`creation-modal ${isSubmit ? "creation-hidden" : ""}`}>
+      <div
+        className={`creation-modal ${isSubmit ? "creation-leaving" : ""} ${
+          isHidden ? "creation-hidden" : ""
+        }`}
+      >
         <div className="creation-topbar"></div>
 
         {step === "welcome" ? (

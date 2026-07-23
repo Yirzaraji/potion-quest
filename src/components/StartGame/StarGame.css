@@ -4,6 +4,12 @@
   background-position: center;
   width: 100vw;
   height: 100vh;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.backgroundImage.fade-out {
+  opacity: 0;
 }
 
 .start-play-btn {
@@ -39,3 +45,4 @@
   width: 100vw;
   height: 100vh;
 }
+

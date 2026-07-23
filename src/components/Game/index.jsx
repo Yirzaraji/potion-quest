@@ -1,4 +1,5 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
+import gameBackground from "@/assets/game.png";
 import { FaBottleWater } from "react-icons/fa6";
 import { FaOilCan, FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
@@ -31,6 +32,33 @@ import { ToastProvider } from "@/components/Toast/ToastContext";
 import SfxListener from "@/components/Sfx/SfxListener";
 
 const Game = () => {
+  // Precharge l'image de fond (non compressee, potentiellement lourde) avant
+  // de reveler le jeu, pour eviter le flash "case vide puis image qui pop".
+  // Un spinner s'affiche pendant ce temps, puis le jeu apparait en fondu.
+  const [isBgLoaded, setIsBgLoaded] = useState(false);
+
+  useEffect(() => {
+    // Duree minimale d'affichage du spinner (ms) : sans ca, un chargement
+    // tres rapide (ex: image deja en cache) ferait un flash de spinner trop
+    // court pour etre lisible, ce qui donne une impression brouillonne.
+    const MIN_SPINNER_DURATION_MS = 333;
+    const startTime = performance.now();
+
+    const reveal = () => {
+      const elapsed = performance.now() - startTime;
+      const remaining = Math.max(MIN_SPINNER_DURATION_MS - elapsed, 0);
+      setTimeout(() => setIsBgLoaded(true), remaining);
+    };
+
+    const img = new Image();
+    img.src = gameBackground;
+    if (img.complete) {
+      reveal();
+    } else {
+      img.onload = reveal;
+    }
+  }, []);
+
   const [buyItems, setBuyItems] = useState([]);
   const [shopCoins, setShopCoins] = useState(10000);
   const [inventoryCoins, setInventoryCoins] = useState(1789);
@@ -92,12 +120,11 @@ const Game = () => {
     });
   };
 
-  // Vend un exemplaire de l'item (identifié par son nom) depuis l'inventaire vers
   // le shop : crédite le joueur du sellPrice et débite ce même montant de la
   // banque du shop, puis retire une unité de l'inventaire (ou l'item entier si
   // c'était le dernier exemplaire). Ne modifie jamais le catalogue du shop.
   // Retourne { success, sellPrice, reason } pour permettre à l'UI d'afficher
-  // le bon message (ex: le shop n'a pas assez d'or pour racheter l'objet).
+  // le bon message 
   const sellItemFromInventory = (itemName) => {
     const index = inventoryItems.findIndex(
       (invItem) => invItem && invItem.name === itemName
@@ -131,7 +158,16 @@ const Game = () => {
   return (
     <Fragment>
       <ToastProvider>
-        <div className="test backgroundImageGame back text-center">
+        {!isBgLoaded && (
+          <div className="game-loading-screen">
+            <div className="game-spinner"></div>
+          </div>
+        )}
+        <div
+          className={`test backgroundImageGame back text-center ${
+            isBgLoaded ? "game-visible" : ""
+          }`}
+        >
           <Creation />
           <MusicPlayer />
           <SfxListener />

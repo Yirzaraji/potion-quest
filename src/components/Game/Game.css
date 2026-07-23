@@ -4,4 +4,35 @@
   background-position: center;
   width: 100vw;
   height: 100vh;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.backgroundImageGame.game-visible {
+  opacity: 1;
+}
+
+.game-loading-screen {
+  position: fixed;
+  inset: 0;
+  background-color: #0a1315;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999; /* au-dessus de tout, y compris l'overlay de Creation */
+}
+
+.game-spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 215, 94, 0.2);
+  border-top-color: #ffd75e;
+  animation: game-spinner-spin 0.8s linear infinite;
+}
+
+@keyframes game-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
