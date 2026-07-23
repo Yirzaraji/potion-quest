@@ -1,38 +1,33 @@
 .quests-layout {
   align-items: stretch;
-}
-
-.quests-chapters-column {
-  width: 50%;
-  border-right: 1px solid rgb(63, 63, 63);
-}
-
-.quests-details-column {
-  width: 50%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
 .chapter-title {
-  background-color: #0a1315;
-  color: rgb(185, 185, 185);
-  margin-top: 0.4rem;
+  background-color: #0d1217;
+  border-left: 3px solid transparent;
+}
+
+.chapter-title.active-chapter {
+  border-left-color: #a855f7;
 }
 
 .chapter-title h4 {
-  font-family: 'BBH Sans Hegarty';
+  font-family: 'BBH Sans Hegarty', sans-serif;
 }
 
 .chapter-title p {
-  font-family: 'Oswald';
+  font-family: 'Oswald', sans-serif;
 }
 
 .chapter-content {
-  transition: max-height 0.6s;
+  transition: max-height 0.4s ease-in-out;
   overflow: hidden;
-  background-color: #1c2024;
+  background-color: #12161b;
 }
 
 .chapter-content.open {
-  max-height: 600px;
+  max-height: 800px;
 }
 
 .chapter-content.closed {
@@ -40,78 +35,103 @@
 }
 
 .quest-list-item {
-  font-family: 'Oswald';
-  color: rgb(185, 185, 185);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'Oswald', sans-serif;
+  color: #9ca3af;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-.quest-list-item:not(.locked):hover {
-  background-color: #451e6b;
-  color: #fff;
+.quest-list-item:hover:not(.locked) {
+  background-color: rgba(168, 85, 247, 0.15);
+  color: #f3f4f6;
 }
 
 .quest-list-item.active {
-  background-color: #451e6b;
+  background: linear-gradient(90deg, rgba(69, 30, 107, 0.8) 0%, rgba(30, 20, 50, 0.4) 100%);
   color: #fff;
   font-weight: 600;
+  border-left: 3px solid #c084fc;
 }
 
-.quest-list-item.locked {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.quest-available-icon {
-  color: #6ee7b7; /* petite pastille verte pour signaler une quête active non encore sélectionnée */
-}
-
-.quest-detail-title {
-  font-family: 'BBH Sans Hegarty';
-  color: rgb(185, 185, 185);
-}
-
-.quest-detail-description {
-  font-family: 'Oswald';
-  color: rgb(185, 185, 185);
-}
-
+.quest-detail-title,
 .title-ingredient {
-  font-family: 'BBH Sans Hegarty';
-  color: rgb(185, 185, 185);
+  font-family: 'BBH Sans Hegarty', sans-serif;
 }
 
-.quest-tag {
-  font-family: 'Oswald';
-  font-size: 0.8rem;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background-color: #451e6b;
-  color: #fff;
-}
-
-.quest-tag-required {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.quest-tag-provided {
-  border: 1px solid rgba(255, 215, 94, 0.4);
+.quest-detail-description,
+.quest-xp,
+.quest-gold {
+  font-family: 'Oswald', sans-serif;
 }
 
 .quest-xp {
-  color: #ffd75e;
-  font-family: 'Oswald';
-}
-
-.quest-start-btn{
-	width: 100%;
-	background-color: #80ad29;
-}
-
-.quest-start-btn:hover{
-	background-color: #9bc547;
+  color: #c084fc;
 }
 
 .quest-gold {
-  color: #ffd75e;
-  font-family: 'Oswald';
+  color: #fbbf24;
+}
+
+/* --- Etats du Boutons --- */
+.quest-start-btn {
+  background-color: #65a30d;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(101, 163, 13, 0.2);
+  cursor: pointer;
+}
+
+.quest-start-btn:hover:not(:disabled) {
+  background-color: #84cc16;
+  box-shadow: 0 4px 16px rgba(132, 204, 22, 0.3);
+}
+
+/* Bouton Chapitre Verrouille (Rouge-Gris) */
+.quest-start-btn.is-locked {
+  background-color: #211517;
+  color: #991b1b;
+  cursor: not-allowed;
+  border: 1px solid rgba(153, 27, 27, 0.3);
+  box-shadow: none;
+}
+
+/* Bouton En Cours (Gris) */
+.quest-start-btn.is-active {
+  background-color: #374151;
+  color: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Bouton Pret a Valider (Dore / Jaune) */
+.quest-start-btn.is-ready {
+  background-color: #d97706;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(217, 119, 6, 0.4);
+  cursor: pointer;
+}
+
+.quest-start-btn.is-ready:hover {
+  background-color: #f59e0b;
+}
+
+/* Bouton Deja Termine */
+.quest-start-btn.is-completed {
+  background-color: #064e3b;
+  color: #34d399;
+  cursor: not-allowed;
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+/* --- Slots Objet Requis / Drop --- */
+.objective-slot {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 8s linear infinite;
 }

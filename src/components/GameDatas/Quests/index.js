@@ -26,7 +26,7 @@ export const GAME_QUESTS = [
     description: "Le roi Arthur a été blessé lors d'une bataille contre les Saxons. Sa blessure refuse de guérir malgré les efforts de Merlin. Désespéré, Arthur envoie un messager à votre boutique pour demander une potion de guérison. Le roi a besoin de cette potion pour se remettre sur pied et continuer à protéger Camelot. Préparez une potion puissante en utilisant des herbes rares et des écailles de dragon pour accélérer sa guérison.",
     questGiver: {
       name: "Messager d'Arthur",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 101, name: "Potion de soin puissante", quantity: 1 }
@@ -46,7 +46,7 @@ export const GAME_QUESTS = [
     description: "Le jeune paysan Tom est amoureux de la belle Eloïse, mais elle ne lui prête aucune attention. Timide et maladroit, Tom a désespérément besoin d'un filtre d'amour pour gagner son cœur. Il se tourne vers vous, l'alchimiste renommé, pour préparer une potion qui fera fondre le cœur de sa bien-aimée. Utilisez des pétales de rose enchantés et un soupçon de miel de fée pour concocter cet élixir.",
     questGiver: {
       name: "Tom le Paysan",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 102, name: "Filtre d'amour", quantity: 1 }
@@ -66,7 +66,7 @@ export const GAME_QUESTS = [
     description: "Un grand tournoi se prépare à Camelot, et le chevalier Lancelot veut être au sommet de sa forme pour affronter ses adversaires. Bien que déjà extrêmement fort, il désire une potion qui lui donnera un avantage supplémentaire. Préparez une potion de force à base de griffes de griffon et de racine de mandragore pour l'aider à triompher dans les épreuves.",
     questGiver: {
       name: "Chevalier Lancelot",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 103, name: "Potion de force", quantity: 1 }
@@ -88,7 +88,7 @@ export const GAME_QUESTS = [
     description: "La reine Guenièvre a été empoisonnée lors d'un banquet. Personne ne sait qui est derrière cet acte ignoble, mais le temps presse. Le roi Arthur vous demande de concocter un antidote puissant pour sauver sa reine. Vous devrez mélanger des ingrédients rares tels que le venin de serpent royal et des feuilles de mandragore purifiées.",
     questGiver: {
       name: "Roi Arthur",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 104, name: "Antidote Royal", quantity: 1 }
@@ -108,7 +108,7 @@ export const GAME_QUESTS = [
     description: "Merlin, l'enchanteur légendaire, a besoin de vos compétences. Il doit résoudre une énigme ancienne pour accéder à Avalon, mais son esprit est embrouillé. Il demande une potion de clarté pour aiguiser ses pensées. Préparez une potion à base de larmes de licorne et de poudre de cristal lunaire pour aider Merlin à retrouver toute sa lucidité.",
     questGiver: {
       name: "Merlin l'Enchanteur",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 105, name: "Potion de clarté", quantity: 1 }
@@ -128,7 +128,7 @@ export const GAME_QUESTS = [
     description: "Morgane, demi-sœur d'Arthur et magicienne puissante, a besoin d'une potion d'invisibilité pour infiltrer Camelot sans être vue. Bien que ses intentions soient douteuses, elle offre une récompense généreuse pour vos services. Concoctez une potion utilisant des ombres de minuit et de l'essence de brume.",
     questGiver: {
       name: "Morgane la Fée",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 106, name: "Potion d'invisibilité", quantity: 1 }
@@ -150,7 +150,7 @@ export const GAME_QUESTS = [
     description: "Le chevalier Perceval est en quête du Saint Graal, mais il se sent indigne et doute de ses capacités. Il cherche un élixir de sagesse pour lui donner la perspicacité nécessaire pour réussir sa mission sacrée. Préparez un élixir avec des feuilles de laurier sacré et des gouttes d'eau de source pure.",
     questGiver: {
       name: "Chevalier Perceval",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 107, name: "Élixir de sagesse", quantity: 1 }
@@ -170,7 +170,7 @@ export const GAME_QUESTS = [
     description: "Le chevalier Gauvain doit affronter un dragon redoutable qui terrorise un village voisin. Bien qu'il soit déjà courageux, il désire une potion de bravoure pour renforcer son cœur et affronter le monstre sans peur. Utilisez des plumes de phénix et des cendres volcaniques pour préparer cette potion.",
     questGiver: {
       name: "Chevalier Gauvain",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 108, name: "Potion de bravoure", quantity: 1 }
@@ -190,7 +190,7 @@ export const GAME_QUESTS = [
     description: "Taliesin, le grand druide et barde, est aux prises avec un mystère entourant des runes anciennes. Pour déchiffrer les secrets cachés, il demande une potion de vérité. Préparez une potion à base de fleurs de vérité et de perles de sagesse pour aider Taliesin à révéler les secrets des runes.",
     questGiver: {
       name: "Taliesin le Druide",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 109, name: "Potion de vérité", quantity: 1 }
@@ -212,7 +212,7 @@ export const GAME_QUESTS = [
     description: "Le chef de clan Bredon et sa femme désirent un enfant depuis des années, mais sans succès. Ils espèrent qu'une potion de fécondité pourrait les aider à concevoir un héritier pour leur clan. Utilisez des racines de vie et des baies d'éternité pour créer une potion qui réalisera leur rêve de famille.",
     questGiver: {
       name: "Chef Bredon",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 110, name: "Potion de fécondité", quantity: 1 }
@@ -232,7 +232,7 @@ export const GAME_QUESTS = [
     description: "Perceval, chevalier aussi brave qu'ingénu, s'est porté volontaire pour affronter un dragon. Problème : il s'évanouit dès qu'il voit une flamme. Il te commande un élixir du courage pour dompter sa peur. Il insiste : « Pas trop fort ! » — la dernière potion qu'il a essayée l'a fait charger une vache en hurlant “Graal !”. Il faudra un équilibre parfait entre vigueur et raison… une alchimie délicate !",
     questGiver: {
       name: "Chevalier Perceval",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 111, name: "Élixir du courage stable", quantity: 1 }
@@ -252,7 +252,7 @@ export const GAME_QUESTS = [
     description: "Merlin, encore lui, a renversé une potion de métamorphose sur son hibou, qui parle désormais en vers et refuse de dormir. Il te demande un contre-élixir de stabilisation magique, mais sans en avertir Arthur, qui croit que le hibou est un démon. Ta réputation d'alchimiste pourrait bien en dépendre…",
     questGiver: {
       name: "Merlin l'Enchanteur",
-      avatarUrl: "/images/yoda.jpg"
+      avatarUrl: "/src/assets/mage.png"
     },
     objectives: [
       { itemId: 112, name: "Contre-élixir de stabilisation", quantity: 1 }

@@ -9,7 +9,7 @@
 }
 
 .backgroundImage.fade-out {
-  opacity: 0;
+  opacity: 0.9;
 }
 
 .start-play-btn {
