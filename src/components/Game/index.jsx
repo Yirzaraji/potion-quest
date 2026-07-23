@@ -32,16 +32,11 @@ import { ToastProvider } from "@/components/Toast/ToastContext";
 import SfxListener from "@/components/Sfx/SfxListener";
 
 const Game = () => {
-  // Precharge l'image de fond (non compressee, potentiellement lourde) avant
-  // de reveler le jeu, pour eviter le flash "case vide puis image qui pop".
-  // Un spinner s'affiche pendant ce temps, puis le jeu apparait en fondu.
-  const [isBgLoaded, setIsBgLoaded] = useState(false);
 
+  const [isBgLoaded, setIsBgLoaded] = useState(false);
   useEffect(() => {
-    // Duree minimale d'affichage du spinner (ms) : sans ca, un chargement
-    // tres rapide (ex: image deja en cache) ferait un flash de spinner trop
-    // court pour etre lisible, ce qui donne une impression brouillonne.
-    const MIN_SPINNER_DURATION_MS = 333;
+    // Duree minimale d'affichage du spinner (ms)
+    const MIN_SPINNER_DURATION_MS = 1000;
     const startTime = performance.now();
 
     const reveal = () => {
@@ -61,7 +56,7 @@ const Game = () => {
 
   const [buyItems, setBuyItems] = useState([]);
   const [shopCoins, setShopCoins] = useState(10000);
-  const [inventoryCoins, setInventoryCoins] = useState(1789);
+  const [inventoryCoins, setInventoryCoins] = useState(500);
   const [inventoryItems, setInventoryItems] = useState([
       {
         id: 0,
@@ -160,7 +155,13 @@ const Game = () => {
       <ToastProvider>
         {!isBgLoaded && (
           <div className="game-loading-screen">
-            <div className="game-spinner"></div>
+            <div className="game-spinner-potion">
+              <GiPotionBall className="game-spinner-icon" />
+              <span className="game-spinner-bubble b1"></span>
+              <span className="game-spinner-bubble b2"></span>
+              <span className="game-spinner-bubble b3"></span>
+            </div>
+            <p className="game-loading-text">Preparation de la potion...</p>
           </div>
         )}
         <div
