@@ -5,7 +5,7 @@ import GameDatas from "@/components/GameDatas/Character";
 import mageAvatar from "@/assets/mage2.png";
 import druideAvatar from "@/assets/druide.png";
 import sorcierAvatar from "@/assets/sorcier.png";
-import logo from "@/assets/logo2.png";
+import logo from "@/assets/logo.png";
 import "./Creation.css";
 
 // Theme visuel (couleur d'accent + icone) propre a chaque classe. Cle sur le
