@@ -63,18 +63,37 @@
 
 .creation-welcome-wrapper {
   flex: 1;
-  overflow-y: auto;
-  padding: 20px 28px 24px 28px;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* seul .creation-welcome-scroll defile, pas le header/footer */
+  padding: 20px 28px 24px 28px;
+}
+
+.creation-welcome-header {
+  flex-shrink: 0;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.creation-welcome-logo {
+  width: 64px;
+  height: auto;
+  margin: 0 auto 10px auto;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 94, 0.35));
 }
 
 .creation-welcome-title {
   font-family: 'BBH Sans Hegarty';
   font-size: 1.3rem;
   color: #fff3bb;
-  text-align: center;
-  margin: 0 0 14px 0;
+  margin: 0;
+}
+
+.creation-welcome-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .creation-welcome-quote {
@@ -96,11 +115,43 @@
   margin: 0 0 14px 0;
 }
 
+/* Lettrine sur le tout premier paragraphe, pour casser l'effet "pave de texte" */
+.creation-welcome-dropcap::first-letter {
+  font-family: 'BBH Sans Hegarty';
+  font-size: 2.6rem;
+  line-height: 0.75;
+  float: left;
+  color: #ffd75e;
+  padding: 4px 8px 0 0;
+}
+
+.creation-welcome-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0 14px 0;
+}
+
+.creation-welcome-divider::before,
+.creation-welcome-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 94, 0.5), transparent);
+}
+
+.creation-welcome-divider-icon {
+  margin: 0 10px;
+  color: #ffd75e;
+  font-size: 0.85rem;
+}
+
 .creation-welcome-subtitle {
   font-family: 'BBH Sans Hegarty';
   font-size: 1rem;
   color: #ffd75e;
-  margin: 6px 0 12px 0;
+  text-align: center;
+  margin: 0 0 12px 0;
 }
 
 .creation-welcome-list {
@@ -108,13 +159,25 @@
   font-size: 0.9rem;
   line-height: 1.6;
   color: rgb(185, 185, 185);
+  list-style: none;
   margin: 0 0 14px 0;
-  padding-left: 20px;
+  padding-left: 0;
 }
 
 .creation-welcome-list li {
-  margin-bottom: 10px;
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 12px;
   text-align: justify;
+}
+
+.creation-welcome-list li::before {
+  content: "◆";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  color: #ffd75e;
+  font-size: 0.65rem;
 }
 
 .creation-welcome-closing {
@@ -124,35 +187,9 @@
 }
 
 .creation-welcome-footer {
+  flex-shrink: 0;
   margin-top: 8px;
   padding-top: 8px;
-  flex-shrink: 0;
-}
-
-/* --- En-tete --- */
-
-.creation-header {
-  text-align: center;
-  padding: 22px 28px 18px 28px;
-}
-
-.creation-header-icon {
-  font-size: 1.8rem;
-  color: #ffd75e;
-  margin-bottom: 6px;
-}
-
-.creation-title {
-  font-family: 'BBH Sans Hegarty';
-  font-size: 1.3rem;
-  color: #fff3bb;
-}
-
-.creation-subtitle {
-  font-family: 'Oswald';
-  font-size: 0.9rem;
-  color: rgb(150, 150, 150);
-  margin: 0;
 }
 
 /* --- Corps --- */

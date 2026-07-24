@@ -5,6 +5,7 @@ import GameDatas from "@/components/GameDatas/Character";
 import mageAvatar from "@/assets/mage2.png";
 import druideAvatar from "@/assets/druide.png";
 import sorcierAvatar from "@/assets/sorcier.png";
+import logo from "@/assets/logo2.png";
 import "./Creation.css";
 
 // Theme visuel (couleur d'accent + icone) propre a chaque classe. Cle sur le
@@ -84,70 +85,89 @@ const Modal = () => {
         <div className="creation-topbar"></div>
 
         {step === "welcome" ? (
-          <div className="creation-welcome-wrapper overflow-y-auto">
-            <h4 className="creation-welcome-title uppercase">
-              Bienvenue sur les Terres de Logres
-            </h4>
+          <div className="creation-welcome-wrapper">
+            <div className="creation-welcome-header">
+              <img src={logo} alt="Potion Quest" className="creation-welcome-logo" />
+              <h4 className="creation-welcome-title uppercase">
+                Bienvenue sur les Terres de Logres
+              </h4>
+            </div>
 
-            <blockquote className="creation-welcome-quote">
-              « Camelot brille de mille feux, mais ses fondations reposent sur
-              des os broyes et de la terre gelee. »
-            </blockquote>
+            <div className="creation-welcome-scroll overflow-y-auto">
+              <blockquote className="creation-welcome-quote">
+                « Camelot brille de mille feux, mais ses fondations reposent
+                sur des os broyes et de la terre gelee. »
+              </blockquote>
 
-            <p className="creation-welcome-text">
-              Le souffle glace du Nord balaie le royaume. Le Roi Arthur a uni
-              ces terres par le fer et la colere, mais la paix a un gout de
-              cendre. Les legendes ne disent pas tout : les plaies de la
-              guerre purulent encore, et sous les armures rutilantes de la
-              Table Ronde dorment la peur, la folie et la trahison.
-            </p>
+              <p className="creation-welcome-text creation-welcome-dropcap">
+                Le souffle glace du Nord balaie le royaume. Le Roi Arthur a
+                uni ces terres par le fer et la colere, mais la paix a un
+                gout de cendre. Les legendes ne disent pas tout : les plaies
+                de la guerre purulent encore, et sous les armures rutilantes
+                de la Table Ronde dorment la peur, la folie et la trahison.
+              </p>
 
-            <p className="creation-welcome-text">
-              Pour acheter votre silence — ou exploiter votre pouvoir —, le
-              Souverain vous a relegue un lopin de terre boueux et une
-              batisse delabree a la lisiere des bois profonds.
-            </p>
+              <p className="creation-welcome-text">
+                Pour acheter votre silence — ou exploiter votre pouvoir —, le
+                Souverain vous a relegue un lopin de terre boueux et une
+                batisse delabree a la lisiere des bois profonds.
+              </p>
 
-            <p className="creation-welcome-text">
-              Que vous soyez un Druide gardien d'anciens rites sanglants, un
-              Mage consume par des arcanes interdites, ou un Sorcier des
-              Ombres lie aux esprits qui arpentent la nuit, ce taudis est
-              desormais votre sanctuaire.
-            </p>
+              <p className="creation-welcome-text">
+                Que vous soyez un{" "}
+                <span style={{ color: CLASS_THEME.Druide.color, fontWeight: 600 }}>
+                  Druide
+                </span>{" "}
+                gardien d'anciens rites sanglants, un{" "}
+                <span style={{ color: CLASS_THEME.Mage.color, fontWeight: 600 }}>
+                  Mage
+                </span>{" "}
+                consume par des arcanes interdites, ou un{" "}
+                <span style={{ color: CLASS_THEME.Sorcier.color, fontWeight: 600 }}>
+                  Sorcier des Ombres
+                </span>{" "}
+                lie aux esprits qui arpentent la nuit, ce taudis est
+                desormais votre sanctuaire.
+              </p>
 
-            <h5 className="creation-welcome-subtitle">
-              🩸 Le Chatiment des Mortels
-            </h5>
+              <div className="creation-welcome-divider">
+                <span className="creation-welcome-divider-icon">✦</span>
+              </div>
 
-            <p className="creation-welcome-text">
-              Dans ce monde impitoyable, personne ne vient vous voir par
-              plaisir. On franchit votre porte quand l'espoir a disparu.
-            </p>
+              <h5 className="creation-welcome-subtitle">
+                🩸 Le Chatiment des Mortels
+              </h5>
 
-            <ul className="creation-welcome-list">
-              <li>
-                La populace affamee et miserable viendra vous supplier pour un
-                poison discret, un remede contre la pourriture des chairs ou
-                un baume pour oublier la rigueur de l'hiver.
-              </li>
-              <li>
-                Les seigneurs, les chevaliers brises et la Cour d'Arthur
-                s'abaisseront a solliciter vos elixirs pour survivre a la
-                prochaine bataille, cacher leurs peches ou abattre un rival
-                sans verser de sang.
-              </li>
-            </ul>
+              <p className="creation-welcome-text">
+                Dans ce monde impitoyable, personne ne vient vous voir par
+                plaisir. On franchit votre porte quand l'espoir a disparu.
+              </p>
 
-            <p className="creation-welcome-text">
-              Chaque philtre que vous preparez a un prix. Chaque goutte
-              versee dans vos chaudrons peut sauver une vie... ou sceller la
-              perte d'un empire.
-            </p>
+              <ul className="creation-welcome-list">
+                <li>
+                  La populace affamee et miserable viendra vous supplier pour
+                  un poison discret, un remede contre la pourriture des
+                  chairs ou un baume pour oublier la rigueur de l'hiver.
+                </li>
+                <li>
+                  Les seigneurs, les chevaliers brises et la Cour d'Arthur
+                  s'abaisseront a solliciter vos elixirs pour survivre a la
+                  prochaine bataille, cacher leurs peches ou abattre un rival
+                  sans verser de sang.
+                </li>
+              </ul>
 
-            <p className="creation-welcome-text creation-welcome-closing">
-              Attisez la braise. Le froid s'installe, et vos visiteurs n'ont
-              plus beaucoup de temps.
-            </p>
+              <p className="creation-welcome-text">
+                Chaque philtre que vous preparez a un prix. Chaque goutte
+                versee dans vos chaudrons peut sauver une vie... ou sceller
+                la perte d'un empire.
+              </p>
+
+              <p className="creation-welcome-text creation-welcome-closing">
+                Attisez la braise. Le froid s'installe, et vos visiteurs
+                n'ont plus beaucoup de temps.
+              </p>
+            </div>
 
             <div className="creation-welcome-footer">
               <button
@@ -163,7 +183,7 @@ const Modal = () => {
           <Fragment>
             <div className="creation-header">
               <div className="logo-img flex justify-center items-center">
-                <img src="src/assets/logo2.png" alt="" className="w-40"/>
+                <img src={logo} alt="Potion Quest" className="w-40"/>
               </div>
               <h5 className="creation-title uppercase">Creation du personnage</h5>
               <p className="creation-subtitle">
