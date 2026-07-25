@@ -25,12 +25,8 @@ import { GiFlowerStar,
 // ici avec un id donné, ne JAMAIS réutiliser ce même id pour un autre item
 // (même après suppression), et ne jamais laisser un composant recalculer
 // ces id à partir d'une position dans un tableau (ex: `.map((item, i) => ...)`),
-// sinon toute référence externe (quêtes, recettes...) pointera dans le vide.
-//
 // Plage 1-19 : items déjà en vente dans le shop actuel.
 // Plage 101+ : réservée aux potions à venir, craftées via les quêtes
-// (voir GameDatas/Quests) — quand tu ajoutes une de ces potions ici,
-// donne-lui exactement l'id déjà utilisé en `itemId` dans la quête concernée.
 const GameData = {
   items:{
     diluents: [

@@ -28,13 +28,7 @@ import { useToast } from "@/components/Toast/ToastContext";
 import "@/components/Modal/Shared/ItemGrid.css";
 import "./shop.css";
 
-const Shop = ({
-  shopCoins,
-  handleCoinsChange,
-  inventoryCoins,
-  inventoryCoinsChange,
-  addItemToInventory,
-}) => {
+const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChange, addItemToInventory}) => {
   const { showToast } = useToast();
   const [shopItems, setShopItems] = useState([]);
   // État pour les slots (fixe à 63)

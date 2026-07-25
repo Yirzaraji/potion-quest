@@ -1,22 +1,14 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { FaUser, FaHatWizard } from "react-icons/fa6";
-import { GiWizardStaff, GiOakLeaf, GiBatWing, GiQuillInk } from "react-icons/gi";
+import { GiQuillInk } from "react-icons/gi";
 import GameDatas from "@/components/GameDatas/Character";
-import mageAvatar from "@/assets/mage2.png";
-import druideAvatar from "@/assets/druide.png";
-import sorcierAvatar from "@/assets/sorcier.png";
 import logo from "@/assets/logo.png";
 import "./Creation.css";
 
-// Theme visuel (couleur d'accent + icone) propre a chaque classe. Cle sur le
-// nom exact tel qu'ecrit dans GameDatas/Character. Fallback dore si jamais
-// une classe n'a pas (encore) de theme associe.
-const CLASS_THEME = {
-  Mage: { color: "#4f8fe0", icon: GiWizardStaff, avatar: mageAvatar },
-  Druide: { color: "#5fae56", icon: GiOakLeaf, avatar: druideAvatar },
-  Sorcier: { color: "#a13ad1", icon: GiBatWing, avatar: sorcierAvatar },
-};
-const DEFAULT_THEME = { color: "#ffd75e", icon: GiWizardStaff, avatar: mageAvatar };
+// Recupere la couleur d'une classe par son nom, directement depuis
+// GameDatas/Character
+const getClassColor = (name) =>
+  GameDatas.find((classeData) => classeData.name === name)?.color || "#ffd75e";
 
 const Modal = () => {
   // "welcome" = message d'accueil / lore, "form" = formulaire pseudo + classe
@@ -30,9 +22,6 @@ const Modal = () => {
 
   const selectedClasseData =
     selectedClasse !== null ? GameDatas[selectedClasse] : null;
-  const selectedTheme = selectedClasseData
-    ? CLASS_THEME[selectedClasseData.name] || DEFAULT_THEME
-    : null;
 
   const canSubmit = pseudo.trim().length > 0 && selectedClasseData !== null;
 
@@ -62,11 +51,9 @@ const Modal = () => {
       console.log("Saved to localStorage:", userDatas);
 
       // Laisse le temps a la transition CSS (fondu + flou, voir .creation-leaving
-      // dans Creation.css) de se jouer avant de retirer completement la modale
       const timeout = setTimeout(() => setIsHidden(true), 500);
       return () => clearTimeout(timeout);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmit]);
   return (
     <Fragment>
@@ -115,15 +102,15 @@ const Modal = () => {
 
               <p className="creation-welcome-text">
                 Que vous soyez un{" "}
-                <span style={{ color: CLASS_THEME.Druide.color, fontWeight: 600 }}>
+                <span style={{ color: getClassColor("Druide"), fontWeight: 600 }}>
                   Druide
                 </span>{" "}
                 gardien d'anciens rites sanglants, un{" "}
-                <span style={{ color: CLASS_THEME.Mage.color, fontWeight: 600 }}>
+                <span style={{ color: getClassColor("Mage"), fontWeight: 600 }}>
                   Mage
                 </span>{" "}
                 consume par des arcanes interdites, ou un{" "}
-                <span style={{ color: CLASS_THEME.Sorcier.color, fontWeight: 600 }}>
+                <span style={{ color: getClassColor("Sorcier"), fontWeight: 600 }}>
                   Sorcier des Ombres
                 </span>{" "}
                 lie aux esprits qui arpentent la nuit, ce taudis est
@@ -213,20 +200,19 @@ const Modal = () => {
                 <div className="creation-label uppercase mb-3">Classe</div>
                 <div className="creation-classes flex justify-evenly">
                   {GameDatas.map((classeData, index) => {
-                    const theme = CLASS_THEME[classeData.name] || DEFAULT_THEME;
-                    const ClasseIcon = theme.icon;
+                    const ClasseIcon = classeData.icon;
                     const isSelected = selectedClasse === index;
                     return (
                       <div
                         key={classeData.id}
                         onClick={() => handleClickClasse(index)}
-                        style={{ "--classe-accent": theme.color }}
+                        style={{ "--classe-accent": classeData.color }}
                         className={`creation-classe-card ${isSelected ? "selected" : ""}`}
                       >
                         <div className="creation-classe-avatar-wrapper">
                           <div
                             className="creation-classe-avatar"
-                            style={{ backgroundImage: `url(${theme.avatar})` }}
+                            style={{ backgroundImage: `url(${classeData.avatar})` }}
                           ></div>
                           <div className="creation-classe-icon-badge">
                             <ClasseIcon />
@@ -243,7 +229,7 @@ const Modal = () => {
 
               <div
                 className="creation-description-card"
-                style={{ "--classe-accent": selectedTheme?.color || "#ffd75e" }}
+                style={{ "--classe-accent": selectedClasseData?.color || "#ffd75e" }}
               >
                 <GiQuillInk className="creation-description-icon" />
                 <div className="creation-description text-justify">

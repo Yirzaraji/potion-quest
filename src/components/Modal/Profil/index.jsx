@@ -1,28 +1,20 @@
 import React, { Fragment } from "react";
 import { GiLaurelCrown, GiPadlock } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
-import mageAvatar from "@/assets/mage.png";
-import druideAvatar from "@/assets/druide.png";
-import sorcierAvatar from "@/assets/sorcier.png";
+import CharacterData from "@/components/GameDatas/Character";
+import { GAME_QUESTS } from "@/components/GameDatas/Quests";
 import "./Profil.css";
 
-// Meme mapping classe -> avatar que dans Modal/Creation. Fallback sur le mage
-// si la classe stockee ne correspond a aucune entree connue.
-const CLASS_AVATARS = {
-  Mage: mageAvatar,
-  Druide: druideAvatar,
-  Sorcier: sorcierAvatar,
-};
-
-// Feuille de route des chapitres, uniquement pour l'affichage de la roadmap.
-// (Purement visuel pour l'instant
-const CHAPTERS = [
-  { id: 1, title: "Chapitre I" },
-  { id: 2, title: "Chapitre II" },
-  { id: 3, title: "Chapitre III" },
-  { id: 4, title: "Chapitre IV" },
-  { id: 5, title: "Chapitre V" },
-];
+// Derive la liste des chapitres directement des quetes (memes donnees que
+// Modal/Quests) plutot que d'avoir une liste de chapitres figee a part
+const CHAPTERS = [...new Map(
+  GAME_QUESTS.map((quest) => [
+    quest.chapter,
+    { id: quest.chapter, title: quest.chapterTitle },
+  ])
+).values()].toSorted((a, b) => a.id - b.id);
+console.log(GAME_QUESTS)
+console.log(CHAPTERS)
 
 const Profil = ({ playerLevel }) => {
   // Lecture defensive : on evite un plantage si le joueur arrive ici sans
@@ -38,9 +30,9 @@ const Profil = ({ playerLevel }) => {
   }
 
   const level = playerLevel || 1;
-  const avatarImage = CLASS_AVATARS[classe] || mageAvatar;
-  // Barre d'XP purement decorative pour l'instant (pas encore de vraie donnee
-  // de progression branchee) -> valeur fixe pour montrer le rendu visuel.
+  const classeData = CharacterData.find((entry) => entry.name === classe);
+  const avatarImage = classeData?.avatar || CharacterData[0].avatar;
+  // Barre d'XP purement decorative pour l'instant
   const xpPercent = 35;
 
   return (
