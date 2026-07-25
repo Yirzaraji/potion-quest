@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { GiPotionBall, GiLindenLeaf,  GiHealthPotion, GiWaterDrop, GiFlowerPot, GiPlantRoots, GiRose  } from "react-icons/gi";
+import { GiPotionBall } from "react-icons/gi";
 import recipes from "@/components/GameDatas/Recipes";
 import "./Recipes.css";
 
