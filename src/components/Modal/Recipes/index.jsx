@@ -1,10 +1,12 @@
 import React, { Fragment, useState } from "react";
 import recipes from "@/components/GameDatas/Recipes";
+import { useRecipeReminder } from "./RecipeReminderContext";
+import Tooltip from "@/components/Tooltip";
 import "./Recipes.css";
 
 const Recipes = () => {
   const [openIndex, setOpenIndex] = useState(null); // Index de la recette ouverte
-  const [pinnedRecipe, setPinnedRecipe] = useState(null); // Recette actuellement épinglée en pense-bête
+ const { pinnedRecipe, pinRecipe, unpinRecipe } = useRecipeReminder();
 
   const toggleRecipe = (index) => {
     setOpenIndex(openIndex === index ? null : index); // Ouvre/ferme
@@ -49,25 +51,25 @@ const Recipes = () => {
                   </h6>
                   <div className="ingredients-container flex items-center gap-4">
                     <div className="ingredients border-r border-gray-600">
-                      {recipe.ingredients.map((ingredient, idx) => {
+                      {recipe.ingredients.map((ingredient, index) => {
                         const IngredientIcon = ingredient.icon;
                         return (
-                          <span
-                            key={idx}
-                            className="inline-flex items-end mr-3 mt-3 mb-3"
-                          >
-                            <IngredientIcon className="text-5xl" /> x
-                            {ingredient.quantity}
-                          </span>
+                          <Tooltip key={index} content={<span>{ingredient.name}</span>}>
+                            <span className="inline-flex items-end mr-3 mt-3 mb-3">
+                              <IngredientIcon className="text-5xl" /> x{ingredient.quantity}
+                            </span>
+                          </Tooltip>
                         );
                       })}
                     </div>
                     <div
                       className="recipe-reminder cursor-pointer"
-                      onClick={() => setPinnedRecipe(recipe)}
+                      onClick={() =>
+                        pinnedRecipe === recipe ? unpinRecipe() : pinRecipe(recipe)
+                      }
                     >
                       <div className="btn-reminder uppercase p-5 text-center">
-                        Suivre
+                        {pinnedRecipe === recipe ? "Ne plus suivre" : "Suivre"}
                       </div>
                     </div>
                   </div>

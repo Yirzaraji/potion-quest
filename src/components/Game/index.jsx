@@ -29,6 +29,7 @@ import Creation from "@/components/Modal/Creation";
 import Inventory from "@/components/Modal/Inventory"
 import Shop from "@/components/Modal/Shop"
 import { ToastProvider } from "@/components/Toast/ToastContext";
+import { RecipeReminderProvider } from "@/components/Modal/Recipes/RecipeReminderContext";
 import SfxListener from "@/components/Sfx/SfxListener";
 
 const Game = () => {
@@ -153,35 +154,37 @@ const Game = () => {
   return (
     <Fragment>
       <ToastProvider>
-        {!isBgLoaded && (
-          <div className="game-loading-screen">
-            <div className="game-spinner-potion">
-              <GiPotionBall className="game-spinner-icon" />
-              <span className="game-spinner-bubble b1"></span>
-              <span className="game-spinner-bubble b2"></span>
-              <span className="game-spinner-bubble b3"></span>
+        <RecipeReminderProvider>
+          {!isBgLoaded && (
+            <div className="game-loading-screen">
+              <div className="game-spinner-potion">
+                <GiPotionBall className="game-spinner-icon" />
+                <span className="game-spinner-bubble b1"></span>
+                <span className="game-spinner-bubble b2"></span>
+                <span className="game-spinner-bubble b3"></span>
+              </div>
+              <p className="game-loading-text">Preparation de la potion...</p>
             </div>
-            <p className="game-loading-text">Preparation de la potion...</p>
+          )}
+          <div
+            className={`test backgroundImageGame back text-center ${
+              isBgLoaded ? "game-visible" : ""
+            }`}
+          >
+            <Creation />
+            <MusicPlayer />
+            <SfxListener />
+            <Menu 
+            playerLevel={1} 
+            shopCoins={shopCoins} 
+            handleCoinsChange={handleCoinsChange} 
+            liftInventoryItems={inventoryItems} 
+            addItemToInventory={addItemToInventory} 
+            sellItemFromInventory={sellItemFromInventory}
+            inventoryCoins={inventoryCoins}
+            inventoryCoinsChange={inventoryCoinsChange} />
           </div>
-        )}
-        <div
-          className={`test backgroundImageGame back text-center ${
-            isBgLoaded ? "game-visible" : ""
-          }`}
-        >
-          <Creation />
-          <MusicPlayer />
-          <SfxListener />
-          <Menu 
-          playerLevel={1} 
-          shopCoins={shopCoins} 
-          handleCoinsChange={handleCoinsChange} 
-          liftInventoryItems={inventoryItems} 
-          addItemToInventory={addItemToInventory} 
-          sellItemFromInventory={sellItemFromInventory}
-          inventoryCoins={inventoryCoins}
-          inventoryCoinsChange={inventoryCoinsChange} />
-        </div>
+        </RecipeReminderProvider>
       </ToastProvider>
     </Fragment>
   );
