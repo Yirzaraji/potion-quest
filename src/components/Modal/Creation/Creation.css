@@ -334,6 +334,17 @@
 
 /* --- Carte de description --- */
 
+.creation-title{
+ font-family: 'BBH Sans Hegarty';
+ font-size: 1.2rem;
+ margin-bottom: -8px;
+}
+
+.creation-subtitle{
+  font-family: 'Oswald';
+ 
+}
+
 .creation-description-card {
   position: relative;
   flex: 1;

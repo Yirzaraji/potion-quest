@@ -169,11 +169,11 @@ const Modal = () => {
         ) : (
           <Fragment>
             <div className="creation-header">
-              <div className="logo-img flex justify-center items-center">
+              <div className="logo-img pt-4 pb-2 flex justify-center items-center">
                 <img src={logo} alt="Potion Quest" className="w-40"/>
               </div>
               <h5 className="creation-title uppercase">Creation du personnage</h5>
-              <p className="creation-subtitle">
+              <p className="creation-subtitle pb-2">
                 Choisissez votre nom et votre voie avant de rejoindre Potion Quest
               </p>
             </div>
