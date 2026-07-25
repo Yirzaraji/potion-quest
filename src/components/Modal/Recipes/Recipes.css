@@ -61,3 +61,79 @@
   border-radius: 4px;
   margin-bottom: 10px;
 }
+
+/* --- Pense-bete flottant (clic sur "Suivre") --- */
+
+.recipe-pinned-reminder {
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 240px;
+  background-color: #1c2024;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  z-index: 95000; /* au-dessus des fenetres de jeu */
+}
+
+.recipe-pinned-reminder-header {
+  border-bottom: 1px solid rgb(63, 63, 63);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.recipe-pinned-reminder-header h5 {
+  font-family: 'BBH Sans Hegarty';
+  font-size: 0.95rem;
+  margin: 0;
+  color: #ffd75e;
+}
+
+.recipe-pinned-reminder-close {
+  background: transparent;
+  border: none;
+  color: rgb(185, 185, 185);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.recipe-pinned-reminder-close:hover {
+  background-color: rgba(220, 38, 38, 0.85);
+  color: #fff;
+}
+
+.recipe-pinned-reminder-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recipe-pinned-reminder-ingredient {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Oswald';
+  font-size: 0.85rem;
+  color: rgb(200, 200, 200);
+}
+
+.recipe-pinned-reminder-icon {
+  font-size: 1.6rem;
+  color: #ffd75e;
+  flex-shrink: 0;
+}
+
+.recipe-pinned-reminder-name {
+  flex: 1;
+}
+
+.recipe-pinned-reminder-qty {
+  color: #ffd75e;
+  font-weight: 600;
+}

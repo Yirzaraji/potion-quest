@@ -5,6 +5,7 @@ import "./Recipes.css";
 
 const Recipes = () => {
  const [openIndex, setOpenIndex] = useState(null); // Index de la recette ouverte
+ const [pinnedRecipe, setPinnedRecipe] = useState(null); // Recette actuellement épinglée en pense-bête
 
   const toggleRecipe = (index) => {
     setOpenIndex(openIndex === index ? null : index); // Ouvre/ferme
@@ -45,7 +46,10 @@ const Recipes = () => {
                       );
                     })}
                   </div>
-                  <div className="recipe-reminder cursor-pointer">
+                  <div
+                    className="recipe-reminder cursor-pointer"
+                    onClick={() => setPinnedRecipe(recipe)}
+                  >
                     <div className="btn-reminder uppercase p-5 text-center">Suivre</div>
                   </div>
                 </div>
@@ -54,6 +58,34 @@ const Recipes = () => {
           </div>
         ))}
       </div>
+
+      {pinnedRecipe && (
+        <div className="recipe-pinned-reminder text-white">
+          <div className="recipe-pinned-reminder-header flex justify-between items-center">
+            <h5 className="uppercase">{pinnedRecipe.title}</h5>
+            <button
+              type="button"
+              className="recipe-pinned-reminder-close"
+              aria-label="Fermer le pense-bete"
+              onClick={() => setPinnedRecipe(null)}
+            >
+              ✕
+            </button>
+          </div>
+          <div className="recipe-pinned-reminder-ingredients">
+            {pinnedRecipe.ingredients.map((ingredient, index) => {
+              const IngredientIcon = ingredient.icon;
+              return (
+                <div key={index} className="recipe-pinned-reminder-ingredient">
+                  <IngredientIcon className="recipe-pinned-reminder-icon" />
+                  <span className="recipe-pinned-reminder-name">{ingredient.name}</span>
+                  <span className="recipe-pinned-reminder-qty">x{ingredient.quantity}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 };
