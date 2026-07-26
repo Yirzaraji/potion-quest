@@ -1,26 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { FaBottleWater, FaMagnifyingGlass } from "react-icons/fa6";
-import { FaOilCan, FaWineBottle } from "react-icons/fa";
-import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
-import { RiFlowerFill } from "react-icons/ri";
-import {
-  GiFlowerStar,
-  GiFrontTeeth,
-  GiZigzagLeaf,
-  GiDeathcab,
-  GiFizzingFlask,
-  GiJasmine,
-  GiLeafSkeleton,
-  GiSunflower,
-  GiTreeRoots,
-  GiClothJar,
-  GiTwoCoins,
-  GiHealthPotion,
-  GiPotionBall,
-  GiPotionOfMadness,
-  GiHerbsBundle,
-  GiFlowerEmblem,
-} from "react-icons/gi";
+import { FaMagnifyingGlass } from "react-icons/fa6";;
+import { GiTwoCoins } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
 import { useToast } from "@/hooks/useToast";
@@ -28,29 +8,36 @@ import { playSfx } from "@/components/Sfx/SfxManager";
 import "@/components/Modal/Shared/ItemGrid.css";
 import "./Inventory.css";
 
-const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventory, inventoryCoins, inventoryCoinsChange}) => {
-  //const userDatas = JSON.parse(localStorage.getItem("userDatas"));
-  console.log(liftInventoryItems)
+const Inventory = ({ liftInventoryItems, addItemToInventory, sellItemFromInventory, inventoryCoins, inventoryCoinsChange }) => {
   const { showToast } = useToast();
   const [initialSlots] = useState(Array.from({ length: 42 }));
   const [inventoryItems, setInventoryItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-      //console.log(purchasedItems)
-      setInventoryItems(liftInventoryItems)
+    setInventoryItems(liftInventoryItems);
   }, [liftInventoryItems]);
 
-  //DEBUG ASYNCHRONE
+  // Filtre les items en fonction du terme de recherche
+  const filteredItems = inventoryItems.filter((item) =>
+    item && item.name && item.name.toLowerCase().includes(searchTerm)
+  );
+
+  // DEBUG ASYNCHRONE
   useEffect(() => {
-    console.log(inventoryItems)
-  }, [inventoryItems]);
+    console.log(filteredItems);
+  }, [filteredItems]);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
 
   const handleDragStart = (event, index) => {
-    if (inventoryItems[index] === null) return; // Ne drag pas les slots vides
+    if (filteredItems[index] === null) return; // Ne drag pas les slots vides
     event.dataTransfer.setData('text/plain', index.toString());
     playSfx("drag");
   };
-  
+
   const handleDrop = (e, endIndex) => {
     e.preventDefault();
     const startIndex = parseInt(e.dataTransfer.getData('text/plain'), 10); // Récupère l'index source
@@ -59,10 +46,10 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
       return;
     }
     // Clone immutable du tableau
-    const updatedItems = [...inventoryItems];
+    const updatedItems = [...filteredItems];
     if (updatedItems[endIndex]) {
       // Swap si cellule occupée
-      [updatedItems[startIndex], updatedItems[endIndex]] = [updatedItems[endIndex], updatedItems[startIndex]]; 
+      [updatedItems[startIndex], updatedItems[endIndex]] = [updatedItems[endIndex], updatedItems[startIndex]];
     } else {
       // Sinon déplacement
       updatedItems[endIndex] = updatedItems[startIndex];
@@ -72,19 +59,17 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
     playSfx("drop");
     console.log('Drop success: from', startIndex, 'to', endIndex);
   };
-  
+
   const handleDragOver = (event) => {
     event.preventDefault();
     console.log("drag over");
   };
 
-  // Vente d'un item de l'inventaire au clic droit : crédite le joueur du
-  // sellPrice de l'item (le shop est débité du même montant). Bloqué si le
-  // shop n'a pas assez d'or pour racheter l'objet.
+  // Vente d'un item de l'inventaire au clic droit
   const handleSellItem = (event, index) => {
     event.preventDefault(); // empêche le menu contextuel du navigateur
 
-    const item = inventoryItems[index];
+    const item = filteredItems[index];
     if (!item) return;
 
     if (typeof item.sellPrice !== "number") {
@@ -115,13 +100,15 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
           type="text"
           name="searchbar"
           id="searchbar"
+          value={searchTerm}
+          onChange={handleSearchChange}
         />
       </div>
       <hr className="item-divider" />
       <div className="item-grid mt-2 mb-4">
-        {inventoryItems.length > 0 ? (
+        {filteredItems.length > 0 || searchTerm === "" ? (
           initialSlots.map((_, index) => {
-            const item = index < inventoryItems.length ? inventoryItems[index] : null;
+            const item = index < filteredItems.length ? filteredItems[index] : null;
             return (
               <div
                 key={index}
@@ -158,7 +145,9 @@ const Inventory = ({liftInventoryItems, addItemToInventory, sellItemFromInventor
               </div>
             );
           })
-        ) : ( <p>Chargement des items...</p> )}
+        ) : (
+          <p>Aucun item trouvé.</p>
+        )}
       </div>
       <hr className="item-divider" />
       <div className="item-bank">

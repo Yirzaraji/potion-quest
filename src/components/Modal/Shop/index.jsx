@@ -1,36 +1,17 @@
-import React, { Fragment, useState, useEffect, useRef } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import GameData from '@/data/Items';
-import { FaBottleWater, FaMagnifyingGlass } from "react-icons/fa6";
-import { FaOilCan, FaWineBottle } from "react-icons/fa";
-import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
-import { RiFlowerFill } from "react-icons/ri";
-import {
-  GiFlowerStar,
-  GiFrontTeeth,
-  GiZigzagLeaf,
-  GiDeathcab,
-  GiFizzingFlask,
-  GiJasmine,
-  GiLeafSkeleton,
-  GiSunflower,
-  GiTreeRoots,
-  GiClothJar,
-  GiTwoCoins,
-  GiHealthPotion,
-  GiPotionBall,
-  GiPotionOfMadness,
-  GiHerbsBundle,
-  GiFlowerEmblem,
-} from "react-icons/gi";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { GiTwoCoins } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
 import { useToast } from "@/hooks/useToast";
 import "@/components/Modal/Shared/ItemGrid.css";
 import "./shop.css";
 
-const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChange, addItemToInventory}) => {
+const Shop = ({ shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChange, addItemToInventory }) => {
   const { showToast } = useToast();
   const [shopItems, setShopItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   // État pour les slots (fixe à 63)
   const [shopSlots] = useState(Array.from({ length: 63 }));
 
@@ -52,8 +33,7 @@ const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChang
           });
           setShopItems([]);
         }
-        // Fusion des items — on garde leurs id fixes du catalogue tels quels,
-        // on ne les recalcule plus jamais à partir de leur position ici.
+        // Fusion des items
         const mergedItems = items.potions.concat(items.diluents).concat(items.herbs);
         setShopItems(mergedItems);
       } catch (error) {
@@ -64,12 +44,21 @@ const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChang
     loadItems();
   }, []); // Dépendance vide pour exécuter une seule fois au montage
 
-  // Achat d'un item du shop au clic droit : vérifie le prix, débite la banque du
-  // joueur (inventoryCoins) et envoie une copie de l'item dans l'inventaire.
+  // Filtre les items en fonction du terme de recherche
+  const filteredItems = shopItems.filter((item) =>
+    item && item.name && item.name.toLowerCase().includes(searchTerm)
+  );
+
+  // Gestionnaire pour le champ de recherche
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
+
+  // Achat d'un item du shop au clic droit
   const handleBuyItem = (event, index) => {
     event.preventDefault(); // empêche le menu contextuel du navigateur
 
-    const item = shopItems[index];
+    const item = filteredItems[index];
     if (!item) return;
 
     // Certains items (ex: les potions, qui n'ont qu'un sellPrice) n'ont pas de
@@ -89,7 +78,6 @@ const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChang
     handleCoinsChange(shopCoins + item.price);
 
     // Envoie une copie de l'item dans l'inventaire avec un identifiant unique
-    // (évite toute collision avec un item déjà présent dans l'inventaire)
     addItemToInventory({
       ...item,
       uid: `${item.name}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -100,8 +88,8 @@ const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChang
 
   // Debug
   useEffect(() => {
-    console.log("shopItems mis à jour :", shopItems);
-  }, [shopItems]);
+    console.log("shopItems mis à jour :", filteredItems);
+  }, [filteredItems]);
 
   return (
     <div onContextMenu={(event) => event.preventDefault()}>
@@ -113,13 +101,15 @@ const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChang
           type="text"
           name="searchbar"
           id="searchbar"
+          value={searchTerm}
+          onChange={handleSearchChange}
         />
       </div>
       <hr className="item-divider" />
       <div className="item-grid mt-2 mb-4">
-        {shopItems.length > 0 ? (
+        {filteredItems.length > 0 || searchTerm === "" ? (
           shopSlots.map((_, index) => {
-            const item = index < shopItems.length ? shopItems[index] : null;
+            const item = index < filteredItems.length ? filteredItems[index] : null;
             return (
               <div
                 key={index}
@@ -146,7 +136,7 @@ const Shop = ({shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChang
             );
           })
         ) : (
-          <p>Chargement des items...</p>
+          <p>Aucun item trouvé.</p>
         )}
       </div>
       <hr className="item-divider" />
