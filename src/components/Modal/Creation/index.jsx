@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { FaUser, FaHatWizard } from "react-icons/fa6";
 import { GiQuillInk } from "react-icons/gi";
-import GameDatas from "@/components/GameDatas/Character";
+import GameDatas from "@/data/Character";
 import logo from "@/assets/logo.png";
 import "./Creation.css";
 

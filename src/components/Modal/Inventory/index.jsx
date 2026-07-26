@@ -23,7 +23,7 @@ import {
 } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
 import ItemTooltipContent from "@/components/Tooltip/ItemTooltipContent";
-import { useToast } from "@/components/Toast/ToastContext";
+import { useToast } from "@/hooks/useToast";
 import { playSfx } from "@/components/Sfx/SfxManager";
 import "@/components/Modal/Shared/ItemGrid.css";
 import "./Inventory.css";

@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { GiLaurelCrown, GiPadlock } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
-import CharacterData from "@/components/GameDatas/Character";
-import { GAME_QUESTS } from "@/components/GameDatas/Quests";
+import CharacterData from "@/data/Character";
+import { GAME_QUESTS } from "@/data/Quests";
 import "./Profil.css";
 
 // Derive la liste des chapitres directement des quetes (memes donnees que

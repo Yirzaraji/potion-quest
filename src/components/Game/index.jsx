@@ -1,35 +1,16 @@
 import { Fragment, useState, useEffect } from "react";
 import gameBackground from "@/assets/game.png";
-import { FaBottleWater } from "react-icons/fa6";
-import { FaOilCan, FaWineBottle } from "react-icons/fa";
-import { PiFlowerTulip, PiFlowerTulipFill } from "react-icons/pi";
-import { RiFlowerFill } from "react-icons/ri";
-import {
-  GiFlowerStar,
-  GiFrontTeeth,
-  GiZigzagLeaf,
-  GiDeathcab,
-  GiFizzingFlask,
-  GiJasmine,
-  GiLeafSkeleton,
-  GiSunflower,
-  GiTreeRoots,
-  GiClothJar,
-  GiTwoCoins,
-  GiHealthPotion,
-  GiPotionBall,
-  GiPotionOfMadness,
-  GiHerbsBundle,
-  GiFlowerEmblem,
-} from "react-icons/gi";
+import { FaWineBottle } from "react-icons/fa";
+import { PiFlowerTulipFill } from "react-icons/pi";
+import { GiClothJar, GiPotionBall } from "react-icons/gi";
 import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
 import Creation from "@/components/Modal/Creation";
-import Inventory from "@/components/Modal/Inventory"
-import Shop from "@/components/Modal/Shop"
-import { ToastProvider } from "@/components/Toast/ToastContext";
-import { RecipeReminderProvider } from "@/components/Modal/Recipes/RecipeReminderContext";
+import { ToastProvider } from "@/context/ToastContext";
+import { ToastStack } from "@/components/Toast/ToastStack";
+import { RecipeReminderProvider } from "@/context/RecipeReminderContext";
+import { RecipePinnedPanel } from "@/components/RecipeReminder/RecipePinnedPanel";
 import SfxListener from "@/components/Sfx/SfxListener";
 
 const Game = () => {
@@ -150,7 +131,6 @@ const Game = () => {
     return { success: true, sellPrice };
   };
   
-
   return (
     <Fragment>
       <ToastProvider>
@@ -171,18 +151,21 @@ const Game = () => {
               isBgLoaded ? "game-visible" : ""
             }`}
           >
+            <ToastStack />
+            <RecipePinnedPanel />
             <Creation />
             <MusicPlayer />
             <SfxListener />
-            <Menu 
-            playerLevel={1} 
-            shopCoins={shopCoins} 
-            handleCoinsChange={handleCoinsChange} 
-            liftInventoryItems={inventoryItems} 
-            addItemToInventory={addItemToInventory} 
-            sellItemFromInventory={sellItemFromInventory}
-            inventoryCoins={inventoryCoins}
-            inventoryCoinsChange={inventoryCoinsChange} />
+            <Menu
+              playerLevel={1}
+              shopCoins={shopCoins}
+              handleCoinsChange={handleCoinsChange}
+              liftInventoryItems={inventoryItems}
+              addItemToInventory={addItemToInventory}
+              sellItemFromInventory={sellItemFromInventory}
+              inventoryCoins={inventoryCoins}
+              inventoryCoinsChange={inventoryCoinsChange}
+            />
           </div>
         </RecipeReminderProvider>
       </ToastProvider>

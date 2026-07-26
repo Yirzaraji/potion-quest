@@ -8,7 +8,7 @@ import {
   GiBoxUnpacking,
   GiPadlock
 } from "react-icons/gi";
-import { GAME_QUESTS } from "@/components/GameDatas/Quests";
+import { GAME_QUESTS } from "@/data/Quests";
 import "./Quests.css";
 
 const groupByChapter = (quests) => {

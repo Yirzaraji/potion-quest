@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
-import recipes from "@/components/GameDatas/Recipes";
-import { useRecipeReminder } from "./RecipeReminderContext";
+import recipes from "@/data/Recipes";
+import { useRecipeReminder } from "@/hooks/useRecipeReminder";
 import Tooltip from "@/components/Tooltip";
 import "./Recipes.css";
 
@@ -17,7 +17,6 @@ const Recipes = () => {
       <div className="recipes-container overflow-y-auto max-h-[540px]">
         {recipes.map((recipe, index) => {
           const PotionIcon = recipe.icon;
-
           return (
             <div key={index} className="recipe-item text-white">
               <div
