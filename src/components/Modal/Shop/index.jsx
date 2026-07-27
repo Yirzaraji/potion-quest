@@ -25,16 +25,16 @@ const Shop = ({ shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChan
         }
         const { items } = GameData;
         // Vérifier que les catégories existent
-        if (!items.potions || !items.diluents || !items.herbs) {
+        if (!items.potions || !items.diluents || !items.ingredients) {
           console.error("Une catégorie d'items est manquante :", {
             potions: items.potions,
             diluents: items.diluents,
-            herbs: items.herbs,
+            ingredients: items.ingredients,
           });
           setShopItems([]);
         }
         // Fusion des items
-        const mergedItems = items.potions.concat(items.diluents).concat(items.herbs);
+        const mergedItems = items.potions.concat(items.diluents).concat(items.ingredients);
         setShopItems(mergedItems);
       } catch (error) {
         console.error("Erreur lors du chargement des items :", error);

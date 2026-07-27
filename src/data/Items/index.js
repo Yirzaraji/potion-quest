@@ -74,7 +74,7 @@ const GameData = {
         icon: FaOilCan,
       },
     ],
-    herbs: [
+    ingredients: [
       {
         id: 4,
         name: "Pétale de rose",
