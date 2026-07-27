@@ -187,9 +187,9 @@ export const GAME_QUESTS = [
     chapterTitle: "Chapitre III",
     chapterSubtitle: "La Quête des Vertus",
     title: "Le Mystère des Runes",
-    description: "Taliesin, le grand druide et barde, est aux prises avec un mystère entourant des runes anciennes. Pour déchiffrer les secrets cachés, il demande une potion de vérité. Préparez une potion à base de fleurs de vérité et de perles de sagesse pour aider Taliesin à révéler les secrets des runes.",
+    description: "Panoramix, le grand druide et barde, est aux prises avec un mystère entourant des runes anciennes. Pour déchiffrer les secrets cachés, il demande une potion de vérité. Préparez une potion à base de fleurs de vérité et de perles de sagesse pour aider Taliesin à révéler les secrets des runes.",
     questGiver: {
-      name: "Taliesin le Druide",
+      name: "Panoramix le Druide",
       avatarUrl: "/src/assets/mage.png"
     },
     objectives: [

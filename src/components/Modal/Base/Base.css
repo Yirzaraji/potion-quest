@@ -42,7 +42,7 @@
   background: transparent;
   border: none;
   color: rgb(185, 185, 185);
-  font-size: 1.1rem;
+  font-size: 2rem;
   line-height: 1;
   cursor: pointer;
   padding: 0.15rem 0.4rem;
@@ -53,4 +53,9 @@
 .modal-close-btn:hover {
   background-color: rgba(220, 38, 38, 0.85);
   color: #fff;
+}
+
+.self-end{
+  font-family: "New Rocker", cursive;
+  font-size: 1.2rem;
 }
