@@ -6,6 +6,7 @@
   opacity: 0.97;
   font-family: 'BBH Sans Hegarty';
   border: 1px solid rgb(56, 56, 56);
+  box-shadow: 0px 4px 10px -1px rgb(0 0 0) !important;
 }
 
 .classe {
@@ -42,7 +43,7 @@
   background: transparent;
   border: none;
   color: rgb(185, 185, 185);
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
   padding: 0.15rem 0.4rem;
@@ -59,3 +60,4 @@
   font-family: "New Rocker", cursive;
   font-size: 1.2rem;
 }
+

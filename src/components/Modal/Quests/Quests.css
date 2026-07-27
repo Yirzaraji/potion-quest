@@ -3,21 +3,68 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 
+/* --- Colonne des chapitres --- */
+
+.quests-chapters-column {
+  background-color: #0d1013;
+}
+
+/* Scrollbars neutres, sans couleur d'accent (comme le reste de l'app) */
+.quests-chapters-column::-webkit-scrollbar,
+.quests-details-column::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quests-chapters-column::-webkit-scrollbar-track,
+.quests-details-column::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.quests-chapters-column::-webkit-scrollbar-thumb,
+.quests-details-column::-webkit-scrollbar-thumb {
+  background-color: rgb(70, 70, 70);
+  border-radius: 4px;
+}
+
+.quests-chapters-column::-webkit-scrollbar-thumb:hover,
+.quests-details-column::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(90, 90, 90);
+}
+
 .chapter-title {
   background-color: #0d1217;
   border-left: 3px solid transparent;
 }
 
-.chapter-title.active-chapter {
-  border-left-color: #a855f7;
+.chapter-title:hover {
+  background-color: #14181c;
 }
 
-.chapter-title h4 {
-  font-family: 'BBH Sans Hegarty', sans-serif;
+.chapter-title.active-chapter {
+  background-color: #6a4f2394;
+  border-left-color: #ffd75e;
+}
+
+/* Titre de chapitre : New Rocker, casse normale (pas de majuscules forcees) */
+.chapter-title-text {
+  margin: 0;
+  font-family: "New Rocker", cursive;
+  font-weight: 400;
+  color: #cbd0d6;
+  letter-spacing: 0.01em;
+}
+
+.chapter-description-container p{
+  font-size: 0.9rem;
+}
+
+.chapter-title.active-chapter .chapter-title-text {
+  color: #c2c2c2;
+  font-size: 1.5rem;
 }
 
 .chapter-title p {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .chapter-content {
@@ -35,40 +82,219 @@
 }
 
 .quest-list-item {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   color: #9ca3af;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .quest-list-item:hover:not(.locked) {
-  background-color: rgba(168, 85, 247, 0.15);
+  background-color: rgba(255, 255, 255, 0.04);
   color: #f3f4f6;
 }
 
 .quest-list-item.active {
-  background: linear-gradient(90deg, rgba(69, 30, 107, 0.8) 0%, rgba(30, 20, 50, 0.4) 100%);
+  background-color: rgba(255, 215, 94, 0.08);
   color: #fff;
   font-weight: 600;
-  border-left: 3px solid #c084fc;
+  border-left: 3px solid #ffd75e;
 }
 
-.quest-detail-title,
+/* --- Puce de statut devant chaque quete de la liste --- */
+
+.quest-status-dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #4b5563;
+}
+
+.quest-status-dot.is-pending {
+  background-color: #4b5563;
+}
+
+.quest-status-dot.is-active {
+  background-color: #fbbf24;
+  box-shadow: 0 0 6px rgba(251, 191, 36, 0.7);
+}
+
+.quest-status-dot.is-completed {
+  background-color: #34d399;
+  box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
+}
+
+/* Titre de la quete selectionnee : New Rocker, casse normale, teinte doree
+   comme le nom du marchand dans le Shop */
+.quest-detail-title {
+  margin: 0;
+  font-family: "New Rocker", cursive;
+  font-weight: 400;
+  color: #eeeeee;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Libelles de section ("Objets requis", "Recompenses") : Oswald, petites
+   majuscules discretes, comme les sous-titres du Shop */
 .title-ingredient {
-  font-family: 'BBH Sans Hegarty', sans-serif;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9ca3af;
+  border-bottom: 1px solid rgb(63, 63, 63);
+  padding-bottom: 4px;
 }
 
 .quest-detail-description,
 .quest-xp,
 .quest-gold {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 .quest-xp {
-  color: #c084fc;
+  color: #facc15;
 }
 
 .quest-gold {
   color: #fbbf24;
+}
+
+/* --- Donneur de quete : avatar + bulle de dialogue (esprit shop-merchant-header) --- */
+
+.quest-giver-header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 10px;
+  background-color: rgba(10, 19, 21, 0.5);
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 6px;
+}
+
+.quest-giver-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.quest-giver-avatar {
+  display: block;
+  width: 75px;
+  height: 75px;
+  border-radius: 10%;
+  border: 2px solid #474747;
+  object-fit: cover;
+}
+
+.quest-giver-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.quest-giver-name {
+  font-family: "New Rocker", cursive;
+  font-size: 1rem;
+  color: #dbdbdb;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.quest-giver-role {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7a7a85;
+}
+
+.quest-giver-bubble {
+  position: relative;
+  flex: 1 1 100%;
+  margin-top: 2px;
+  padding: 8px 12px;
+  background-color: #0d1217;
+  border: 1px solid rgb(63, 63, 63);
+  border-radius: 6px;
+}
+
+/* Petite pointe qui relie la bulle au portrait du donneur de quete */
+.quest-giver-bubble::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 22px;
+  width: 12px;
+  height: 12px;
+  background-color: #0d1217;
+  border-left: 1px solid rgb(63, 63, 63);
+  border-top: 1px solid rgb(63, 63, 63);
+  transform: rotate(45deg);
+}
+
+.quest-giver-bubble p {
+  margin: 0;
+  color: #d1d5db;
+  font-family: "Oswald", sans-serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* --- Badges de recompense --- */
+
+.reward-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgb(63, 63, 63);
+}
+
+.reward-pill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.reward-pill-gold .reward-pill-icon {
+  background-color: rgba(251, 191, 36, 0.12);
+  color: #fbbf24;
+}
+
+.reward-pill-xp .reward-pill-icon {
+  background-color: rgba(250, 204, 21, 0.12);
+  color: #facc15;
+}
+
+/* --- Etat vide --- */
+
+.quest-empty-state {
+  font-family: "Oswald", sans-serif;
+}
+
+/* --- Fondu au changement de quete selectionnee --- */
+
+.quest-detail-fade {
+  animation: quest-detail-fade-in 0.25s ease-out;
+}
+
+@keyframes quest-detail-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Etats du Boutons --- */
@@ -123,8 +349,61 @@
 }
 
 /* --- Slots Objet Requis / Drop --- */
+
 .objective-slot {
+  border-radius: 6px;
+  border-width: 1px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.objective-slot-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 6px;
+  border: 1px solid rgb(63, 63, 63);
+  background-color: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+/* Etat par defaut : zone de depot, pointilles gris sombre + icone potion grise */
+.objective-slot-pending {
+  background-color: rgba(255, 255, 255, 0.02);
+  border-style: dashed;
+  border-color: rgb(63, 63, 63);
+  cursor: pointer;
+}
+
+/* Survol pendant un drag : mise en avant doree */
+.objective-slot-hovered {
+  background-color: rgba(255, 215, 94, 0.08);
+  border-style: dashed;
+  border-color: #ffd75e;
+}
+
+.objective-slot-hovered .objective-slot-icon-wrap {
+  border-color: rgba(255, 215, 94, 0.5);
+}
+
+/* Objectif complete */
+.objective-slot-complete {
+  background-color: rgba(16, 185, 129, 0.08);
+  border-style: solid;
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+.objective-slot-complete .objective-slot-icon-wrap {
+  border-color: rgba(52, 211, 153, 0.35);
+}
+
+/* Chapitre verrouille : tres attenue */
+.objective-slot-locked {
+  background-color: rgba(0, 0, 0, 0.25);
+  border-style: dashed;
+  border-color: rgb(50, 50, 50);
+  opacity: 0.4;
 }
 
 @keyframes spinSlow {

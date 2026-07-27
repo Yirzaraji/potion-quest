@@ -1,15 +1,36 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useMemo } from "react";
 import { 
   GiScrollUnfurled, 
   GiStarsStack, 
   GiTwoCoins, 
   GiHourglass,
   GiCheckMark,
-  GiBoxUnpacking,
+  GiPotionBall,
   GiPadlock
 } from "react-icons/gi";
 import { GAME_QUESTS } from "@/data/Quests";
+// Toutes les quetes du jeu partagent le meme portrait de donneur de quete pour l'instant
+import questGiverAvatar from "@/assets/mage.png";
 import "./Quests.css";
+
+// Petites repliques generiques que le donneur de quete peut prononcer pour
+// solliciter l'aide du joueur. Construites a partir des donnees de la quete
+// (titre / premier objectif), tirees au sort a chaque selection.
+const buildGiverLines = (quest) => {
+  const objectiveName = quest.objectives?.[0]?.name;
+  if (objectiveName) {
+    return [
+      `On m'a parle de votre talent... j'ai grand besoin de : ${objectiveName}.`,
+      `S'il vous plait, aidez-moi ! Il me faut absolument ${objectiveName}.`,
+      `Je n'ai nulle part ailleurs ou me tourner. Pourriez-vous preparer ${objectiveName} ?`,
+      `Chaque instant compte... apportez-moi ${objectiveName}, je vous en supplie.`,
+    ];
+  }
+  return [
+    `J'ai besoin de votre aide pour : ${quest.title}.`,
+    `Pourriez-vous m'aider ? Il s'agit de : ${quest.title}.`,
+  ];
+};
 
 const groupByChapter = (quests) => {
   const chaptersMap = new Map();
@@ -74,6 +95,13 @@ const Quests = () => {
 
   const isSelectedReadyToComplete = isSelectedActive && checkIfQuestIsReadyToComplete(selectedQuest);
 
+  // Replique du donneur de quete, stable tant que la meme quete reste selectionnee
+  const giverLine = useMemo(() => {
+    if (!selectedQuest) return "";
+    const lines = buildGiverLines(selectedQuest);
+    return lines[Math.floor(Math.random() * lines.length)];
+  }, [selectedQuest]);
+
   const toggleChapter = (index, isUnlocked) => {
     if (!isUnlocked) return; // Empeche d'ouvrir les chapitres verrouilles
     setOpenChapterIndex(openChapterIndex === index ? null : index);
@@ -135,7 +163,7 @@ const Quests = () => {
   };
 
   return (
-    <div className="quests-layout flex rounded-lg overflow-hidden border border-purple-900/40 shadow-2xl bg-[#0e1114]">
+    <div className="quests-layout relative flex rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-[#141a1e]">
       {/* Colonne gauche : Liste des quetes et chapitres */}
       <div className="quests-chapters-column overflow-y-auto max-h-[580px] w-1/2 border-r border-gray-800/80">
         {chapters.map((chapter, chapterIndex) => {
@@ -155,17 +183,17 @@ const Quests = () => {
                   !unlocked
                     ? "cursor-not-allowed opacity-50 bg-[#080b0e]"
                     : isOpen
-                    ? "bg-[#251538] active-chapter cursor-pointer"
-                    : "hover:bg-[#1a1325] cursor-pointer"
+                    ? "active-chapter cursor-pointer"
+                    : "cursor-pointer"
                 }`}
                 onClick={() => toggleChapter(chapterIndex, unlocked)}
               >
                 <div className="flex items-center">
-                  <div className={`chapter-description-icon flex items-center ${unlocked ? "text-purple-400" : "text-gray-600"}`}>
+                  <div className={`chapter-description-icon flex items-center ${unlocked ? "text-gray-300" : "text-gray-600"}`}>
                     {unlocked ? <GiScrollUnfurled className="text-3xl" /> : <GiPadlock className="text-2xl text-gray-500" />}
                   </div>
                   <div className="chapter-description-container ml-3">
-                    <h4 className={`uppercase font-bold text-sm tracking-wide ${unlocked ? "" : "text-gray-500"}`}>
+                    <h4 className={`chapter-title-text text-xl ${unlocked ? "" : "text-gray-500"}`}>
                       {chapter.chapterTitle}
                     </h4>
                     <p className="text-xs text-gray-500">{chapter.chapterSubtitle}</p>
@@ -190,7 +218,14 @@ const Quests = () => {
                           : "cursor-pointer"
                       } ${isSelected ? "active" : ""}`}
                     >
-                      <span className="truncate">{quest.title}</span>
+                      <span className="flex items-center gap-2 truncate">
+                        <span
+                          className={`quest-status-dot ${
+                            isCompleted ? "is-completed" : isActive ? "is-active" : "is-pending"
+                          }`}
+                        />
+                        <span className="truncate">{quest.title}</span>
+                      </span>
                       {isCompleted && (
                         <span className="text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded flex items-center gap-1">
                           <GiCheckMark /> Terminee
@@ -213,11 +248,11 @@ const Quests = () => {
       {/* Colonne droite : Detail de la quete */}
       <div className="quests-details-column p-6 text-white w-1/2 flex flex-col justify-between overflow-y-auto max-h-[580px]">
         {selectedQuest ? (
-          <div className="flex flex-col h-full justify-between">
+          <div key={selectedQuest.id} className="quest-detail-fade flex flex-col h-full justify-between">
             <div>
               {/* Titre & Badge */}
-              <div className="flex items-center justify-between border-b border-purple-900/50 pb-2 mb-4">
-                <h3 className="quest-detail-title uppercase text-lg tracking-wider font-bold">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-4">
+                <h3 className="quest-detail-title text-3xl">
                   {selectedQuest.title}
                 </h3>
                 {isSelectedQuestLocked && (
@@ -245,6 +280,26 @@ const Quests = () => {
                 </div>
               )}
 
+              {/* Donneur de quete : avatar + bulle de dialogue, meme esprit que le vendeur du Shop */}
+              {!isSelectedQuestLocked && selectedQuest.questGiver && (
+                <div className="quest-giver-header">
+                  <div className="quest-giver-avatar-wrap">
+                    <img
+                      src={questGiverAvatar}
+                      alt={selectedQuest.questGiver.name}
+                      className="quest-giver-avatar"
+                    />
+                  </div>
+                  <div className="quest-giver-info">
+                    <span className="quest-giver-name text-xl">{selectedQuest.questGiver.name}</span>
+                    <span className="quest-giver-role">Donneur de quete</span>
+                  </div>
+                  <div className="quest-giver-bubble">
+                    <p>{giverLine}</p>
+                  </div>
+                </div>
+              )}
+
               {/* Description */}
               <p className="quest-detail-description text-gray-300 text-sm leading-relaxed mb-6">
                 {selectedQuest.description}
@@ -253,8 +308,8 @@ const Quests = () => {
               {/* Objets requis / Drop Slot */}
               {selectedQuest.objectives?.length > 0 && (
                 <div className="mb-6">
-                  <h6 className="title-ingredient uppercase text-xs tracking-wider text-gray-400 border-b border-gray-800 pb-1 mb-3">
-                    Objets Requis
+                  <h6 className="title-ingredient text-xs pb-1 mb-3">
+                    Objets requis
                   </h6>
                   <div className="grid grid-cols-2 gap-3">
                     {selectedQuest.objectives.slice(0, 2).map((objective) => {
@@ -268,23 +323,21 @@ const Quests = () => {
                           onDragOver={(e) => isSelectedActive && !isComplete && !isSelectedQuestLocked && handleDragOver(e, objective.itemId)}
                           onDragLeave={handleDragLeave}
                           onDrop={(e) => isSelectedActive && !isComplete && !isSelectedQuestLocked && handleDrop(e, objective)}
-                          className={`objective-slot p-3 rounded border flex flex-col items-center text-center transition-all ${
+                          className={`objective-slot p-3 flex flex-col items-center text-center transition-all ${
                             isSelectedQuestLocked
-                              ? "bg-gray-950/40 border-gray-900 opacity-40"
+                              ? "objective-slot-locked"
                               : isComplete
-                              ? "bg-emerald-950/20 border-emerald-600/40"
+                              ? "objective-slot-complete"
                               : isHovered
-                              ? "bg-purple-900/40 border-purple-400"
-                              : isSelectedActive
-                              ? "bg-purple-950/20 border-dashed border-purple-700/50 cursor-pointer"
-                              : "bg-gray-900/40 border-gray-800 opacity-60"
+                              ? "objective-slot-hovered"
+                              : "objective-slot-pending"
                           }`}
                         >
-                          <div className="w-10 h-10 rounded border border-purple-500/30 bg-black/40 flex items-center justify-center mb-1 text-gray-400">
+                          <div className="objective-slot-icon-wrap">
                             {isComplete ? (
                               <GiCheckMark className="text-emerald-400 text-lg" />
                             ) : (
-                              <GiBoxUnpacking className="text-purple-400 text-lg" />
+                              <GiPotionBall className={`text-lg ${isHovered ? "text-amber-300" : "text-gray-600"}`} />
                             )}
                           </div>
                           <span className="text-xs text-gray-200 font-medium truncate max-w-full">
@@ -292,13 +345,13 @@ const Quests = () => {
                           </span>
                           <span
                             className={`text-xs font-bold mt-1 ${
-                              isComplete ? "text-emerald-400" : "text-purple-300"
+                              isComplete ? "text-emerald-400" : "text-gray-400"
                             }`}
                           >
                             {currentProgress} / {objective.quantity}
                           </span>
                           {isSelectedActive && !isComplete && !isSelectedQuestLocked && (
-                            <span className="text-[10px] text-gray-400 mt-1 italic">
+                            <span className="text-[10px] text-gray-500 mt-1 italic">
                               Deposez l item ici
                             </span>
                           )}
@@ -311,21 +364,24 @@ const Quests = () => {
 
               {/* Recompenses */}
               <div className="mb-6">
-                <h6 className="title-ingredient uppercase text-xs tracking-wider text-gray-400 border-b border-gray-800 pb-1 mb-2">
+                <h6 className="title-ingredient text-xs pb-1 mb-2">
                   Recompenses
                 </h6>
-                <div className="quest-detail-rewards flex items-center gap-6 mt-2">
-                  <span className="inline-flex items-center gap-2 quest-gold font-bold">
-                    <GiTwoCoins className="text-2xl text-amber-400" />
-                    {selectedQuest.rewards.gold} Gold
+                <div className="quest-detail-rewards flex items-center gap-3 mt-2">
+                  <span className="reward-pill reward-pill-gold">
+                    <span className="reward-pill-icon">
+                      <GiTwoCoins />
+                    </span>
+                    <span className="quest-gold font-bold">{selectedQuest.rewards.gold} Or</span>
                   </span>
-                  <span className="inline-flex items-center gap-2 quest-xp font-bold">
-                    <GiStarsStack className="text-2xl text-purple-400" />
-                    +{selectedQuest.rewards.xp} XP
+                  <span className="reward-pill reward-pill-xp">
+                    <span className="reward-pill-icon">
+                      <GiStarsStack />
+                    </span>
+                    <span className="quest-xp font-bold">+{selectedQuest.rewards.xp} XP</span>
                   </span>
                 </div>
-              </div>
-            </div>
+              </div>            </div>
 
             {/* Bouton d'action */}
             <div className="mt-auto pt-4 border-t border-gray-800/80">
@@ -359,8 +415,9 @@ const Quests = () => {
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-500 text-sm">
-            Selectez une quete dans le journal.
+          <div className="quest-empty-state flex flex-col items-center justify-center h-full text-gray-500 text-sm gap-2">
+            <GiScrollUnfurled className="text-4xl text-gray-700" />
+            <span>Selectez une quete dans le journal.</span>
           </div>
         )}
       </div>

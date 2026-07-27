@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useMemo } from "react";
 import GameData from '@/data/Items';
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { GiTwoCoins } from "react-icons/gi";
@@ -9,11 +9,26 @@ import vendorAvatar from "@/assets/images/vendor.png"; // ← Import de l'avatar
 import "@/components/Modal/Shared/ItemGrid.css";
 import "./shop.css";
 
+// Petites répliques d'accueil de Gallywix, tirées au sort à chaque ouverture du shop
+const MERCHANT_GREETINGS = [
+  "Bienvenue, bienvenue ! Gallywix a toujours quelque chose pour vous...",
+  "Entrez donc, mes étagères débordent de trouvailles !",
+  "Ah, un client ! J'espère que vos poches sont aussi pleines que mon échoppe.",
+  "Curieux ou acheteur, peu importe... tant que vous repartez avec quelque chose !",
+  "Prenez votre temps, mais pas trop, le temps c'est de l'or !",
+  "Chaque fiole a son histoire... et son prix, évidemment.",
+];
+
 const Shop = ({ shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChange, addItemToInventory }) => {
   const { showToast } = useToast();
   const [shopItems, setShopItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [shopSlots] = useState(Array.from({ length: 63 }));
+  // Figée au montage : la réplique ne change pas tant que la fenêtre reste ouverte
+  const merchantGreeting = useMemo(
+    () => MERCHANT_GREETINGS[Math.floor(Math.random() * MERCHANT_GREETINGS.length)],
+    []
+  );
 
   useEffect(() => {
     const loadItems = () => {
@@ -77,14 +92,22 @@ const Shop = ({ shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChan
   return (
     <Fragment>
       <div onContextMenu={(event) => event.preventDefault()}>
-        {/* ✅ NOUVEAU : En-tête avec l'avatar et le nom du commerçant */}
+        {/* ✅ En-tête avec l'avatar, le nom, le titre du commerçant et sa bulle de dialogue */}
         <div className="shop-merchant-header">
-          <img
-            src={vendorAvatar}
-            alt="Commercant Gallywix"
-            className="shop-merchant-avatar"
-          />
-          <h3 className="shop-merchant-name">Gallywix l'ancien</h3>
+          <div className="shop-merchant-avatar-wrap">
+            <img
+              src={vendorAvatar}
+              alt="Commercant Gallywix"
+              className="shop-merchant-avatar"
+            />
+          </div>
+          <div className="shop-merchant-info">
+            <h3 className="shop-merchant-name">Gallywix l'ancien</h3>
+            <p className="shop-merchant-title">Marchand de potions &amp; ingrédients rares</p>
+          </div>
+          <div className="shop-merchant-bubble">
+            <p>{merchantGreeting}</p>
+          </div>
         </div>
 
         <div className="item-search-bar mb-2">

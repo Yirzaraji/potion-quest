@@ -1,29 +1,125 @@
 /* En-tête du commerçant */
 .shop-merchant-header {
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 16px;
-  padding: 8px 12px;
-  background-color: rgb(0 4 7 / 44%);
-  border: 1px solid rgb(255 255 255 / 20%);
-  border-radius: 5px;
+  padding: 12px 14px;
+  background: linear-gradient(145deg, rgb(0 47 71), rgb(61 26 0));
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #4e4e4e;
+}
+
+/* Liseré reprenant le dégradé de la barre supérieure des fenêtres */
+.shop-merchant-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #451e6b, #ffd75e, #451e6b);
+  opacity: 0.85;
+  display: none;
+}
+
+.shop-merchant-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
 }
 
 .shop-merchant-avatar {
-  width: 108px;
-  height: 108px;
-  border-radius: 10%;
+  display: block;
+  width: 76px;
+  height: 76px;
+  border-radius: 10px;
   border: 2px solid #474747;
   -o-object-fit: cover;
   object-fit: cover;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 50%);
+}
+
+/* Léger halo doré autour du portrait */
+.shop-merchant-avatar-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  border: 1px solid rgb(255 215 94 / 35%);
+  pointer-events: none;
+}
+
+.shop-merchant-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 150px;
 }
 
 .shop-merchant-name {
-    margin: 0;
-    color: #a7a7a7;
-    font-size: 2rem;
-    font-weight: 600;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    font-family: "New Rocker", cursive;
+  margin: 0;
+  color: #e8c977;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-family: "New Rocker", cursive;
+}
+
+.shop-merchant-title {
+  margin: 4px 0 0;
+  color: #9ca3af;
+  font-size: 0.7rem;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Bulle de dialogue affichée à l'ouverture du shop */
+.shop-merchant-bubble {
+  position: relative;
+  flex: 1 1 100%;
+  margin-top: 2px;
+  padding: 10px 14px;
+  background-color: #0d1217;
+  border: 1px solid rgb(255 215 94 / 25%);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 35%);
+  animation: shop-bubble-pop 0.35s ease-out;
+}
+
+/* Petite pointe qui relie la bulle au portrait du vendeur */
+.shop-merchant-bubble::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 30px;
+  width: 13px;
+  height: 13px;
+  background-color: #0d1217;
+  border-left: 1px solid rgb(255 215 94 / 25%);
+  border-top: 1px solid rgb(255 215 94 / 25%);
+  transform: rotate(45deg);
+}
+
+.shop-merchant-bubble p {
+  margin: 0;
+  color: #d1d5db;
+  font-family: "Oswald", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+@keyframes shop-bubble-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
