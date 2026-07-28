@@ -32,16 +32,16 @@
 }
 
 .chapter-title {
-  background-color: #0d1217;
+  background-color: #0b1f29;
   border-left: 3px solid transparent;
 }
 
 .chapter-title:hover {
-  background-color: #14181c;
+  background-color: #143a4d;
 }
 
 .chapter-title.active-chapter {
-  background-color: #6a4f2394;
+  background: linear-gradient(145deg, rgb(0 47 71), rgb(61 26 0));
   border-left-color: #ffd75e;
 }
 
@@ -88,12 +88,12 @@
 }
 
 .quest-list-item:hover:not(.locked) {
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: rgb(23, 82, 99);
   color: #f3f4f6;
 }
 
 .quest-list-item.active {
-  background-color: rgba(255, 215, 94, 0.08);
+  background-color: rgb(15 56 67);
   color: #fff;
   font-weight: 600;
   border-left: 3px solid #ffd75e;
@@ -169,8 +169,9 @@
   margin-bottom: 16px;
   padding: 10px;
   background-color: rgba(10, 19, 21, 0.5);
-  border: 1px solid rgb(63, 63, 63);
+  border: 1px solid rgb(255 215 94 / 25%);
   border-radius: 6px;
+  background:linear-gradient(145deg, rgb(0 47 71), rgb(61 26 0));
 }
 
 .quest-giver-avatar-wrap {
@@ -187,6 +188,15 @@
   object-fit: cover;
 }
 
+.quest-giver-avatar::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 12px;
+    border: 1px solid rgb(255 215 94 / 35%);
+    pointer-events: none;
+}
+
 .quest-giver-info {
   display: flex;
   flex-direction: column;
@@ -197,7 +207,7 @@
 .quest-giver-name {
   font-family: "New Rocker", cursive;
   font-size: 1rem;
-  color: #dbdbdb;
+  color: #e8c977;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -206,7 +216,7 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #7a7a85;
+  color: #9ca3af;
 }
 
 .quest-giver-bubble {
@@ -215,7 +225,7 @@
   margin-top: 2px;
   padding: 8px 12px;
   background-color: #0d1217;
-  border: 1px solid rgb(63, 63, 63);
+  border: 1px solid rgb(255 215 94 / 25%);
   border-radius: 6px;
 }
 
