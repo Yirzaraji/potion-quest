@@ -10,7 +10,7 @@ import {
 } from "react-icons/gi";
 import { GAME_QUESTS } from "@/data/Quests";
 // Toutes les quetes du jeu partagent le meme portrait de donneur de quete pour l'instant
-import questGiverAvatar from "@/assets/mage.png";
+import questGiverAvatar from "@/assets/images/characters/arthur.png";
 import "./Quests.css";
 
 // Petites repliques generiques que le donneur de quete peut prononcer pour

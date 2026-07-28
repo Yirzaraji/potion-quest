@@ -26,7 +26,7 @@ export const GAME_QUESTS = [
     description: "Le roi Arthur a été blessé lors d'une bataille contre les Saxons. Sa blessure refuse de guérir malgré les efforts de Merlin. Désespéré, Arthur envoie un messager à votre boutique pour demander une potion de guérison. Le roi a besoin de cette potion pour se remettre sur pied et continuer à protéger Camelot. Préparez une potion puissante en utilisant des herbes rares et des écailles de dragon pour accélérer sa guérison.",
     questGiver: {
       name: "Messager d'Arthur",
-      avatarUrl: "/src/assets/mage.png"
+      avatarUrl: "/src/assets/images/characters/arthur.png"
     },
     objectives: [
       { itemId: 101, name: "Potion de soin puissante", quantity: 1 }

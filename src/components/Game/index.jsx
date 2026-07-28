@@ -6,6 +6,7 @@ import { GiClothJar, GiPotionBall } from "react-icons/gi";
 import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
+import PlayerHud from "@/components/PlayerHud";
 import Creation from "@/components/Modal/Creation";
 import { ToastProvider } from "@/context/ToastContext";
 import { ToastStack } from "@/components/Toast/ToastStack";
@@ -155,6 +156,7 @@ const Game = () => {
             <RecipePinnedPanel />
             <Creation />
             <MusicPlayer />
+            <PlayerHud />
             <SfxListener />
             <Menu
               playerLevel={1}

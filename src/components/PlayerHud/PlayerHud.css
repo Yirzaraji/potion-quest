@@ -1,0 +1,168 @@
+/* --- Positionnement : haut / centre de l'ecran --- */
+
+.player-hud {
+	position: fixed;
+	left: 9%;
+	transform: translateX(-50%);
+	z-index: 40000;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding: 16px 22px;
+	background-color: rgb(28 32 36 / 0%);
+	border-radius: 6px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	bottom: 0;
+}
+
+/* --- Ligne principale : portrait + identite --- */
+
+.player-hud-main {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* --- Portrait, mis en avant : nettement plus grand que le reste --- */
+
+.player-hud-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.player-hud-avatar,
+.img-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #451e6b;
+  box-shadow: 0 0 12px rgb(0 0 0 / 48%);
+}
+
+.player-hud-level-badge {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: #ffd75e;
+  border: 2px solid #12161b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-hud-level-badge span {
+  font-family: "BBH Sans Hegarty";
+  color: #1c2024;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+/* --- Identite + barre d'XP (reprises de Profil) --- */
+
+.player-hud-identity {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.player-hud-classe {
+  font-family: "Oswald";
+  color: rgb(160, 160, 160);
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.player-hud-pseudo {
+  font-family: "new rocker";
+  color: #fff;
+  font-size: 1.5rem;
+  margin: -7px 0 2px 0;
+	font-weight: 700;
+}
+
+.player-hud-xp-bar {
+  width: 170px;
+  height: 12px;
+  border-radius: 3px;
+  background-color: #0a1315;
+  border: 1px solid rgb(63, 63, 63);
+  overflow: hidden;
+}
+
+.player-hud-xp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #451e6b, #ffd75e);
+  border-radius: 3px 0 0 3px;
+  transition: width 0.4s ease;
+}
+
+.player-hud-xp-label {
+  display: inline-block;
+  font-family: "Oswald";
+  font-size: 1rem;
+  color: rgb(160, 160, 160);
+}
+
+/* --- Roadmap des chapitres (reprise de Profil, a echelle reduite) --- */
+
+.player-hud-roadmap {
+	display: none;
+  /* display: flex; */
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgb(63, 63, 63);
+}
+
+.player-hud-step {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+.player-hud-step.current {
+  background-color: #451e6b;
+  color: #ffd75e;
+  border: 2px solid #ffd75e;
+  box-shadow: 0 0 8px rgba(255, 215, 94, 0.5);
+}
+
+.player-hud-step.locked {
+  background-color: #0a1315;
+  color: rgb(120, 120, 120);
+  border: 2px solid rgb(63, 63, 63);
+  opacity: 0.6;
+}
+
+.player-hud-step:hover {
+  transform: scale(1.08);
+}
+
+.player-hud-connector {
+  flex: 1;
+  height: 2px;
+  background-color: rgb(63, 63, 63);
+  min-width: 14px;
+  margin: 0 4px;
+}
+
+/* --- Ecrans etroits : on retire la roadmap pour rester utilisable --- */
+
+@media (max-width: 640px) {
+  .player-hud-roadmap {
+    display: none;
+  }
+}
