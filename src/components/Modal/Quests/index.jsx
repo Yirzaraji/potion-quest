@@ -1,34 +1,24 @@
 import React, { Fragment, useState, useMemo } from "react";
-import { 
-  GiScrollUnfurled, 
-  GiStarsStack, 
-  GiTwoCoins, 
-  GiHourglass,
-  GiCheckMark,
-  GiPotionBall,
-  GiPadlock
-} from "react-icons/gi";
+import { GiScrollUnfurled, GiStarsStack, GiTwoCoins, GiHourglass, GiCheckMark, GiPotionBall, GiPadlock } from "react-icons/gi";
 import { GAME_QUESTS } from "@/data/Quests";
-// Toutes les quetes du jeu partagent le meme portrait de donneur de quete pour l'instant
-import questGiverAvatar from "@/assets/images/characters/arthur.png";
+import fallbackGiverAvatar from "@/assets/images/characters/messager.png";
 import "./Quests.css";
 
-// Petites repliques generiques que le donneur de quete peut prononcer pour
-// solliciter l'aide du joueur. Construites a partir des donnees de la quete
-// (titre / premier objectif), tirees au sort a chaque selection.
+/* Petites repliques generiques que le donneur de quete peut prononcer pour
+solliciter l'aide du joueur. */
 const buildGiverLines = (quest) => {
   const objectiveName = quest.objectives?.[0]?.name;
   if (objectiveName) {
     return [
-      `On m'a parle de votre talent... j'ai grand besoin de : ${objectiveName}.`,
-      `S'il vous plait, aidez-moi ! Il me faut absolument ${objectiveName}.`,
-      `Je n'ai nulle part ailleurs ou me tourner. Pourriez-vous preparer ${objectiveName} ?`,
-      `Chaque instant compte... apportez-moi ${objectiveName}, je vous en supplie.`,
+      `On m'a parle de votre talent... j'ai grand besoin d'une' : ${objectiveName}.`,
+      `S'il vous plait, aidez-moi ! Il me faut absolument une ${objectiveName}.`,
+      `Je n'ai nulle part ailleurs ou me tourner. Pourriez-vous preparer une ${objectiveName} ?`,
+      `Chaque instant compte... apportez-moi une ${objectiveName}, je vous en supplie.`,
     ];
   }
   return [
-    `J'ai besoin de votre aide pour : ${quest.title}.`,
-    `Pourriez-vous m'aider ? Il s'agit de : ${quest.title}.`,
+    `J'ai besoin de votre aide pour une ${quest.title}.`,
+    `Pourriez-vous m'aider ? Il s'agit de une ${quest.title}.`,
   ];
 };
 
@@ -285,7 +275,7 @@ const Quests = () => {
                 <div className="quest-giver-header">
                   <div className="quest-giver-avatar-wrap">
                     <img
-                      src={questGiverAvatar}
+                      src={selectedQuest.questGiver.avatarUrl || fallbackGiverAvatar}
                       alt={selectedQuest.questGiver.name}
                       className="quest-giver-avatar"
                     />
