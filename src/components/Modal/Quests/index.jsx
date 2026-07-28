@@ -165,7 +165,7 @@ const Quests = () => {
   return (
     <div className="quests-layout relative flex rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-[#141a1e]">
       {/* Colonne gauche : Liste des quetes et chapitres */}
-      <div className="quests-chapters-column overflow-y-auto max-h-[580px] w-1/2 border-r border-gray-800/80">
+      <div className="quests-chapters-column overflow-y-auto w-1/2 border-r border-gray-800/80">
         {chapters.map((chapter, chapterIndex) => {
           const unlocked = isChapterUnlocked(chapter.chapter);
           const isOpen = openChapterIndex === chapterIndex && unlocked;
@@ -212,7 +212,7 @@ const Quests = () => {
                     <div
                       key={quest.id}
                       onClick={() => handleSelectQuest(quest, unlocked)}
-                      className={`quest-list-item flex items-center justify-between py-2.5 px-4 pl-6 text-sm transition-all ${
+                      className={`quest-list-item flex items-center justify-between py-2.5 px-4 pl-6 text-base transition-all ${
                         !unlocked
                           ? "locked cursor-not-allowed opacity-40"
                           : "cursor-pointer"
@@ -232,7 +232,7 @@ const Quests = () => {
                         </span>
                       )}
                       {isActive && !isCompleted && (
-                        <span className="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded flex items-center gap-1">
+                        <span className="tracker-quest-status-left border px-2 py-0.5 rounded flex items-center gap-1">
                           <GiHourglass className="animate-spin-slow" /> En cours
                         </span>
                       )}
@@ -246,7 +246,7 @@ const Quests = () => {
       </div>
 
       {/* Colonne droite : Detail de la quete */}
-      <div className="quests-details-column p-6 text-white w-1/2 flex flex-col justify-between overflow-y-auto max-h-[580px]">
+      <div className="quests-details-column p-4 text-white w-1/2 flex flex-col justify-between overflow-y-auto">
         {selectedQuest ? (
           <div key={selectedQuest.id} className="quest-detail-fade flex flex-col h-full justify-between">
             <div>
@@ -266,8 +266,8 @@ const Quests = () => {
                   </span>
                 )}
                 {!isSelectedQuestLocked && isSelectedActive && !isSelectedCompleted && (
-                  <span className="text-xs font-semibold uppercase tracking-wider text-amber-400 bg-amber-950/60 border border-amber-600/40 px-2.5 py-1 rounded">
-                    En cours
+                  <span className="tracker-quest-status tracking-wider rounded p-1 flex items-center gap-2">
+                    <GiHourglass className="animate-spin-slow" />En cours
                   </span>
                 )}
               </div>
@@ -301,60 +301,65 @@ const Quests = () => {
               )}
 
               {/* Description */}
-              <p className="quest-detail-description text-gray-300 text-sm leading-relaxed mb-6">
+              <p className="quest-detail-description text-gray-400 leading-relaxed mb-6">
                 {selectedQuest.description}
               </p>
 
               {/* Objets requis / Drop Slot */}
               {selectedQuest.objectives?.length > 0 && (
-                <div className="mb-6">
-                  <h6 className="title-ingredient text-xs pb-1 mb-3">
+                <div className="required-quest-items">
+                  <h6 className="title-ingredient pb-1 mb-3">
                     Objets requis
                   </h6>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-3">
                     {selectedQuest.objectives.slice(0, 2).map((objective) => {
                       const currentProgress = questProgress[selectedQuest.id]?.[objective.itemId] || 0;
                       const isComplete = currentProgress >= objective.quantity;
                       const isHovered = dragOverItemId === objective.itemId;
+                      const progressPct = Math.min(100, Math.round((currentProgress / objective.quantity) * 100));
 
                       return (
-                        <div
-                          key={objective.itemId}
-                          onDragOver={(e) => isSelectedActive && !isComplete && !isSelectedQuestLocked && handleDragOver(e, objective.itemId)}
-                          onDragLeave={handleDragLeave}
-                          onDrop={(e) => isSelectedActive && !isComplete && !isSelectedQuestLocked && handleDrop(e, objective)}
-                          className={`objective-slot p-3 flex flex-col items-center text-center transition-all ${
-                            isSelectedQuestLocked
-                              ? "objective-slot-locked"
-                              : isComplete
-                              ? "objective-slot-complete"
-                              : isHovered
-                              ? "objective-slot-hovered"
-                              : "objective-slot-pending"
-                          }`}
-                        >
-                          <div className="objective-slot-icon-wrap">
-                            {isComplete ? (
-                              <GiCheckMark className="text-emerald-400 text-lg" />
-                            ) : (
-                              <GiPotionBall className={`text-lg ${isHovered ? "text-amber-300" : "text-gray-600"}`} />
-                            )}
-                          </div>
-                          <span className="text-xs text-gray-200 font-medium truncate max-w-full">
-                            {objective.name}
-                          </span>
-                          <span
-                            className={`text-xs font-bold mt-1 ${
-                              isComplete ? "text-emerald-400" : "text-gray-400"
+                        <div key={objective.itemId} className="objective-row">
+                          {/* Boite carree : uniquement l'icone, c'est la zone de drop */}
+                          <div
+                            onDragOver={(e) => isSelectedActive && !isComplete && !isSelectedQuestLocked && handleDragOver(e, objective.itemId)}
+                            onDragLeave={handleDragLeave}
+                            onDrop={(e) => isSelectedActive && !isComplete && !isSelectedQuestLocked && handleDrop(e, objective)}
+                            className={`objective-slot transition-all ${
+                              isSelectedQuestLocked
+                                ? "objective-slot-locked"
+                                : isComplete
+                                ? "objective-slot-complete"
+                                : isHovered
+                                ? "objective-slot-hovered"
+                                : "objective-slot-pending"
                             }`}
                           >
-                            {currentProgress} / {objective.quantity}
-                          </span>
-                          {isSelectedActive && !isComplete && !isSelectedQuestLocked && (
-                            <span className="text-[10px] text-gray-500 mt-1 italic">
-                              Deposez l item ici
+                            {isComplete ? (
+                              <GiCheckMark className="text-emerald-400 text-xl" />
+                            ) : (
+                              <GiPotionBall className={`potionball-icon-required-item-quest ${isHovered ? "text-amber-300" : "text-gray-600"}`} />
+                            )}
+                          </div>
+
+                          {/* Texte sorti de la boite : nom, progression, indice de drop */}
+                          <div className="objective-row-text">
+                            <span className="objective-name">{objective.name}</span>
+                            <div className="objective-progress-track">
+                              <div
+                                className={`objective-progress-fill ${isComplete ? "is-complete" : ""}`}
+                                style={{ width: `${progressPct}%` }}
+                              />
+                            </div>
+                            <span className={`objective-progress-count ${isComplete ? "is-complete" : ""}`}>
+                              {isComplete
+                                ? "Objectif complete"
+                                : `${currentProgress} / ${objective.quantity}`}
                             </span>
-                          )}
+                            {isSelectedActive && !isComplete && !isSelectedQuestLocked && (
+                              <span className="objective-hint">Deposez l'item correspondant ici</span>
+                            )}
+                          </div>
                         </div>
                       );
                     })}
@@ -364,7 +369,7 @@ const Quests = () => {
 
               {/* Recompenses */}
               <div className="mb-6">
-                <h6 className="title-ingredient text-xs pb-1 mb-2">
+                <h6 className="title-ingredient pb-1 mb-2">
                   Recompenses
                 </h6>
                 <div className="quest-detail-rewards flex items-center gap-3 mt-2">
@@ -390,7 +395,7 @@ const Quests = () => {
                   <GiPadlock /> Chapitre Verrouille
                 </button>
               ) : isSelectedCompleted ? (
-                <button disabled className="quest-start-btn is-completed w-full flex items-center justify-center gap-2 h-11 uppercase font-bold text-sm tracking-wider rounded">
+                <button disabled className="quest-start-btn is-completed w-full flex items-center justify-center gap-2 h-11 font-bold tracking-wider rounded">
                   <GiCheckMark /> Quete Terminee
                 </button>
               ) : isSelectedReadyToComplete ? (
@@ -401,13 +406,13 @@ const Quests = () => {
                   <GiCheckMark /> Terminer la quete
                 </button>
               ) : isSelectedActive ? (
-                <button disabled className="quest-start-btn is-active w-full flex items-center justify-center gap-2 h-11 uppercase font-bold text-sm tracking-wider rounded">
+                <button disabled className="quest-start-btn is-active w-full flex items-center justify-center gap-2 h-11 font-bold tracking-wider rounded">
                   <GiHourglass className="animate-spin-slow" /> En cours
                 </button>
               ) : (
                 <button
                   onClick={handleAcceptQuest}
-                  className="quest-start-btn w-full flex items-center justify-center gap-2 h-11 uppercase font-bold text-sm tracking-wider rounded transition-all duration-300"
+                  className="quest-start-btn w-full flex items-center justify-center gap-2 h-11 font-bold tracking-wider rounded transition-all duration-300"
                 >
                   Accepter la quete
                 </button>

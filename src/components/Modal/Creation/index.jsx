@@ -75,7 +75,7 @@ const Modal = () => {
           <div className="creation-welcome-wrapper">
             <div className="creation-welcome-header">
               <img src={logo} alt="Potion Quest" className="creation-welcome-logo" />
-              <h4 className="creation-welcome-title uppercase">
+              <h4 className="creation-welcome-title">
                 Bienvenue sur les Terres de Logres
               </h4>
             </div>
@@ -160,7 +160,7 @@ const Modal = () => {
               <button
                 type="button"
                 onClick={() => setStep("form")}
-                className="creation-submit-btn uppercase"
+                className="creation-submit-btn"
               >
                 Commencer l'aventure
               </button>
@@ -172,7 +172,7 @@ const Modal = () => {
               <div className="logo-img pt-4 pb-2 flex justify-center items-center">
                 <img src={logo} alt="Potion Quest" className="w-40"/>
               </div>
-              <h5 className="creation-title uppercase">Creation du personnage</h5>
+              <h5 className="creation-title">Creation du personnage</h5>
               <p className="creation-subtitle pb-2">
                 Choisissez votre nom et votre voie avant de rejoindre Potion Quest
               </p>
@@ -180,7 +180,7 @@ const Modal = () => {
 
             <div className="creation-body">
               <div className="creation-field mb-6">
-                <label htmlFor="pseudo" className="creation-label uppercase">
+                <label htmlFor="pseudo" className="creation-label">
                   Pseudo
                 </label>
                 <div className="creation-input-wrapper">
@@ -197,7 +197,7 @@ const Modal = () => {
               </div>
 
               <div className="creation-field">
-                <div className="creation-label uppercase mb-3">Classe</div>
+                <div className="creation-label mb-1">Classe</div>
                 <div className="creation-classes flex justify-evenly">
                   {GameDatas.map((classeData, index) => {
                     const ClasseIcon = classeData.icon;
@@ -244,7 +244,7 @@ const Modal = () => {
               <button
                 onClick={handleSubmit}
                 disabled={!canSubmit}
-                className="creation-submit-btn uppercase"
+                className="creation-submit-btn"
               >
                 Valider
               </button>

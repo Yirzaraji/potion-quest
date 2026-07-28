@@ -70,10 +70,10 @@ const Base = ({
         <div className="modal-topbar"></div>
         <div className="modal-content">
           <div
-            className="modal-header mb-5 flex justify-between items-center border-b border-gray-600 cursor-move"
+            className="modal-header mb-2 flex justify-between items-center border-b border-gray-600 cursor-move"
             onMouseDown={handleHeaderMouseDown}
           >
-            <h5 className="modal-title text-lg font-bold text-left uppercase">
+            <h5 className="modal-title text-lg font-bold text-left">
                <span className="inline-flex gap-2 items-center"> {icon}
                 <span className="self-end">{name}</span>
               </span>
