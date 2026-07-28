@@ -41,6 +41,11 @@ import { GiFlowerStar,
   GiLotus,
   GiOakLeaf,
   GiSkullCrossedBones,
+  GiRoundBottomFlask,
+  GiSquareBottle,
+  GiStandingPotion,
+  GiWaterFlask,
+  GiVial,
 } from "react-icons/gi";
 
 // IMPORTANT : ces `id` sont fixes et permanents. Une fois qu'un item existe
@@ -48,7 +53,8 @@ import { GiFlowerStar,
 // (même après suppression), et ne jamais laisser un composant recalculer
 // ces id à partir d'une position dans un tableau (ex: `.map((item, i) => ...)`),
 // Plage 1-19 : items déjà en vente dans le shop actuel.
-// Plage 101+ : réservée aux potions à venir, craftées via les quêtes
+// Plage 101-112 : potions liees aux quetes (voir questPotions plus bas),
+// obtenues via le futur systeme de craft, jamais vendues au Shop.
 const GameData = {
   items:{
     diluents: [
@@ -389,6 +395,94 @@ const GameData = {
         price: 0,
         sellPrice: 150,
         icon: GiPerfumeBottle,
+      },
+    ],
+    // Potions craftables/obtenues via les quetes (jamais en vente au Shop).
+    // itemId 101-112, doit rester aligne avec les `objectives` de data/Quests.
+    questPotions: [
+      {
+        id: 101,
+        name: "Potion de soin puissante",
+        price: 0,
+        sellPrice: 0,
+        icon: GiHeartBottle,
+      },
+      {
+        id: 102,
+        name: "Filtre d'amour",
+        price: 0,
+        sellPrice: 0,
+        icon: GiPerfumeBottle,
+      },
+      {
+        id: 103,
+        name: "Potion de force",
+        price: 0,
+        sellPrice: 0,
+        icon: GiFizzingFlask,
+      },
+      {
+        id: 104,
+        name: "Antidote Royal",
+        price: 0,
+        sellPrice: 0,
+        icon: GiVial,
+      },
+      {
+        id: 105,
+        name: "Potion de clarté",
+        price: 0,
+        sellPrice: 0,
+        icon: GiRoundBottomFlask,
+      },
+      {
+        id: 106,
+        name: "Potion d'invisibilité",
+        price: 0,
+        sellPrice: 0,
+        icon: GiSquareBottle,
+      },
+      {
+        id: 107,
+        name: "Élixir de sagesse",
+        price: 0,
+        sellPrice: 0,
+        icon: GiStandingPotion,
+      },
+      {
+        id: 108,
+        name: "Potion de bravoure",
+        price: 0,
+        sellPrice: 0,
+        icon: GiFireBottle,
+      },
+      {
+        id: 109,
+        name: "Potion de vérité",
+        price: 0,
+        sellPrice: 0,
+        icon: GiWaterFlask,
+      },
+      {
+        id: 110,
+        name: "Potion de fécondité",
+        price: 0,
+        sellPrice: 0,
+        icon: GiSpiralBottle,
+      },
+      {
+        id: 111,
+        name: "Élixir du courage stable",
+        price: 0,
+        sellPrice: 0,
+        icon: GiMagicPotion,
+      },
+      {
+        id: 112,
+        name: "Contre-élixir de stabilisation",
+        price: 0,
+        sellPrice: 0,
+        icon: GiSnowBottle,
       },
     ],
   },

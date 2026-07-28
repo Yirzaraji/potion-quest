@@ -3,6 +3,7 @@ import gameBackground from "@/assets/game.png";
 import { FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulipFill } from "react-icons/pi";
 import { GiClothJar, GiPotionBall } from "react-icons/gi";
+import GameData from "@/data/Items";
 import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -64,6 +65,9 @@ const Game = () => {
         icon: GiClothJar,
         isTransform: false,
       },
+      // TODO(dev): seed temporaire pour tester le drag&drop des quetes sans
+      // attendre le systeme de craft. A retirer une fois le Chaudron code.
+      ...GameData.items.questPotions.map((potion) => ({ ...potion, quantity: 1 })),
     ]);
 
   const handleCoinsChange = (value) => {
