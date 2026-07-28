@@ -252,7 +252,7 @@ const Quests = () => {
             <div>
               {/* Titre & Badge */}
               <div className="flex items-center justify-between border-b border-white/10 pb-2 mb-4">
-                <h3 className="quest-detail-title text-3xl">
+                <h3 className="quest-detail-title">
                   {selectedQuest.title}
                 </h3>
                 {isSelectedQuestLocked && (
