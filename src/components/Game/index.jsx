@@ -10,7 +10,7 @@ import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
 import PlayerHud from "@/components/PlayerHud";
-import Victory from "@/components/Modal/Victory";
+import EndGame from "@/components/Modal/EndGame";
 import Creation from "@/components/Modal/Creation";
 import { ToastProvider } from "@/context/ToastContext";
 import { ToastStack } from "@/components/Toast/ToastStack";
@@ -18,11 +18,8 @@ import { RecipeReminderProvider } from "@/context/RecipeReminderContext";
 import { RecipePinnedPanel } from "@/components/RecipeReminder/RecipePinnedPanel";
 import SfxListener from "@/components/Sfx/SfxListener";
 
-// Cles localStorage dediees a la sauvegarde de progression (prefixees pour ne
-// pas entrer en collision avec la clé "userDatas" du formulaire de creation).
-// Volontairement minimaliste : seuls l'or et le NIVEAU sont persistes (pas la
-// progression d'XP a l'interieur du niveau, ni les quetes en cours) — cf
-// discussion produit : on garde simple.
+/* Cles localStorage dediees a la sauvegarde de progression (prefixees pour ne
+pas entrer en collision avec la clé "userDatas" du formulaire de creation) */
 const STORAGE_KEY_GOLD = "pq_playerGold";
 const STORAGE_KEY_LEVEL = "pq_playerLevel";
 
@@ -31,8 +28,8 @@ const getSavedGold = () => {
   return Number.isFinite(saved) && saved > 0 ? saved : 500;
 };
 
-// On ne persiste que le niveau ; on reconstruit un total d'XP "de base" pour
-// ce niveau (barre a 0%) au chargement, exactement comme au "Recommencer".
+/* On ne persiste que le niveau ; on reconstruit un total d'XP "de base" pour
+ce niveau (barre a 0%) au chargement, exactement comme au "Recommencer". */
 const getSavedXp = () => {
   const savedLevel = Number(localStorage.getItem(STORAGE_KEY_LEVEL));
   const level = Number.isFinite(savedLevel) && savedLevel > 0 ? savedLevel : 1;
@@ -115,34 +112,28 @@ const Game = () => {
   const playerLevel = getLevelFromXp(playerXp);
   const xpProgressPercent = getXpProgressPercent(playerXp);
 
-  // Persistance : uniquement l'or et le niveau courant (pas la progression
-  // d'XP dans le niveau, cf. getSavedXp ci-dessus).
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_GOLD, String(inventoryCoins));
-  }, [inventoryCoins]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_LEVEL, String(playerLevel));
-  }, [playerLevel]);
-
   // Fenetre de victoire : declenchee une fois quand TOUTES les quetes sont
   // terminees. Si le joueur ferme la fenetre sans "Recommencer",
   // completedQuestIds ne change plus -> l'effet ne se redeclenche pas.
-  const [showVictory, setShowVictory] = useState(false);
+  const [showEndGame, setShowEndGame] = useState(false);
   useEffect(() => {
     if (GAME_QUESTS.length > 0 && completedQuestIds.length === GAME_QUESTS.length) {
-      setShowVictory(true);
+      setShowEndGame(true);
     }
   }, [completedQuestIds]);
 
-  // "Recommencer" : reinitialise uniquement la progression des quetes.
-  // L'or et le niveau sont volontairement conserves (c'est le but : continuer
-  // a monter en niveau et accumuler de l'or au fil des runs).
+  // "Recommencer" : la persistance (or + niveau) n'a lieu QU'ICI, jamais en
+  // continu. La logique du jeu est de le terminer une premiere fois pour
+  // debloquer cette sauvegarde — un simple rechargement de page en cours de
+  // partie ne doit rien persister.
   const handleRestartProgress = () => {
+    localStorage.setItem(STORAGE_KEY_GOLD, String(inventoryCoins));
+    localStorage.setItem(STORAGE_KEY_LEVEL, String(playerLevel));
+
     setActiveQuestIds([]);
     setCompletedQuestIds([]);
     setQuestProgress({});
-    setShowVictory(false);
+    setShowEndGame(false);
   };
 
   const handleCoinsChange = (value) => {
@@ -302,9 +293,9 @@ const Game = () => {
             <RecipePinnedPanel />
             <Creation />
             <MusicPlayer />
-            <Victory
-              show={showVictory}
-              onClose={() => setShowVictory(false)}
+            <EndGame
+              show={showEndGame}
+              onClose={() => setShowEndGame(false)}
               onRestart={handleRestartProgress}
             />
             <PlayerHud

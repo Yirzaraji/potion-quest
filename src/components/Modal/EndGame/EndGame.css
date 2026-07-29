@@ -1,6 +1,6 @@
 /* --- Fond assombri plein ecran --- */
 
-.victory-overlay {
+.endgame-overlay {
   position: fixed;
   inset: 0;
   z-index: 100000; /* au-dessus de toutes les fenetres et du HUD */
@@ -8,31 +8,29 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 4, 7, 0.75);
-  animation: victory-overlay-fade-in 0.25s ease-out;
+  animation: endgame-overlay-fade-in 0.25s ease-out;
 }
 
-@keyframes victory-overlay-fade-in {
+@keyframes endgame-overlay-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
 /* --- Panneau, meme habillage que .modal (Base.css) --- */
 
-.victory-modal {
+.endgame-modal {
   position: relative;
-  width: 460px;
-  max-width: 90vw;
-  background-color: #1c2024;
+  /* background: linear-gradient(145deg, rgb(0 47 71 / 28%), rgb(61 26 0 / 41%)); */
   color: rgb(185, 185, 185);
-  border: 1px solid rgb(56, 56, 56);
+  border: 1px solid rgb(56 56 56 / 37%);
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
   padding: 1rem;
-  font-family: "BBH Sans Hegarty";
-  animation: victory-modal-pop 0.3s ease-out;
+  animation: endgame-modal-pop 0.3s ease-out;
+  background-color: rgb(10 21 27 / 86%);
 }
 
-@keyframes victory-modal-pop {
+@keyframes endgame-modal-pop {
   from {
     opacity: 0;
     transform: scale(0.96) translateY(6px);
@@ -44,14 +42,14 @@
 }
 
 /* Meme liseret degrade que la topbar des autres fenetres */
-.victory-modal-topbar {
+.endgame-modal-topbar {
   height: 5px;
   margin: -1rem -1rem 16px -1rem;
   background: linear-gradient(90deg, #451e6b, #ffd75e, #451e6b);
   border-radius: 8px 8px 0 0;
 }
 
-.victory-close-btn {
+.endgame-close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -59,7 +57,7 @@
 
 /* --- Contenu --- */
 
-.victory-modal-body {
+.endgame-modal-body {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,21 +65,22 @@
   padding: 0 8px 8px;
 }
 
-.victory-icon {
+.endgame-icon {
   font-size: 4.2rem;
   color: #ffd75e;
   filter: drop-shadow(0 0 10px rgba(255, 215, 94, 0.5));
   margin-bottom: 10px;
+  margin: 0 auto;
 }
 
-.victory-title {
-  margin: 0 0 12px;
+.endgame-title {
+  margin: 12px 0 2px;
   color: #ffd75e;
   font-family: 'New Rocker';
   font-size: 1.9rem;
 }
 
-.victory-text {
+.endgame-text {
   font-family: "Oswald", sans-serif;
   font-size: 0.9rem;
   line-height: 1.5;
@@ -89,15 +88,15 @@
   margin: 0 0 10px;
 }
 
-.victory-subtext {
+.endgame-subtext {
   font-family: "Oswald", sans-serif;
   font-size: 0.78rem;
   line-height: 1.4;
   color: rgb(150, 150, 150);
-  margin: 0 0 20px;
+  margin: 0 0 40px;
 }
 
-.victory-restart-btn {
+.endgame-restart-btn {
   font-family: "Oswald", sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -113,6 +112,6 @@
   transition: background-color 0.15s ease;
 }
 
-.victory-restart-btn:hover {
+.endgame-restart-btn:hover {
   background-color: #f59e0b;
 }

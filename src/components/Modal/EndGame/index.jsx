@@ -1,6 +1,6 @@
 import React from "react";
 import { GiLaurelsTrophy } from "react-icons/gi";
-import "./Victory.css";
+import "./EndGame.css";
 
 /**
  * Fenetre centrale affichee quand le joueur a termine TOUTES les quetes du
@@ -12,36 +12,36 @@ import "./Victory.css";
  *   (Game.jsx s'occupe de la logique, ce composant ne fait qu'appeler la prop).
  * - Fermer (x) : masque juste la fenetre, aucune reinitialisation.
  */
-const Victory = ({ show, onClose, onRestart }) => {
+const EndGame = ({ show, onClose, onRestart }) => {
   if (!show) return null;
 
   return (
-    <div className="victory-overlay">
-      <div className="victory-modal">
-        <div className="victory-modal-topbar" />
+    <div className="endgame-overlay endgame-overlay flex justify-center items-center">
+      <div className="endgame-modal">
+        <div className="endgame-modal-topbar" />
 
         <button
-          className="modal-close-btn victory-close-btn"
+          className="modal-close-btn endgame-btn"
           onClick={onClose}
           aria-label="Fermer"
         >
           &times;
         </button>
 
-        <div className="victory-modal-body">
-          <GiLaurelsTrophy className="victory-icon" />
-          <h2 className="victory-title self-end">Félicitations !</h2>
-          <p className="victory-text">
+        <div className="endgame-modal-body">
+          <GiLaurelsTrophy className="endgame-icon mt-4" />
+          <h2 className="endgame-title">Félicitations !</h2>
+          <p className="endgame-text">
             Vous avez terminé toutes les quêtes avec succès. Votre nom restera
             gravé parmi les plus grands alchimistes du royaume.
           </p>
-          <p className="victory-subtext">
+          <p className="endgame-subtext">
             Vous pouvez recommencer l'aventure pour continuer à monter en
             niveau et accumuler encore plus d'or — votre progression actuelle
             est conservée.
           </p>
 
-          <button className="victory-restart-btn" onClick={onRestart}>
+          <button className="endgame-restart-btn" onClick={onRestart}>
             Recommencer
           </button>
         </div>
@@ -50,4 +50,4 @@ const Victory = ({ show, onClose, onRestart }) => {
   );
 };
 
-export default Victory;
+export default EndGame;
