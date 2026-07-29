@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useMemo } from "react";
 import { GiScrollUnfurled, GiStarsStack, GiTwoCoins, GiHourglass, GiCheckMark, GiPotionBall, GiPadlock } from "react-icons/gi";
-import { GAME_QUESTS } from "@/data/Quests";
+import { GAME_QUESTS, CHAPTERS, isChapterUnlocked } from "@/data/Quests";
 import fallbackGiverAvatar from "@/assets/images/characters/messager.png";
 import "./Quests.css";
 
@@ -22,51 +22,19 @@ const buildGiverLines = (quest) => {
   ];
 };
 
-const groupByChapter = (quests) => {
-  const chaptersMap = new Map();
-  quests.forEach((quest) => {
-    if (!chaptersMap.has(quest.chapter)) {
-      chaptersMap.set(quest.chapter, {
-        chapter: quest.chapter,
-        chapterTitle: quest.chapterTitle,
-        chapterSubtitle: quest.chapterSubtitle,
-        quests: [],
-      });
-    }
-    chaptersMap.get(quest.chapter).quests.push(quest);
-  });
-  return Array.from(chaptersMap.values()).sort((a, b) => a.chapter - b.chapter);
-};
-
-const chapters = groupByChapter(GAME_QUESTS);
-
-const Quests = () => {
+const Quests = ({
+  activeQuestIds,
+  completedQuestIds,
+  questProgress,
+  onAcceptQuest,
+  onDepositQuestItem,
+  onFinishQuest,
+}) => {
   const [openChapterIndex, setOpenChapterIndex] = useState(0);
-  const [selectedQuestId, setSelectedQuestId] = useState(chapters[0]?.quests[0]?.id ?? null);
-  
-  // Quetes acceptees / en cours
-  const [activeQuestIds, setActiveQuestIds] = useState([]);
+  const [selectedQuestId, setSelectedQuestId] = useState(CHAPTERS[0]?.quests[0]?.id ?? null);
 
-  // Quetes accomplies/terminees
-  const [completedQuestIds, setCompletedQuestIds] = useState([]);
-
-  // Avancement des objets deposes
-  const [questProgress, setQuestProgress] = useState({});
-
-  // Feedback visuel du drag
+  // Feedback visuel du drag (purement local a l'UI, pas de raison de le lever)
   const [dragOverItemId, setDragOverItemId] = useState(null);
-
-  // --- REGLE DE DEVERROUILLAGE DES CHAPITRES ---
-  // Le chapitre N est debloque si c'est le chapitre 1, OU si TOUTES les quetes du chapitre N-1 sont terminees.
-  const isChapterUnlocked = (chapterNum) => {
-    if (chapterNum === 1) return true;
-    
-    const previousChapter = chapters.find((c) => c.chapter === chapterNum - 1);
-    if (!previousChapter) return false;
-
-    // Verifie si chaque quete du chapitre precedent est dans completedQuestIds
-    return previousChapter.quests.every((q) => completedQuestIds.includes(q.id));
-  };
 
   const selectedQuest = GAME_QUESTS.find((quest) => quest.id === selectedQuestId);
 
@@ -74,7 +42,9 @@ const Quests = () => {
   const isSelectedCompleted = completedQuestIds.includes(selectedQuestId);
 
   // Verifie si la quete selectionnee est dans un chapitre verrouille
-  const isSelectedQuestLocked = selectedQuest ? !isChapterUnlocked(selectedQuest.chapter) : true;
+  const isSelectedQuestLocked = selectedQuest
+    ? !isChapterUnlocked(selectedQuest.chapter, completedQuestIds)
+    : true;
 
   // Verifie si tous les objets d'une quete ont ete deposes
   const checkIfQuestIsReadyToComplete = (quest) => {
@@ -104,13 +74,12 @@ const Quests = () => {
 
   const handleAcceptQuest = () => {
     if (!isSelectedActive && !isSelectedCompleted && !isSelectedQuestLocked) {
-      setActiveQuestIds((prev) => [...prev, selectedQuestId]);
+      onAcceptQuest(selectedQuestId);
     }
   };
 
   const handleFinishQuest = () => {
-    setActiveQuestIds((prev) => prev.filter((id) => id !== selectedQuestId));
-    setCompletedQuestIds((prev) => [...prev, selectedQuestId]);
+    onFinishQuest(selectedQuestId);
   };
 
   // --- Drag & Drop ---
@@ -128,27 +97,13 @@ const Quests = () => {
     setDragOverItemId(null);
 
     const itemData = e.dataTransfer.getData("application/json");
-    if (itemData) {
-      try {
-        const item = JSON.parse(itemData);
-        if (item.id === objective.itemId) {
-          setQuestProgress((prev) => {
-            const currentQuestData = prev[selectedQuestId] || {};
-            const currentAmount = currentQuestData[objective.itemId] || 0;
-            const newAmount = Math.min(currentAmount + (item.quantity || 1), objective.quantity);
+    if (!itemData) return;
 
-            return {
-              ...prev,
-              [selectedQuestId]: {
-                ...currentQuestData,
-                [objective.itemId]: newAmount,
-              },
-            };
-          });
-        }
-      } catch (err) {
-        console.error("Erreur lors du drop de l item", err);
-      }
+    try {
+      const draggedItem = JSON.parse(itemData); // { itemId, quantity }
+      onDepositQuestItem(selectedQuestId, objective, draggedItem);
+    } catch (err) {
+      console.error("Erreur lors du drop de l item", err);
     }
   };
 
@@ -156,8 +111,8 @@ const Quests = () => {
     <div className="quests-layout relative flex rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-[#141a1e]">
       {/* Colonne gauche : Liste des quetes et chapitres */}
       <div className="quests-chapters-column overflow-y-auto w-1/2 border-r border-gray-800/80">
-        {chapters.map((chapter, chapterIndex) => {
-          const unlocked = isChapterUnlocked(chapter.chapter);
+        {CHAPTERS.map((chapter, chapterIndex) => {
+          const unlocked = isChapterUnlocked(chapter.chapter, completedQuestIds);
           const isOpen = openChapterIndex === chapterIndex && unlocked;
 
           return (
@@ -222,7 +177,7 @@ const Quests = () => {
                         </span>
                       )}
                       {isActive && !isCompleted && (
-                        <span className="tracker-quest-status-left border px-2 py-0.5 rounded flex items-center gap-1">
+                        <span className="tracker-quest-status-left border rounded flex items-center gap-1">
                           <GiHourglass className="animate-spin-slow" /> En cours
                         </span>
                       )}
@@ -256,7 +211,7 @@ const Quests = () => {
                   </span>
                 )}
                 {!isSelectedQuestLocked && isSelectedActive && !isSelectedCompleted && (
-                  <span className="tracker-quest-status tracking-wider rounded p-1 flex items-center gap-2">
+                  <span className="tracker-quest-status tracking-wider rounded flex items-center gap-2">
                     <GiHourglass className="animate-spin-slow" />En cours
                   </span>
                 )}
@@ -296,7 +251,7 @@ const Quests = () => {
               </p>
 
               {/* Objets requis / Drop Slot */}
-              {selectedQuest.objectives?.length > 0 && (
+              {(isSelectedActive || isSelectedCompleted) && selectedQuest.objectives?.length > 0 && (
                 <div className="required-quest-items">
                   <h6 className="title-ingredient pb-1 mb-3">
                     Objets requis

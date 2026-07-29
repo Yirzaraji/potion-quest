@@ -1,22 +1,11 @@
 import React, { Fragment } from "react";
-import { GiLaurelCrown, GiPadlock } from "react-icons/gi";
+import { GiLaurelCrown, GiPadlock, GiCheckMark } from "react-icons/gi";
 import Tooltip from "@/components/Tooltip";
 import CharacterData from "@/data/Character";
-import { GAME_QUESTS } from "@/data/Quests";
+import { CHAPTERS, getCurrentChapterIndex } from "@/data/Quests";
 import "./Profil.css";
 
-// Derive la liste des chapitres directement des quetes (memes donnees que
-// Modal/Quests) plutot que d'avoir une liste de chapitres figee a part
-const CHAPTERS = [...new Map(
-  GAME_QUESTS.map((quest) => [
-    quest.chapter,
-    { id: quest.chapter, title: quest.chapterTitle },
-  ])
-).values()].toSorted((a, b) => a.id - b.id);
-console.log(GAME_QUESTS)
-console.log(CHAPTERS)
-
-const Profil = ({ playerLevel }) => {
+const Profil = ({ playerLevel, xpPercent, completedQuestIds = [] }) => {
   // Lecture defensive : on evite un plantage si le joueur arrive ici sans
   // avoir encore de donnees enregistrees dans le localStorage.
   let pseudo = "Aventurier";
@@ -32,8 +21,9 @@ const Profil = ({ playerLevel }) => {
   const level = playerLevel || 1;
   const classeData = CharacterData.find((entry) => entry.name === classe);
   const avatarImage = classeData?.avatar || CharacterData[0].avatar;
-  // Barre d'XP purement decorative pour l'instant
-  const xpPercent = 35;
+
+  // Chapitre courant : derive de completedQuestIds, jamais stocke a part
+  const currentChapterIndex = getCurrentChapterIndex(completedQuestIds);
 
   return (
     <Fragment>
@@ -79,16 +69,20 @@ const Profil = ({ playerLevel }) => {
           </h4>
           <div className="profil-roadmap flex items-center mt-6 mb-4">
             {CHAPTERS.map((chapter, index) => {
-              const isCurrent = index === 0;
+              const isCompleted = index < currentChapterIndex;
+              const isCurrent = index === currentChapterIndex;
+              const status = isCompleted ? "completed" : isCurrent ? "current" : "locked";
               return (
-                <Fragment key={chapter.id}>
-                  <Tooltip content={<span>{chapter.title}</span>}>
-                    <div
-                      className={`profil-roadmap-step ${
-                        isCurrent ? "current" : "locked"
-                      }`}
-                    >
-                      {isCurrent ? <GiLaurelCrown /> : <GiPadlock />}
+                <Fragment key={chapter.chapter}>
+                  <Tooltip content={<span>{chapter.chapterTitle}</span>}>
+                    <div className={`profil-roadmap-step ${status}`}>
+                      {isCompleted ? (
+                        <GiCheckMark />
+                      ) : isCurrent ? (
+                        <GiLaurelCrown />
+                      ) : (
+                        <GiPadlock />
+                      )}
                     </div>
                   </Tooltip>
                   {index < CHAPTERS.length - 1 && (

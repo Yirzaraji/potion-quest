@@ -4,6 +4,8 @@ import { FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulipFill } from "react-icons/pi";
 import { GiClothJar, GiPotionBall } from "react-icons/gi";
 import GameData from "@/data/Items";
+import { GAME_QUESTS, isChapterUnlocked, getCurrentChapterIndex } from "@/data/Quests";
+import { getLevelFromXp, getXpProgressPercent } from "@/utils/playerProgress";
 import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -40,8 +42,7 @@ const Game = () => {
 
   const [buyItems, setBuyItems] = useState([]);
   const [shopCoins, setShopCoins] = useState(10000);
-  const [inventoryCoins, setInventoryCoins] = useState(500);
-  const [inventoryItems, setInventoryItems] = useState([
+  const [inventoryCoins, setInventoryCoins] = useState(500);  const [inventoryItems, setInventoryItems] = useState([
       {
         id: 0,
         name: "Vin",
@@ -69,6 +70,23 @@ const Game = () => {
       // attendre le systeme de craft. A retirer une fois le Chaudron code.
       ...GameData.items.questPotions.map((potion) => ({ ...potion, quantity: 1 })),
     ]);
+
+  // --- Progression du joueur (leve depuis Modal/Quests, qui n'a plus de
+  // state a lui : ce sont des VIEWS pilotees d'ici, comme inventoryItems). ---
+
+  // Quetes acceptees / en cours
+  const [activeQuestIds, setActiveQuestIds] = useState([]);
+
+  // Quetes accomplies/terminees
+  const [completedQuestIds, setCompletedQuestIds] = useState([]);
+
+  // Avancement des objets deposes par quete : { [questId]: { [itemId]: quantite } }
+  const [questProgress, setQuestProgress] = useState({});
+
+  // XP cumulee du joueur. Le niveau et le % de la barre d'XP ne sont JAMAIS
+  // stockes a part : ce sont des vues pures sur ce seul nombre (voir
+  // utils/playerProgress), pour ne jamais pouvoir se desynchroniser.
+  const [playerXp, setPlayerXp] = useState(0);
 
   const handleCoinsChange = (value) => {
     setShopCoins(value);
@@ -135,6 +153,78 @@ const Game = () => {
 
     return { success: true, sellPrice };
   };
+
+  // Retire une quantite d'un item de l'inventaire, par id (pas par name : cf
+  // discussion archi, id est la cle stable). Contrairement a
+  // sellItemFromInventory, ne credite AUCUN or : remettre un objet a un PNJ
+  // pour une quete n'est pas une vente.
+  const removeItemFromInventory = (itemId, quantity = 1) => {
+    setInventoryItems((prevItems) => {
+      const index = prevItems.findIndex((item) => item && item.id === itemId);
+      if (index === -1) return prevItems;
+
+      const item = prevItems[index];
+      const currentQuantity = item.quantity || 1;
+
+      if (currentQuantity > quantity) {
+        const updatedItems = [...prevItems];
+        updatedItems[index] = { ...item, quantity: currentQuantity - quantity };
+        return updatedItems;
+      }
+
+      // Plus assez (ou plus du tout) d'exemplaires -> l'item disparait
+      return prevItems.filter((_, i) => i !== index);
+    });
+  };
+
+  // Accepte une quete (passe de "visible" a "active")
+  const handleAcceptQuest = (questId) => {
+    setActiveQuestIds((prev) => (prev.includes(questId) ? prev : [...prev, questId]));
+  };
+
+  // Depot d'un item dans un slot d'objectif de quete (drag&drop depuis
+  // l'inventaire). Un seul point qui touche a la fois questProgress ET
+  // inventoryItems : exactement pourquoi cette logique vit ici et pas dans
+  // Modal/Quests, qui n'a acces a aucun des deux directement.
+  const handleDepositQuestItem = (questId, objective, draggedItem) => {
+    if (!draggedItem || draggedItem.itemId !== objective.itemId) return;
+
+    const currentAmount = questProgress[questId]?.[objective.itemId] || 0;
+    const missing = objective.quantity - currentAmount;
+    if (missing <= 0) return;
+
+    const amountToDeposit = Math.min(draggedItem.quantity || 1, missing);
+    if (amountToDeposit <= 0) return;
+
+    removeItemFromInventory(objective.itemId, amountToDeposit);
+    setQuestProgress((prev) => {
+      const currentQuestData = prev[questId] || {};
+      return {
+        ...prev,
+        [questId]: {
+          ...currentQuestData,
+          [objective.itemId]: (currentQuestData[objective.itemId] || 0) + amountToDeposit,
+        },
+      };
+    });
+  };
+
+  // Rend une quete terminee : credite l'or (meme banque que le Shop, pas de
+  // monnaie parallele) et l'XP (voir utils/playerProgress pour le niveau).
+  const handleFinishQuest = (questId) => {
+    const quest = GAME_QUESTS.find((q) => q.id === questId);
+    if (!quest) return;
+
+    setActiveQuestIds((prev) => prev.filter((id) => id !== questId));
+    setCompletedQuestIds((prev) => (prev.includes(questId) ? prev : [...prev, questId]));
+    setInventoryCoins((prev) => prev + (quest.rewards?.gold || 0));
+    setPlayerXp((prev) => prev + (quest.rewards?.xp || 0));
+  };
+
+  // --- Progression du joueur : toujours DERIVEE, jamais stockee a part ---
+  const currentChapterIndex = getCurrentChapterIndex(completedQuestIds);
+  const playerLevel = getLevelFromXp(playerXp);
+  const xpProgressPercent = getXpProgressPercent(playerXp);
   
   return (
     <Fragment>
@@ -160,10 +250,15 @@ const Game = () => {
             <RecipePinnedPanel />
             <Creation />
             <MusicPlayer />
-            <PlayerHud />
+            <PlayerHud
+              playerLevel={playerLevel}
+              xpPercent={xpProgressPercent}
+              currentChapterIndex={currentChapterIndex}
+            />
             <SfxListener />
             <Menu
-              playerLevel={1}
+              playerLevel={playerLevel}
+              xpProgressPercent={xpProgressPercent}
               shopCoins={shopCoins}
               handleCoinsChange={handleCoinsChange}
               liftInventoryItems={inventoryItems}
@@ -171,6 +266,12 @@ const Game = () => {
               sellItemFromInventory={sellItemFromInventory}
               inventoryCoins={inventoryCoins}
               inventoryCoinsChange={inventoryCoinsChange}
+              activeQuestIds={activeQuestIds}
+              completedQuestIds={completedQuestIds}
+              questProgress={questProgress}
+              onAcceptQuest={handleAcceptQuest}
+              onDepositQuestItem={handleDepositQuestItem}
+              onFinishQuest={handleFinishQuest}
             />
           </div>
         </RecipeReminderProvider>

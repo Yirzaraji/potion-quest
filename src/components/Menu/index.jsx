@@ -27,6 +27,7 @@ const MENU_ITEMS = [
 
 const Menu = ({
   playerLevel,
+  xpProgressPercent,
   shopCoins,
   handleCoinsChange,
   liftInventoryItems,
@@ -34,6 +35,12 @@ const Menu = ({
   sellItemFromInventory,
   inventoryCoins,
   inventoryCoinsChange,
+  activeQuestIds,
+  completedQuestIds,
+  questProgress,
+  onAcceptQuest,
+  onDepositQuestItem,
+  onFinishQuest,
 }) => {
   // openWindows: { [id]: { position: {x, y}, zIndex } } -> une entrée par fenêtre ouverte
   const [openWindows, setOpenWindows] = useState({});
@@ -129,9 +136,18 @@ const Menu = ({
       case 2:
         return <Recipes />;
       case 3:
-        return <Quests />;
+        return (
+          <Quests
+            activeQuestIds={activeQuestIds}
+            completedQuestIds={completedQuestIds}
+            questProgress={questProgress}
+            onAcceptQuest={onAcceptQuest}
+            onDepositQuestItem={onDepositQuestItem}
+            onFinishQuest={onFinishQuest}
+          />
+        );
       case 4:
-        return <Profil playerLevel={playerLevel} />;
+        return <Profil playerLevel={playerLevel} xpPercent={xpProgressPercent} completedQuestIds={completedQuestIds} />;
       case 5:
         return <Helps />;
       default:

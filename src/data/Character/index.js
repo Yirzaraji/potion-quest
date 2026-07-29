@@ -3,9 +3,6 @@ import mageAvatar from "@/assets/mage2.png";
 import druideAvatar from "@/assets/druide.png";
 import sorcierAvatar from "@/assets/sorcier.png";
 
-// classe -> une seule source pour toute l'application, evite que differents
-// composants finissent par utiliser des visuels differents pour une meme
-// classe
 const Character = [
   {
     id: 0,

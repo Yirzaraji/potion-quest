@@ -33,8 +33,20 @@ const Inventory = ({ liftInventoryItems, addItemToInventory, sellItemFromInvento
   };
 
   const handleDragStart = (event, index) => {
-    if (filteredItems[index] === null) return; // Ne drag pas les slots vides
+    const item = filteredItems[index];
+    if (item === null || item === undefined) return; // Ne drag pas les slots vides
+
+    // Reorder interne a l'inventaire (comportement existant, inchange)
     event.dataTransfer.setData('text/plain', index.toString());
+
+    // Format generique lu par n'importe quelle drop-zone du jeu (ex: la
+    // section "Objets requis" de la modale Quete). dataTransfer accepte
+    // plusieurs formats en parallele, donc ceci n'affecte pas le reorder.
+    event.dataTransfer.setData('application/json', JSON.stringify({
+      itemId: item.id,
+      quantity: item.quantity || 1,
+    }));
+
     playSfx("drag");
   };
 

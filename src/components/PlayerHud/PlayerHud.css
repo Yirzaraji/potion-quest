@@ -140,6 +140,12 @@
   box-shadow: 0 0 8px rgba(255, 215, 94, 0.5);
 }
 
+.player-hud-step.completed {
+  background-color: rgba(52, 211, 153, 0.12);
+  color: #34d399;
+  border: 2px solid rgba(52, 211, 153, 0.5);
+}
+
 .player-hud-step.locked {
   background-color: #0a1315;
   color: rgb(120, 120, 120);

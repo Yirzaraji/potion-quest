@@ -275,3 +275,44 @@ export const GAME_QUESTS = [
     }
   }
 ];
+
+// Chapitres regroupes a partir de GAME_QUESTS, tries par numero de chapitre.
+// Source de verite unique : Quests, Profil et PlayerHud partagent tous cette
+// meme liste plutot que de la recalculer chacun de leur cote.
+export const CHAPTERS = [...new Map(
+  GAME_QUESTS.map((quest) => [
+    quest.chapter,
+    {
+      chapter: quest.chapter,
+      chapterTitle: quest.chapterTitle,
+      chapterSubtitle: quest.chapterSubtitle,
+      quests: [],
+    },
+  ])
+).values()]
+  .sort((a, b) => a.chapter - b.chapter)
+  .map((chapterEntry) => ({
+    ...chapterEntry,
+    quests: GAME_QUESTS.filter((quest) => quest.chapter === chapterEntry.chapter),
+  }));
+
+// Regle de deverrouillage : le chapitre 1 est toujours ouvert, un chapitre N
+// est deverrouille si TOUTES les quetes du chapitre N-1 sont terminees.
+// Fonction pure (prend completedQuestIds en parametre), partagee par tout
+// composant qui a besoin de savoir si un chapitre est accessible.
+export const isChapterUnlocked = (chapterNum, completedQuestIds) => {
+  if (chapterNum === 1) return true;
+  const previousChapter = CHAPTERS.find((c) => c.chapter === chapterNum - 1);
+  if (!previousChapter) return false;
+  return previousChapter.quests.every((q) => completedQuestIds.includes(q.id));
+};
+
+// Index (0-based) du premier chapitre pas encore entierement termine, pour
+// savoir "ou en est" le joueur sans stocker cette info a part (elle se
+// deduit entierement de completedQuestIds, jamais desynchronisee).
+export const getCurrentChapterIndex = (completedQuestIds) => {
+  const index = CHAPTERS.findIndex((chapter) =>
+    chapter.quests.some((q) => !completedQuestIds.includes(q.id))
+  );
+  return index === -1 ? CHAPTERS.length - 1 : index;
+};

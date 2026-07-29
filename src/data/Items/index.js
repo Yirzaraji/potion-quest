@@ -48,13 +48,11 @@ import { GiFlowerStar,
   GiVial,
 } from "react-icons/gi";
 
-// IMPORTANT : ces `id` sont fixes et permanents. Une fois qu'un item existe
-// ici avec un id donné, ne JAMAIS réutiliser ce même id pour un autre item
-// (même après suppression), et ne jamais laisser un composant recalculer
-// ces id à partir d'une position dans un tableau (ex: `.map((item, i) => ...)`),
-// Plage 1-19 : items déjà en vente dans le shop actuel.
-// Plage 101-112 : potions liees aux quetes (voir questPotions plus bas),
-// obtenues via le futur systeme de craft, jamais vendues au Shop.
+/* IMPORTANT : ces `id` sont fixes et permanents. Une fois qu'un item existe
+ici avec un id donné, ne JAMAIS réutiliser ce même id pour un autre item
+(même après suppression)
+Plage 1-19 : items déjà en vente dans le shop actuel.
+Plage 101-112 : potions liees aux quetes (voir questPotions plus bas)*/
 const GameData = {
   items:{
     diluents: [
@@ -397,8 +395,8 @@ const GameData = {
         icon: GiPerfumeBottle,
       },
     ],
-    // Potions craftables/obtenues via les quetes (jamais en vente au Shop).
-    // itemId 101-112, doit rester aligne avec les `objectives` de data/Quests.
+    /* Potions craftables/obtenues via les quetes 
+    itemId 101-112, doit rester aligne avec les `objectives` de data/Quests. */
     questPotions: [
       {
         id: 101,
