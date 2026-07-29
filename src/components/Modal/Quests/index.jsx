@@ -289,7 +289,7 @@ const Quests = ({
 
                           {/* Texte sorti de la boite : nom, progression, indice de drop */}
                           <div className="objective-row-text">
-                            <span className="objective-name">{objective.name}</span>
+                            <span className="objective-name uppercase">{objective.name}</span>
                             <div className="objective-progress-track">
                               <div
                                 className={`objective-progress-fill ${isComplete ? "is-complete" : ""}`}

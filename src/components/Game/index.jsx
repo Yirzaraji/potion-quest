@@ -5,17 +5,39 @@ import { PiFlowerTulipFill } from "react-icons/pi";
 import { GiClothJar, GiPotionBall } from "react-icons/gi";
 import GameData from "@/data/Items";
 import { GAME_QUESTS, isChapterUnlocked, getCurrentChapterIndex } from "@/data/Quests";
-import { getLevelFromXp, getXpProgressPercent } from "@/utils/playerProgress";
+import { getLevelFromXp, getXpProgressPercent, XP_PER_LEVEL } from "@/utils/playerProgress";
 import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
 import PlayerHud from "@/components/PlayerHud";
+import Victory from "@/components/Modal/Victory";
 import Creation from "@/components/Modal/Creation";
 import { ToastProvider } from "@/context/ToastContext";
 import { ToastStack } from "@/components/Toast/ToastStack";
 import { RecipeReminderProvider } from "@/context/RecipeReminderContext";
 import { RecipePinnedPanel } from "@/components/RecipeReminder/RecipePinnedPanel";
 import SfxListener from "@/components/Sfx/SfxListener";
+
+// Cles localStorage dediees a la sauvegarde de progression (prefixees pour ne
+// pas entrer en collision avec la clé "userDatas" du formulaire de creation).
+// Volontairement minimaliste : seuls l'or et le NIVEAU sont persistes (pas la
+// progression d'XP a l'interieur du niveau, ni les quetes en cours) — cf
+// discussion produit : on garde simple.
+const STORAGE_KEY_GOLD = "pq_playerGold";
+const STORAGE_KEY_LEVEL = "pq_playerLevel";
+
+const getSavedGold = () => {
+  const saved = Number(localStorage.getItem(STORAGE_KEY_GOLD));
+  return Number.isFinite(saved) && saved > 0 ? saved : 500;
+};
+
+// On ne persiste que le niveau ; on reconstruit un total d'XP "de base" pour
+// ce niveau (barre a 0%) au chargement, exactement comme au "Recommencer".
+const getSavedXp = () => {
+  const savedLevel = Number(localStorage.getItem(STORAGE_KEY_LEVEL));
+  const level = Number.isFinite(savedLevel) && savedLevel > 0 ? savedLevel : 1;
+  return (level - 1) * XP_PER_LEVEL;
+};
 
 const Game = () => {
 
@@ -42,7 +64,7 @@ const Game = () => {
 
   const [buyItems, setBuyItems] = useState([]);
   const [shopCoins, setShopCoins] = useState(10000);
-  const [inventoryCoins, setInventoryCoins] = useState(500);  const [inventoryItems, setInventoryItems] = useState([
+  const [inventoryCoins, setInventoryCoins] = useState(getSavedGold);  const [inventoryItems, setInventoryItems] = useState([
       {
         id: 0,
         name: "Vin",
@@ -86,7 +108,42 @@ const Game = () => {
   // XP cumulee du joueur. Le niveau et le % de la barre d'XP ne sont JAMAIS
   // stockes a part : ce sont des vues pures sur ce seul nombre (voir
   // utils/playerProgress), pour ne jamais pouvoir se desynchroniser.
-  const [playerXp, setPlayerXp] = useState(0);
+  const [playerXp, setPlayerXp] = useState(getSavedXp);
+
+  // --- Progression du joueur : toujours DERIVEE, jamais stockee a part ---
+  const currentChapterIndex = getCurrentChapterIndex(completedQuestIds);
+  const playerLevel = getLevelFromXp(playerXp);
+  const xpProgressPercent = getXpProgressPercent(playerXp);
+
+  // Persistance : uniquement l'or et le niveau courant (pas la progression
+  // d'XP dans le niveau, cf. getSavedXp ci-dessus).
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_GOLD, String(inventoryCoins));
+  }, [inventoryCoins]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_LEVEL, String(playerLevel));
+  }, [playerLevel]);
+
+  // Fenetre de victoire : declenchee une fois quand TOUTES les quetes sont
+  // terminees. Si le joueur ferme la fenetre sans "Recommencer",
+  // completedQuestIds ne change plus -> l'effet ne se redeclenche pas.
+  const [showVictory, setShowVictory] = useState(false);
+  useEffect(() => {
+    if (GAME_QUESTS.length > 0 && completedQuestIds.length === GAME_QUESTS.length) {
+      setShowVictory(true);
+    }
+  }, [completedQuestIds]);
+
+  // "Recommencer" : reinitialise uniquement la progression des quetes.
+  // L'or et le niveau sont volontairement conserves (c'est le but : continuer
+  // a monter en niveau et accumuler de l'or au fil des runs).
+  const handleRestartProgress = () => {
+    setActiveQuestIds([]);
+    setCompletedQuestIds([]);
+    setQuestProgress({});
+    setShowVictory(false);
+  };
 
   const handleCoinsChange = (value) => {
     setShopCoins(value);
@@ -221,11 +278,6 @@ const Game = () => {
     setPlayerXp((prev) => prev + (quest.rewards?.xp || 0));
   };
 
-  // --- Progression du joueur : toujours DERIVEE, jamais stockee a part ---
-  const currentChapterIndex = getCurrentChapterIndex(completedQuestIds);
-  const playerLevel = getLevelFromXp(playerXp);
-  const xpProgressPercent = getXpProgressPercent(playerXp);
-  
   return (
     <Fragment>
       <ToastProvider>
@@ -250,6 +302,11 @@ const Game = () => {
             <RecipePinnedPanel />
             <Creation />
             <MusicPlayer />
+            <Victory
+              show={showVictory}
+              onClose={() => setShowVictory(false)}
+              onRestart={handleRestartProgress}
+            />
             <PlayerHud
               playerLevel={playerLevel}
               xpPercent={xpProgressPercent}
