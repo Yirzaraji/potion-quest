@@ -16,12 +16,12 @@ const EndGame = ({ show, onClose, onRestart }) => {
   if (!show) return null;
 
   return (
-    <div className="endgame-overlay endgame-overlay flex justify-center items-center">
+    <div className="endgame-overlay flex justify-center items-center">
       <div className="endgame-modal">
         <div className="endgame-modal-topbar" />
 
         <button
-          className="modal-close-btn endgame-btn"
+          className="modal-close-btn endgame-close-btn"
           onClick={onClose}
           aria-label="Fermer"
         >
