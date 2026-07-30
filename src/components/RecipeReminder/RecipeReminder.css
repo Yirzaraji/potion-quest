@@ -21,8 +21,8 @@
 }
 
 .recipe-pinned-reminder-header h5 {
-  font-family: 'BBH Sans Hegarty';
-  font-size: 0.95rem;
+  font-family: 'new rocker';
+  font-size: 1.2rem;
   margin: 0;
   color: #ffd75e;
 }
@@ -31,7 +31,7 @@
   background: transparent;
   border: none;
   color: rgb(185, 185, 185);
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 1;
   cursor: pointer;
   padding: 0.15rem 0.4rem;

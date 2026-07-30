@@ -67,7 +67,7 @@ const Recipes = () => {
                         pinnedRecipe === recipe ? unpinRecipe() : pinRecipe(recipe)
                       }
                     >
-                      <div className="btn-reminder uppercase p-5 text-center">
+                      <div className="btn-reminder p-5 text-center">
                         {pinnedRecipe === recipe ? "Ne plus suivre" : "Suivre"}
                       </div>
                     </div>
@@ -82,7 +82,7 @@ const Recipes = () => {
       {pinnedRecipe && (
         <div className="recipe-pinned-reminder text-white">
           <div className="recipe-pinned-reminder-header flex justify-between items-center">
-            <h5 className="uppercase">{pinnedRecipe.title}</h5>
+            <h5>{pinnedRecipe.title}</h5>
             <button
               type="button"
               className="recipe-pinned-reminder-close"
