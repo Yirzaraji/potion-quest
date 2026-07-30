@@ -16,7 +16,7 @@ const Helps = () => {
     <Fragment>
       <div className="helps-container overflow-y-auto max-h-[540px] text-white">
         <section className="helps-section">
-          <h4 className="helps-title uppercase border-b border-gray-600 mb-2 w-full">
+          <h4 className="helps-title border-b border-gray-600 mb-2 w-full">
             Bienvenue, <span className="helps-pseudo-player">{pseudo ? ` ${pseudo}` : ""}</span>
           </h4>
           <p className="helps-text text-justify">
@@ -29,7 +29,7 @@ const Helps = () => {
         </section>
 
         <section className="helps-section">
-          <h4 className="helps-title uppercase border-b border-gray-600 mb-2 w-full">
+          <h4 className="helps-title border-b border-gray-600 mb-2 w-full">
             Comment progresser
           </h4>
           <ol className="helps-steps">
@@ -71,7 +71,7 @@ const Helps = () => {
         </section>
 
         <section className="helps-tip">
-          <h5 className="uppercase">Astuce - Plus d'argent ?</h5>
+          <h5>Astuce - Plus d'argent ?</h5>
           <p className="text-justify">
             Si votre bourse est vide, achetez un flacon vide et quelques roses
             au shop pour fabriquer un filtre d'amour, revendable 150 pieces
@@ -80,7 +80,7 @@ const Helps = () => {
         </section>
 
         <section className="helps-section">
-          <h4 className="helps-title uppercase border-b border-gray-600 mb-2 w-full">
+          <h4 className="helps-title border-b border-gray-600 mb-2 w-full">
             Fabriquer une potion
           </h4>
           <p className="helps-text text-justify">
@@ -99,7 +99,7 @@ const Helps = () => {
         </section>
 
         <section className="helps-section">
-          <h4 className="helps-title uppercase border-b border-gray-600 mb-2 w-full">
+          <h4 className="helps-title border-b border-gray-600 mb-2 w-full">
             Votre profil
           </h4>
           <p className="helps-text text-justify">
@@ -110,7 +110,7 @@ const Helps = () => {
         </section>
 
         <section className="helps-section helps-section-last">
-          <h4 className="helps-title uppercase border-b border-gray-600 mb-2 w-full">
+          <h4 className="helps-title border-b border-gray-600 mb-2 w-full">
             Description des fenetres
           </h4>
           <ul className="helps-window-list">

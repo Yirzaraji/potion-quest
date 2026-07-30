@@ -15,6 +15,17 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --yirsa-light-yellow: #fff3bb;
+  --yirsa-yellow: #e8c977;
+  --yirsa-deep-yellow: #ffd75e;
+  --yirsa-yellow-hover: #ffe38a;
+  --yirsa-dark-grey: #1c2024;
+  --yirsa-light-grey: #c2c2c2;
+  
+  --yirsa-mage: #4f8fe0;
+  --yirsa-druide: #5fae56;
+  --yirsa-sorcier: #a13ad1;
 }
 
 a {

@@ -36,7 +36,7 @@
 }
 
 .profil-level-number {
-  font-family: 'BBH Sans Hegarty';
+  font-family: 'Oswald';
   color: #1c2024;
   font-weight: 700;
   font-size: 0.95rem;
@@ -48,6 +48,7 @@
   margin-left: 20px;
   text-align: left;
   flex: 1;
+  line-height: 1;
 }
 
 .profil-classe {
@@ -59,7 +60,7 @@
 }
 
 .profil-pseudo {
-  font-family: 'BBH Sans Hegarty';
+  font-family: 'new rocker';
   color: #fff;
   font-size: 1.6rem;
   margin: 2px 0 10px 0;
@@ -97,8 +98,9 @@
 }
 
 .profil-section-title {
-  font-family: 'BBH Sans Hegarty';
+  font-family: 'new rocker';
   color: rgb(185, 185, 185);
+  font-size: 1.5rem;
 }
 
 .profil-bio {

@@ -67,7 +67,7 @@
 }
 
 .chapter-description-container p{
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .chapter-title.active-chapter .chapter-title-text {
@@ -155,7 +155,7 @@
   color: #9ca3af;
   border-bottom: 1px solid rgb(63, 63, 63);
   padding-bottom: 4px;
-  font-size: 0.84rem;
+  font-size: 1rem;
 }
 
 .quest-detail-description,
@@ -333,8 +333,9 @@
   color: #000000;
   /* box-shadow: 0 4px 12px rgba(101, 163, 13, 0.2); */
   cursor: pointer;
-  font-family: "New Rocker", cursive;
-  font-size: 1.3rem;
+  font-family: 'oswald';
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 
 .quest-start-btn:hover:not(:disabled) {
@@ -475,6 +476,7 @@
   font-size: 0.9rem;
   font-style: italic;
   color: #ff254b;
+  font-weight: 700;
 }
 
 .potionball-icon-required-item-quest{

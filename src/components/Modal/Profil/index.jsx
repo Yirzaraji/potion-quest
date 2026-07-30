@@ -52,7 +52,7 @@ const Profil = ({ playerLevel, xpPercent, completedQuestIds = [] }) => {
         </div>
 
         <section className="profil-section">
-          <h4 className="profil-section-title uppercase border-b border-gray-600 mb-2 w-full">
+          <h4 className="profil-section-title border-b border-gray-600 mb-2 w-full">
             Biographie
           </h4>
           <div className="profil-bio text-justify">
@@ -64,7 +64,7 @@ const Profil = ({ playerLevel, xpPercent, completedQuestIds = [] }) => {
         </section>
 
         <section className="profil-section">
-          <h4 className="profil-section-title uppercase border-b border-gray-600 mb-2 w-full">
+          <h4 className="profil-section-title border-b border-gray-600 mb-2 w-full">
             Progression
           </h4>
           <div className="profil-roadmap flex items-center mt-6 mb-4">

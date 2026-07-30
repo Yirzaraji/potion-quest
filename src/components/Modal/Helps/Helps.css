@@ -7,8 +7,9 @@
 }
 
 .helps-title {
-  font-family: 'BBH Sans Hegarty';
+  font-family: 'new rocker';
   color: rgb(185, 185, 185);
+  font-size: 1.5rem;
 }
 
 .helps-text {
@@ -60,9 +61,10 @@
 }
 
 .helps-tip h5 {
-  font-family: 'BBH Sans Hegarty';
+  font-family: 'Oswald';
   color: #ffd75e;
   margin-bottom: 6px;
+  font-weight: 700;
 }
 
 .helps-tip p {

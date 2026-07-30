@@ -120,16 +120,6 @@ filter: drop-shadow(0 0 8px rgba(255, 215, 94, 0.35));
   margin: 0 0 14px 0;
 }
 
-/* Lettrine sur le tout premier paragraphe, pour casser l'effet "pave de texte" */
-.creation-welcome-dropcap::first-letter {
-  font-family: 'BBH Sans Hegarty';
-  font-size: 2.6rem;
-  line-height: 0.75;
-  float: left;
-  color: #ffd75e;
-  padding: 4px 8px 0 0;
-}
-
 .creation-welcome-divider {
   display: flex;
   align-items: center;
@@ -385,7 +375,8 @@ filter: drop-shadow(0 0 8px rgba(255, 215, 94, 0.35));
 }
 
 .creation-submit-btn {
-  font-family: "New Rocker", cursive;
+  font-family: 'oswald';
+  text-transform: uppercase;
   background-color: #ffd75e;
   color: #1c2024;
   border: none;
@@ -398,7 +389,7 @@ filter: drop-shadow(0 0 8px rgba(255, 215, 94, 0.35));
   box-shadow: 0 4px 14px rgba(255, 215, 94, 0.25);
   transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .creation-submit-btn:hover:not(:disabled) {

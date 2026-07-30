@@ -28,7 +28,7 @@ const Home = () => {
           type="button"
           onClick={handlePlay}
           disabled={isLeaving}
-          className="start-play-btn uppercase"
+          className="start-play-btn"
         >
           Jouer
         </button>

@@ -26,10 +26,10 @@ const Recipes = () => {
                 onClick={() => toggleRecipe(index)}
               >
                 <div className="recipe-decription-icon flex items-center">
-                  {PotionIcon && <PotionIcon className="text-5xl" />}
+                  {PotionIcon && <PotionIcon className="recipe-potion-icons" />}
                 </div>
                 <div className="recipe-description-container ml-3 font-BBH-Sans-Hegarty">
-                  <h4 className="uppercase">{recipe.title}</h4>
+                  <h4>{recipe.title}</h4>
                   <p>{recipe.description}</p>
                 </div>
               </div>

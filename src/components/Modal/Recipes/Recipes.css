@@ -9,12 +9,19 @@
     margin-top: 0.4rem;
 }
 .recipe-title h4{
-    font-family: 'BBH Sans Hegarty';
+    font-family: 'new rocker';
+    font-size: 1.45rem;
+    line-height: 1;
     
 }
 .recipe-title p{
    font-family: 'Oswald';
 }
+
+.recipe-potion-icons{
+  font-size: 2.7rem;
+}
+
 .recipe-instructions{
     padding-top:-24px;
     background-color: #451e6b;
