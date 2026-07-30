@@ -40,7 +40,7 @@
 }
 
 .recipe-pinned-reminder-close:hover {
-  background-color: rgba(220, 38, 38, 0.85);
+ /*  background-color: rgba(220, 38, 38, 0.85); */
   color: #fff;
 }
 

@@ -88,7 +88,7 @@ const Base = ({
                 onClose && onClose();
               }}
             >
-              ✕
+              ×
             </button>
           </div>
           <div className="modal-body mt-4 text-left">{children}</div>
