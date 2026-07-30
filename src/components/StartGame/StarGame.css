@@ -1,49 +1,47 @@
-.backgroundImage {
-  background-image: url("@/assets/starting-screen.png");
+/* Conteneur principal */
+.home-container {
   background-size: cover;
   background-position: center;
-  width: 100vw;
-  height: 100vh;
   opacity: 1;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease-in-out;
 }
 
-.backgroundImage.fade-out {
-  opacity: 0.9;
+.home-container.fade-out {
+  opacity: 0;
 }
 
+/* Bouton d'action */
 .start-play-btn {
-  font-family: 'oswald';
-  text-transform: uppercase;
-  background-color: #ffd75e;
-  color: #1c2024;
-  border: none;
-  outline: none;
-  padding: 16px 56px;
-  border-radius: 8px;
+  font-family: 'Oswald', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
+  text-transform: uppercase;
   letter-spacing: 2px;
+  
+  padding: 16px 56px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
   cursor: pointer;
-  box-shadow: 0 4px 18px rgb(0 0 0 / 67%);
-  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+
+  background-color: var(--yirsa-deep-yellow);
+  color: var(--yirsa-dark-grey);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.67);
+  
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease, opacity 0.15s ease;
 }
 
-.start-play-btn:hover {
-  background-color: #ffe38a;
+.start-play-btn:hover:not(:disabled) {
+  background-color: var(--yirsa-yellow-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
 }
 
-.start-play-btn:active {
+.start-play-btn:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.backgroundImageGame {
-  background-image: url("@/assets/game.png");
-  background-size: cover;
-  background-position: center;
-  width: 100vw;
-  height: 100vh;
+.start-play-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
-
