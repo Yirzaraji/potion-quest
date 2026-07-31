@@ -16,6 +16,10 @@
   border-radius: 50%;
 }
 
+.modal-header {
+  touch-action: none;
+}
+
 .modal-footer {
   width: 100%;
   bottom: 0;

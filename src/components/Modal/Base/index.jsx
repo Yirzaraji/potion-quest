@@ -1,8 +1,6 @@
-import React, { Fragment, useState, useRef, useEffect, useCallback } from "react";
+import { Fragment, useState, useRef, useCallback, useEffect } from "react";
 import { FaBook } from "react-icons/fa6";
 import "./Base.css";
-
-
 
 const Base = ({
   name,
@@ -18,7 +16,7 @@ const Base = ({
   const [position, setPosition] = useState(defaultPosition);
   const dragState = useRef({ dragging: false, offsetX: 0, offsetY: 0 });
 
-  const handleMouseMove = useCallback((event) => {
+  const handlePointerMove = useCallback((event) => {
     if (!dragState.current.dragging) return;
     setPosition({
       x: event.clientX - dragState.current.offsetX,
@@ -26,34 +24,36 @@ const Base = ({
     });
   }, []);
 
-  const handleMouseUp = useCallback(() => {
+  const handlePointerUp = useCallback((event) => {
     dragState.current.dragging = false;
-    document.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseup", handleMouseUp);
-  }, [handleMouseMove]);
+    document.removeEventListener("pointermove", handlePointerMove);
+    document.removeEventListener("pointerup", handlePointerUp);
+  }, [handlePointerMove]);
 
-  const handleHeaderMouseDown = (event) => {
-    // Seul le clic gauche déclenche le déplacement
-    if (event.button !== 0) return;
+  const handleHeaderPointerDown = (event) => {
+    // Seul le clic gauche declenche le deplacement a la souris ;
+    // le tactile (touch) et le stylet (pen) n'ont pas de notion de "bouton"
+    // equivalente, donc on ne filtre que pour le type "mouse".
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
     onFocus && onFocus();
     dragState.current = {
       dragging: true,
       offsetX: event.clientX - position.x,
       offsetY: event.clientY - position.y,
     };
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerUp);
   };
 
   useEffect(() => {
-    // Nettoyage des listeners si le composant est démonté en plein drag
+    // Nettoyage des listeners si le composant est demonte en plein drag
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerup", handlePointerUp);
     };
-  }, [handleMouseMove, handleMouseUp]);
+  }, [handlePointerMove, handlePointerUp]);
 
-  //JSX RENDER
   return (
     <Fragment>
       <div
@@ -65,16 +65,17 @@ const Base = ({
           zIndex,
           ...(width ? { width } : {}),
         }}
-        onMouseDown={() => onFocus && onFocus()}
+        onPointerDown={() => onFocus && onFocus()}
       >
         <div className="modal-topbar"></div>
         <div className="modal-content">
           <div
             className="modal-header mb-2 flex justify-between items-center border-b border-gray-600 cursor-move"
-            onMouseDown={handleHeaderMouseDown}
+            onPointerDown={handleHeaderPointerDown}
           >
             <h5 className="modal-title text-lg font-bold text-left">
-               <span className="inline-flex gap-2 items-center"> {icon}
+              <span className="inline-flex gap-2 items-center">
+                {icon}
                 <span className="self-end">{name}</span>
               </span>
             </h5>
@@ -82,7 +83,7 @@ const Base = ({
               type="button"
               className="modal-close-btn"
               aria-label="Fermer"
-              onMouseDown={(event) => event.stopPropagation()}
+              onPointerDown={(event) => event.stopPropagation()}
               onClick={(event) => {
                 event.stopPropagation();
                 onClose && onClose();
@@ -96,7 +97,6 @@ const Base = ({
       </div>
     </Fragment>
   );
-}; 
-
+};
 
 export default Base;
