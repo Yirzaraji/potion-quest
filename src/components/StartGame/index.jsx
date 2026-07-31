@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import startingBg from "@/assets/starting-screen.png";
-import "./StarGame.css";
+import "./StartGame.css";
 
 const FADE_OUT_DURATION_MS = 400;
 
-const Home = () => {
+const StartGame = () => {
   const navigate = useNavigate();
   const [isLeaving, setIsLeaving] = useState(false);
 
@@ -21,8 +21,8 @@ const Home = () => {
 
   return (
     <main
-      className={`home-container flex h-svh w-full items-end justify-center pb-8 ${
-        isLeaving ? "fade-out" : ""
+      className={`start-game flex h-svh w-full items-end justify-center bg-cover bg-center px-4 pb-6 sm:pb-8 ${
+        isLeaving ? "start-game--leaving" : ""
       }`}
       style={{ backgroundImage: `url(${startingBg})` }}
     >
@@ -30,7 +30,7 @@ const Home = () => {
         type="button"
         onClick={() => setIsLeaving(true)}
         disabled={isLeaving}
-        className="start-play-btn"
+        className="start-game__btn px-10 py-3 font-oswald text-lg font-bold uppercase tracking-wider sm:px-14 sm:py-4 sm:text-2xl"
       >
         Jouer
       </button>
@@ -38,4 +38,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default StartGame;

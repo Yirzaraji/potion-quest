@@ -1,0 +1,40 @@
+.start-game {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.start-game--leaving {
+  opacity: 0;
+}
+
+.start-game__btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 8px;
+
+  background-color: var(--yirsa-deep-yellow);
+  color: var(--yirsa-dark-grey);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.67);
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.start-game__btn:hover:not(:disabled) {
+  background-color: var(--yirsa-yellow-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
+}
+
+.start-game__btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.start-game__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

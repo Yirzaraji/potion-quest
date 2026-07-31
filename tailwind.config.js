@@ -16,6 +16,9 @@ export default {
           'sorcier': 'var(--yirsa-sorcier)',
         },
       },
+      fontFamily: {
+      oswald: ['Oswald', 'sans-serif'],
+      },
     },
   },
   plugins: [],

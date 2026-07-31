@@ -12,7 +12,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Tes variables CSS globales */
   --yirsa-light-yellow: #fff3bb;
   --yirsa-yellow: #e8c977;
   --yirsa-deep-yellow: #ffd75e;
@@ -23,6 +22,14 @@
   --yirsa-mage: #4f8fe0;
   --yirsa-druide: #5fae56;
   --yirsa-sorcier: #a13ad1;
+
+  --yirsa-text-grey: rgb(185, 185, 185);
+  --yirsa-muted-grey: rgb(160, 160, 160);
+  --yirsa-border-grey: rgb(63, 63, 63); /* remplace aussi le rgb(56,56,56) de la bordure modale, quasi identique visuellement */
+  --yirsa-icon-grey: rgb(120, 120, 120);
+  --yirsa-placeholder-grey: rgb(110, 110, 110);
+  --yirsa-input-bg: #0a1315;
+  --yirsa-purple-glow: #451e6b;
 }
 
 /* Reset de base pour l'application */
@@ -41,4 +48,28 @@ body,
 /* On retire les bordures/outlines bleus par défaut des boutons pour garder nos propres styles */
 button {
   font-family: inherit;
+}
+
+/* --- Scrollbar custom, appliquée à toute l'app --- */
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--yirsa-border-grey);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--yirsa-muted-grey);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--yirsa-border-grey) transparent;
 }
