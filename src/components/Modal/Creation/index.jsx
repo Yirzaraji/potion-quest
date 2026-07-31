@@ -72,7 +72,7 @@ const Creation = () => {
       ></div>
 
       <div
-        className={`creation-modal fixed left-1/2 top-1/2 z-[90001] flex w-[92vw] max-w-[550px] max-h-[90vh] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden sm:max-h-[800px] sm:min-h-[800px] ${
+        className={`creation-modal fixed left-1/2 top-1/2 z-[90001] flex w-[92vw] max-w-[550px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden ${
           isSubmit ? "creation-leaving" : ""
         } ${isHidden ? "creation-hidden" : ""}`}
       >
@@ -190,7 +190,7 @@ const Creation = () => {
           <>
             <div className="creation-header">
               <div className="logo-img flex items-center justify-center pb-2 pt-4">
-                <img src={logo} alt="Potion Quest" className="w-[125px]" />
+                <img src={logo} alt="Potion Quest" className="creation-header-logo w-[125px]" />
               </div>
               <h5 className="creation-title mb-[-8px]">
                 Creation du personnage

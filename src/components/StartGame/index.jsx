@@ -26,14 +26,16 @@ const StartGame = () => {
       }`}
       style={{ backgroundImage: `url(${startingBg})` }}
     >
-      <button
-        type="button"
-        onClick={() => setIsLeaving(true)}
-        disabled={isLeaving}
-        className="start-game__btn px-10 py-3 font-oswald text-lg font-bold uppercase tracking-wider sm:px-14 sm:py-4 sm:text-2xl"
-      >
-        Jouer
-      </button>
+      <div className="start-game__actions">
+        <button
+          type="button"
+          onClick={() => setIsLeaving(true)}
+          disabled={isLeaving}
+          className="start-game__btn"
+        >
+          Jouer
+        </button>
+      </div>
     </main>
   );
 };

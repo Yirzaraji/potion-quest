@@ -26,6 +26,7 @@
   opacity: 0.97;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   filter: blur(0px);
+  max-height: 90vh; /* par defaut : mobile portrait, petit ecran */
   transition: opacity 0.5s ease, filter 0.5s ease;
 }
 
@@ -314,13 +315,64 @@
   box-shadow: none;
 }
 
-/* --- Ecrans etroits : bouton plus compact --- */
-@media (max-width: 640px) {
+/* --- Ecrans etroits (mobile portrait) --- */
+@media (orientation: portrait) and (max-width: 640px) {
   .creation-submit-btn {
     padding: 8px 20px;
     font-size: 1rem;
   }
-  .creation-welcome-title{
+  .creation-welcome-title {
     font-size: 1.7rem;
   }
 }
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .creation-modal {
+    max-height: 92vh !important;
+    min-height: unset !important;
+  }
+
+  .creation-welcome-wrapper {
+    padding-left: 15%!important;
+    padding-right: 15%!important;
+  }
+
+  .creation-welcome-logo {
+    width: 70px !important;
+    margin-bottom: 6px !important;
+    display: none!important;
+  }
+
+  .creation-header-logo {
+    width: 70px !important;
+  }
+
+  .logo-img {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    display:none!important;
+  }
+
+  .creation-welcome-header {
+    margin-bottom: 6px !important;
+  }
+
+  .creation-welcome-title {
+    font-size: 1.55rem;
+  }
+
+  .creation-submit-btn {
+    font-size: 1rem;
+  }
+
+  .creation-title {
+    font-size: 1.75rem;
+  }
+
+  .creation-subtitle {
+    font-size: 0.8rem;
+    padding-bottom: 4px !important;
+  }
+
+}
+

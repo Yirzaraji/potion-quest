@@ -7,11 +7,24 @@
   opacity: 0;
 }
 
+.start-game__actions {
+  display: flex;
+  justify-content: center;
+}
+
 .start-game__btn {
+  font-family: "Oswald";
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+
   border: none;
   outline: none;
   cursor: pointer;
   border-radius: 8px;
+
+  padding: 16px 56px;
+  font-size: 1.5rem;
 
   background-color: var(--yirsa-deep-yellow);
   color: var(--yirsa-dark-grey);
@@ -37,4 +50,20 @@
 .start-game__btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* --- Ecrans etroits (mobile portrait) --- */
+@media (orientation: portrait) and (max-width: 640px) {
+  .start-game__btn {
+    padding: 12px 40px;
+    font-size: 1.125rem;
+  }
+}
+
+/* --- Mode paysage mobile : bouton reduit de moitie --- */
+@media (orientation: landscape) and (max-height: 500px) {
+  .start-game__btn {
+    padding: 9px 25px;
+    font-size: 0.7625rem;
+  }
 }
