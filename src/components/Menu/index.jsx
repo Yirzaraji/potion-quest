@@ -17,12 +17,12 @@ const BASE_X = 260;
 const BASE_Y = 80;
 
 const MENU_ITEMS = [
-  { id: 0, icon: <GiShop style={{ fontSize: "2rem" }} />, name: "Shop" },
-  { id: 1, icon: <GiSwapBag style={{ fontSize: "2rem" }} />, name: "Inventaire" },
-  { id: 2, icon: <GiOpenBook style={{ fontSize: "2rem" }} />, name: "Recettes" },
-  { id: 3, icon: <GiScrollUnfurled style={{ fontSize: "2rem" }} />, name: "Quete" },
-  { id: 4, icon: <GiCharacter style={{ fontSize: "2rem" }} />, name: "Profil" },
-  { id: 5, icon: <FaCircleQuestion style={{ fontSize: "2rem" }} />, name: "Aide" },
+  { id: 0, icon: <GiShop />, name: "Shop" },
+  { id: 1, icon: <GiSwapBag />, name: "Inventaire" },
+  { id: 2, icon: <GiOpenBook />, name: "Recettes" },
+  { id: 3, icon: <GiScrollUnfurled />, name: "Quete" },
+  { id: 4, icon: <GiCharacter />, name: "Profil" },
+  { id: 5, icon: <FaCircleQuestion />, name: "Aide" },
 ];
 
 const Menu = ({
@@ -157,8 +157,8 @@ const Menu = ({
 
   return (
     <Fragment>
-      <div className="sidebar flex flex-col justify-center">
-        <ul>
+      <div className="sidebar sidebar-layout">
+        <ul className="menu-ul-tw">
           {MENU_ITEMS.map((btn, index) => (
             <li key={btn.id}>
               <Tooltip content={btn.name} placement="left">
@@ -166,7 +166,7 @@ const Menu = ({
                   type="button"
                   onClick={() => handleClick(index)}
                   aria-label={btn.name}
-                  className={`menu-btn ${openWindows[btn.id] ? "menu-btn-active" : ""}`}
+                  className={`menu-btn menu-btn-tw ${openWindows[btn.id] ? "menu-btn-active" : ""}`}
                 >
                   {btn.icon}
                 </button>

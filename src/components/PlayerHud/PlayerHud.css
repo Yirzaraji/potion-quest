@@ -1,6 +1,6 @@
 /* --- Positionnement : haut / centre de l'ecran --- */
 
-.player-hud {
+/* .player-hud {
 	position: fixed;
 	left: 9%;
 	transform: translateX(-50%);
@@ -15,25 +15,145 @@
 	-moz-user-select: none;
 	user-select: none;
 	bottom: 0;
+} */
+
+.player-hud-tw{
+  @apply
+    fixed
+    left-3
+    top-3
+  ;
 }
 
+.tw-player-hud-main{
+  @apply
+    flex
+    items-center
+    gap-2
+    md:gap-4
+  ;
+}
+
+.tw-player-hud-avatar-wrap{
+  @apply
+    relative
+    shrink-0
+  ;
+}
+
+.tw-player-hud-avatar{
+  @apply
+    w-[54px]
+    h-[54px]
+    rounded-full
+    bg-cover
+    bg-center
+    border-[3px] border-[#451e6b]
+    shadow-[0_0_12px_rgba(0,0,0,0.48)]
+
+    sm:w-[54px]
+    sm:h-[54px]
+
+    md:w-[84px]
+    md:h-[84px]
+  ;
+}
+
+.tw-player-hud-level-badge{
+  @apply
+    absolute
+    -bottom-[3px]
+    -right-[3px]
+    w-[19px]
+    h-[19px]
+    rounded-full
+
+    sm:w-[19px]
+    sm:h-[19px]
+
+    md:w-[27px]
+    md:h-[27px]
+  ;
+  background-color: #ffd75e;
+  border: 2px solid #12161b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tw-player-hud-level-badge span{
+  @apply
+    font-oswald
+    text-[0.58rem]
+    md:text-[0.78rem]
+    font-bold
+  ;
+  color: #1c2024;
+}
+
+.tw-player-hud-pseudo{
+  @apply
+    font-bold
+    text-[1rem]
+    -mt-[5px] mb-[1px]
+
+    md:text-[1.5rem]
+    md:-mt-[7px] mb-[2px]
+  ;
+  font-family: "new rocker";
+  color: #fff;
+}
+
+.tw-player-hud-classe{
+  @apply
+    uppercase
+    font-oswald
+    text-[0.52rem]
+    md:text-[0.72rem]
+  ;
+  color: rgb(160, 160, 160);
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.tw-player-hud-xp-label{
+  @apply
+    font-oswald
+    text-[0.7rem]
+    md:text-[1rem]
+  ;
+  display: inline-block;
+  color: rgb(160, 160, 160);
+}
+
+.tw-player-hud-xp-bar{
+  @apply
+    w-[100px]
+    h-[9px]
+    md:w-[170px]
+    md:h-[12px]
+  ;
+  border-radius: 3px;
+  background-color: #0a1315;
+  border: 1px solid rgb(63, 63, 63);
+  overflow: hidden;
+}
 /* --- Ligne principale : portrait + identite --- */
 
-.player-hud-main {
+/* .player-hud-main {
   display: flex;
   align-items: center;
   gap: 18px;
-}
+} */
 
 /* --- Portrait, mis en avant : nettement plus grand que le reste --- */
 
-.player-hud-avatar-wrap {
+/* .player-hud-avatar-wrap {
   position: relative;
   flex-shrink: 0;
-}
+} */
 
-.player-hud-avatar,
-.img-avatar {
+/* .player-hud-avatar {
   width: 84px;
   height: 84px;
   border-radius: 50%;
@@ -41,9 +161,9 @@
   background-position: center;
   border: 3px solid #451e6b;
   box-shadow: 0 0 12px rgb(0 0 0 / 48%);
-}
+} */
 
-.player-hud-level-badge {
+/* .player-hud-level-badge {
   position: absolute;
   bottom: -3px;
   right: -3px;
@@ -55,14 +175,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.player-hud-level-badge span {
+/* .player-hud-level-badge span {
   font-family: "oswald";
   color: #1c2024;
   font-weight: 700;
   font-size: 0.78rem;
-}
+} */
 
 /* --- Identite + barre d'XP (reprises de Profil) --- */
 
@@ -72,30 +192,30 @@
   text-align: left;
 }
 
-.player-hud-classe {
+/* .player-hud-classe {
   font-family: "Oswald";
   color: rgb(160, 160, 160);
   font-size: 0.72rem;
   letter-spacing: 1px;
   margin: 0;
-}
+} */
 
-.player-hud-pseudo {
+/* .player-hud-pseudo {
   font-family: "new rocker";
   color: #fff;
   font-size: 1.5rem;
   margin: -7px 0 2px 0;
 	font-weight: 700;
 }
-
-.player-hud-xp-bar {
+ */
+/* .player-hud-xp-bar {
   width: 170px;
   height: 12px;
   border-radius: 3px;
   background-color: #0a1315;
   border: 1px solid rgb(63, 63, 63);
   overflow: hidden;
-}
+} */
 
 .player-hud-xp-fill {
   height: 100%;
@@ -104,12 +224,12 @@
   transition: width 0.4s ease;
 }
 
-.player-hud-xp-label {
+/* .player-hud-xp-label {
   display: inline-block;
   font-family: "Oswald";
   font-size: 1rem;
   color: rgb(160, 160, 160);
-}
+} */
 
 /* --- Roadmap des chapitres (reprise de Profil, a echelle reduite) --- */
 

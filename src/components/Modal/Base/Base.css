@@ -1,6 +1,24 @@
-.modal {
-  width: 550px;
-  min-height: 300px;
+/* .modal {
+  background-color: #1c2024;
+  color: rgb(185, 185, 185);
+  opacity: 0.97;
+  font-family: 'BBH Sans Hegarty';
+  border: 1px solid rgb(56, 56, 56);
+  box-shadow: 0px 4px 10px -1px rgb(0 0 0) !important;
+} */
+
+.tw-modal{
+  @apply
+    /* portrait mobile */
+    w-[350px]
+    min-h-[300px]
+    /* landscape mobile */
+    sm:w-[450px]
+    sm:min-h-[300px]
+    /* medium size */
+    md:w-[550px]
+    md:min-h-[300px]
+  ;
   background-color: #1c2024;
   color: rgb(185, 185, 185);
   opacity: 0.97;

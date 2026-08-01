@@ -1,22 +1,46 @@
-.music-player-toggle {
-  position: fixed;
+/* .music-player-toggle {
   top: 16px;
   left: 16px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
   background-color: #1c2024;
   color: #fff;
   border: none;
   outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 1.2rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   z-index: 50000;
   transition: background-color 0.15s ease, transform 0.15s ease;
+} */
+
+.tw-music-player-toggle{
+  @apply
+    fixed
+    flex
+    rounded-full
+    h-[34px]
+    w-[34px]
+    items-center
+    justify-center
+    top-1
+    right-1
+    bg-[#1c2024]
+
+    sm:right-auto
+    sm:top-auto
+    sm:bottom-3
+    sm:left-3
+    sm:h-[34px]
+    sm:w-[34px]
+
+    md:h-[44px]
+    md:w-[44px]
+  ;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  border: none;
+  outline: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  color: #fff;
 }
 
 .music-player-toggle:hover {

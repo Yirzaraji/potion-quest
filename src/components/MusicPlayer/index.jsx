@@ -56,7 +56,7 @@ const MusicPlayer = () => {
       <button
         type="button"
         onClick={toggleMute}
-        className="music-player-toggle"
+        className="music-player-toggle tw-music-player-toggle"
         aria-label={isMuted ? "Activer le son" : "Couper le son"}
         title={isMuted ? "Activer le son" : "Couper le son"}
       >

@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
-import gameBackground from "@/assets/game.png";
+import gameBackground from "@/assets/game-extended.png";
 import { FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulipFill } from "react-icons/pi";
 import { GiClothJar, GiPotionBall } from "react-icons/gi";

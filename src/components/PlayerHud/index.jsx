@@ -28,30 +28,30 @@ const PlayerHud = ({ playerLevel, xpPercent, currentChapterIndex }) => {
   const avatarImage = classeData?.avatar || CharacterData[0].avatar;
 
   return (
-    <div className="player-hud">
-      <div className="player-hud-main">
+    <div className="player-hud player-hud-tw">
+      <div className="player-hud-main tw-player-hud-main">
         {/* Portrait, mis en avant : plus grand que le reste du widget */}
-        <div className="player-hud-avatar-wrap">
+        <div className="player-hud-avatar-wrap tw-player-hud-avatar-wrap">
           <div
-            className="player-hud-avatar img-avatar"
+            className="player-hud-avatar tw-player-hud-avatar"
             style={{ backgroundImage: `url(${avatarImage})` }}
           ></div>
-          <div className="player-hud-level-badge">
+          <div className="player-hud-level-badge tw-player-hud-level-badge">
             <span>{level}</span>
           </div>
         </div>
 
         {/* Identite + barre d'XP, reprise de Profil */}
         <div className="player-hud-identity">
-          <h5 className="player-hud-classe uppercase">{classe}</h5>
-          <h2 className="player-hud-pseudo">{pseudo}</h2>
-          <div className="player-hud-xp-bar">
+          <h5 className="player-hud-classe tw-player-hud-classe">{classe}</h5>
+          <h2 className="player-hud-pseudo tw-player-hud-pseudo">{pseudo}</h2>
+          <div className="player-hud-xp-bar tw-player-hud-xp-bar">
             <div
               className="player-hud-xp-fill"
               style={{ width: `${xpPercent || 0}%` }}
             ></div>
           </div>
-          <span className="player-hud-xp-label">Niveau {level}</span>
+          <span className="player-hud-xp-label tw-player-hud-xp-label">Niveau {level}</span>
         </div>
       </div>
 
