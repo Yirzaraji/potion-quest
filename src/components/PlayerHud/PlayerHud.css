@@ -22,6 +22,8 @@
     fixed
     left-3
     top-3
+    xl:top-3
+    xl:left-5
   ;
 }
 
@@ -30,7 +32,7 @@
     flex
     items-center
     gap-2
-    md:gap-4
+    xl:gap-4
   ;
 }
 
@@ -51,11 +53,8 @@
     border-[3px] border-[#451e6b]
     shadow-[0_0_12px_rgba(0,0,0,0.48)]
 
-    sm:w-[54px]
-    sm:h-[54px]
-
-    md:w-[84px]
-    md:h-[84px]
+    xl:w-[84px]
+    xl:h-[84px]
   ;
 }
 
@@ -68,11 +67,8 @@
     h-[19px]
     rounded-full
 
-    sm:w-[19px]
-    sm:h-[19px]
-
-    md:w-[27px]
-    md:h-[27px]
+    xl:w-[27px]
+    xl:h-[27px]
   ;
   background-color: #ffd75e;
   border: 2px solid #12161b;
@@ -85,7 +81,8 @@
   @apply
     font-oswald
     text-[0.58rem]
-    md:text-[0.78rem]
+    md:text-[0.58rem]
+    xl:text-[0.78rem]
     font-bold
   ;
   color: #1c2024;
@@ -95,10 +92,13 @@
   @apply
     font-bold
     text-[1rem]
-    -mt-[5px] mb-[1px]
+    -mt-[5px] mb-[0.1px]
 
-    md:text-[1.5rem]
-    md:-mt-[7px] mb-[2px]
+    sm:text-[1rem]
+    sm:-mt-[5px] mb-[0.1px]
+
+    xl:text-[1.5rem]
+    xl:-mt-[7px] mb-[2px]
   ;
   font-family: "new rocker";
   color: #fff;
@@ -109,7 +109,9 @@
     uppercase
     font-oswald
     text-[0.52rem]
-    md:text-[0.72rem]
+    md:text-[0.52rem]
+
+    xl:text-[0.72rem]
   ;
   color: rgb(160, 160, 160);
   letter-spacing: 1px;
@@ -120,7 +122,8 @@
   @apply
     font-oswald
     text-[0.7rem]
-    md:text-[1rem]
+    md:text-[0.7rem]
+    xl:text-[1rem]
   ;
   display: inline-block;
   color: rgb(160, 160, 160);
@@ -130,8 +133,8 @@
   @apply
     w-[100px]
     h-[9px]
-    md:w-[170px]
-    md:h-[12px]
+    xl:w-[170px]
+    xl:h-[12px]
   ;
   border-radius: 3px;
   background-color: #0a1315;
