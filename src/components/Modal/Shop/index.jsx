@@ -23,7 +23,7 @@ const Shop = ({ shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChan
   const { showToast } = useToast();
   const [shopItems, setShopItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [shopSlots] = useState(Array.from({ length: 63 }));
+  const [shopSlots] = useState(Array.from({ length: 36 }));
   // Figée au montage : la réplique ne change pas tant que la fenêtre reste ouverte
   const merchantGreeting = useMemo(
     () => MERCHANT_GREETINGS[Math.floor(Math.random() * MERCHANT_GREETINGS.length)],
@@ -38,15 +38,14 @@ const Shop = ({ shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChan
           setShopItems([]);
         }
         const { items } = GameData;
-        if (!items.potions || !items.diluents || !items.ingredients) {
+        if (!items.diluents || !items.ingredients) {
           console.error("Une catégorie d'items est manquante :", {
-            potions: items.potions,
             diluents: items.diluents,
             ingredients: items.ingredients,
           });
           setShopItems([]);
         }
-        const mergedItems = items.potions.concat(items.diluents).concat(items.ingredients);
+        const mergedItems = items.diluents.concat(items.ingredients);
         setShopItems(mergedItems);
       } catch (error) {
         console.error("Erreur lors du chargement des items :", error);

@@ -10,7 +10,7 @@ import "./Inventory.css";
 
 const Inventory = ({ liftInventoryItems, addItemToInventory, sellItemFromInventory, inventoryCoins, inventoryCoinsChange }) => {
   const { showToast } = useToast();
-  const [initialSlots] = useState(Array.from({ length: 42 }));
+  const [initialSlots] = useState(Array.from({ length: 30 }));
   const [inventoryItems, setInventoryItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
