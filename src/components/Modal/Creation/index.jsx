@@ -215,7 +215,7 @@ const Creation = () => {
                     onChange={handleChange}
                     placeholder="Entrez votre pseudo..."
                     className="creation-input w-full "
-                    spellcheck="false"
+                    spellCheck="false"
                   />
                 </div>
               </div>

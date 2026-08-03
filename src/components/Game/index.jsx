@@ -10,6 +10,7 @@ import Menu from "@/components/Menu";
 import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
 import PlayerHud from "@/components/PlayerHud";
+import Craft from "@/components/Craft"
 import EndGame from "@/components/Modal/EndGame";
 import Creation from "@/components/Modal/Creation";
 import { ToastProvider } from "@/context/ToastContext";
@@ -298,6 +299,7 @@ const Game = () => {
               onClose={() => setShowEndGame(false)}
               onRestart={handleRestartProgress}
             />
+            <Craft/>
             <PlayerHud
               playerLevel={playerLevel}
               xpPercent={xpProgressPercent}
