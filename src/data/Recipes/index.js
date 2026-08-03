@@ -102,7 +102,7 @@ const recipes = [
     ],
   },
   {
-    title: "Potion de Vision Nocturne",
+    title: "Potion d'invisibilité",
     icon: GiSnowBottle,
     description: "Vous permet de voir dans la nuit",
     instructions: `Un breuvage mystérieux qui accorde la vision des felines a quiconque l'absorbe dans l'obscurite. Les ombres deviennent translucides et la nuit la plus noire se transforme en un paysage clair. C'est l'outil indispensable des voleurs et des chasseurs nocturnes. <b>Versez le vin rouge dans la cuve du chaudron. Coupez les cepes en morceaux et jetez-les directement avec la griffe de chat dans le vin. Animez le foyer pour porter la mixture a ebullition sous une faible lueur. Accordez un temps de repos a la preparation puis versez au fond du flacon.</b>`,
@@ -157,7 +157,7 @@ const recipes = [
     ],
   },
   {
-    title: "Potion de croissance",
+    title: "Potion de sagesse",
     icon: GiSpiralBottle,
     description: "Promet des recoltes abondantes",
     instructions: `Cette potion repand la vie et la fertilite sur la terre la plus aride en un temps record. Les graines germent a une vitesse fulgurante et les fruits deviennent gigantesques et savoureux. Tres recherchee par les fermiers et les druides. <b>Versez la base d'eau dans le chaudron ancien. Coupez la carotte et la tomate en morceaux puis jetez-les directement dans l'eau sans passer par le mortier. Faites chauffer doucement au-dessus des braises. Laissez reposer le breuvage fertil puis versez-le dans son flacon.</b>`,

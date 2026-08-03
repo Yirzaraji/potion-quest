@@ -40,7 +40,7 @@ export const GAME_QUESTS = [
       avatarUrl: messagerAvatar
     },
     objectives: [
-      { itemId: 101, name: "Potion de soin puissante", quantity: 1 }
+      { itemId: 101, name: "Potion de soin", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 2,
@@ -53,14 +53,14 @@ export const GAME_QUESTS = [
     chapter: 1,
     chapterTitle: "Chapitre I",
     chapterSubtitle: "Les Doléances du Royaume",
-    title: "Le Cœur de la Belle Eloïse",
-    description: "Le jeune paysan Tom est amoureux de la belle Eloïse, mais elle ne lui prête aucune attention. Timide et maladroit, Tom a désespérément besoin d'un filtre d'amour pour gagner son cœur. Il se tourne vers vous, l'alchimiste renommé, pour préparer une potion qui fera fondre le cœur de sa bien-aimée. Utilisez des pétales de rose enchantés et un soupçon de miel de fée pour concocter cet élixir.",
+    title: "Le fourbe de Bretagne",
+    description: "J’ai mis au point la Potion de Souffle Mortel, une merveille absolue. Le souci ? Le procédé est d'une instabilité désastreuse. Une goutte de trop, et la vapeur te dissout les poumons en trois secondes. Comme tu es un expert en alchimie, et surtout parce que je tiens à mes propres poumons, c'est toi qui vas la confectionner. Prends ma recette, prépare le mélange sans tout faire exploser et ramène-moi le flacon. Si tu n'y laisses pas ta peau, on parlera de ta récompense.",
     questGiver: {
-      name: "Tom le Paysan",
-      avatarUrl: paysanAvatar
+      name: "Elias l'Enchanteur",
+      avatarUrl: merlinAvatar
     },
     objectives: [
-      { itemId: 102, name: "Filtre d'amour", quantity: 1 }
+      { itemId: 102, name: "Potion de souffle mortel", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 3,
@@ -80,7 +80,7 @@ export const GAME_QUESTS = [
       avatarUrl: lancelotAvatar
     },
     objectives: [
-      { itemId: 103, name: "Potion de force", quantity: 1 }
+      { itemId: 103, name: "Potion du Hardi", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 4, // Transition transparente vers le Chapitre II
@@ -102,7 +102,7 @@ export const GAME_QUESTS = [
       avatarUrl: arthurAvatar
     },
     objectives: [
-      { itemId: 104, name: "Antidote Royal", quantity: 1 }
+      { itemId: 104, name: "Potion de Lune", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 5,
@@ -116,13 +116,13 @@ export const GAME_QUESTS = [
     chapterTitle: "Chapitre II",
     chapterSubtitle: "L'Ombre et la Magie",
     title: "L'Enigme d'Avalon",
-    description: "Merlin, l'enchanteur légendaire, a besoin de vos compétences. Il doit résoudre une énigme ancienne pour accéder à Avalon, mais son esprit est embrouillé. Il demande une potion de clarté pour aiguiser ses pensées. Préparez une potion à base de larmes de licorne et de poudre de cristal lunaire pour aider Merlin à retrouver toute sa lucidité.",
+    description: "Merlin, l'enchanteur légendaire, a besoin de vos compétences. Il doit résoudre une énigme ancienne pour accéder à Avalon, mais son esprit est embrouillé. Il demande une potion de mana pour aiguiser ses pensées. Préparez une potion à base de larmes de licorne et de poudre de cristal lunaire pour aider Merlin à retrouver toute sa lucidité.",
     questGiver: {
       name: "Merlin l'Enchanteur",
       avatarUrl: merlinAvatar
     },
     objectives: [
-      { itemId: 105, name: "Potion de clarté", quantity: 1 }
+      { itemId: 105, name: "Potion de Mana", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 6,
@@ -136,7 +136,7 @@ export const GAME_QUESTS = [
     chapterTitle: "Chapitre II",
     chapterSubtitle: "L'Ombre et la Magie",
     title: "L'Espionnage à Camelot",
-    description: "Morgane, demi-sœur d'Arthur et magicienne puissante, a besoin d'une potion d'invisibilité pour infiltrer Camelot sans être vue. Bien que ses intentions soient douteuses, elle offre une récompense généreuse pour vos services. Concoctez une potion utilisant des ombres de minuit et de l'essence de brume.",
+    description: "Ne cherche pas à percer mes intentions, alchimiste, c'est un jeu auquel tu perdrais rapidement. J'ai besoin d'une potion d'invisibilité parfaite, capable de masquer jusqu'à l'aura magique de celui qui la boit. Les couloirs de Camelot sont bien trop surveillés et Merlin entoure ses secrets de barrières agaçantes. Une immersion totale dans l'ombre me permettra de récupérer ce qui m'appartient de droit",
     questGiver: {
       name: "Morgane la Fée",
       avatarUrl: morganeAvatar
@@ -164,7 +164,7 @@ export const GAME_QUESTS = [
       avatarUrl: percevalAvatar
     },
     objectives: [
-      { itemId: 107, name: "Élixir de sagesse", quantity: 1 }
+      { itemId: 107, name: "Potion de sagesse", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 8,
@@ -178,13 +178,13 @@ export const GAME_QUESTS = [
     chapterTitle: "Chapitre III",
     chapterSubtitle: "La Quête des Vertus",
     title: "Le Défi du Dragon",
-    description: "Le chevalier Gauvain doit affronter un dragon redoutable qui terrorise un village voisin. Bien qu'il soit déjà courageux, il désire une potion de bravoure pour renforcer son cœur et affronter le monstre sans peur. Utilisez des plumes de phénix et des cendres volcaniques pour préparer cette potion.",
+    description: "Le chevalier Gauvain doit affronter un dragon redoutable qui terrorise un village voisin. Bien qu'il soit déjà courageux, il désire une potion de virilité pour renforcer son cœur et affronter le monstre sans peur. Utilisez des plumes de phénix et des cendres volcaniques pour préparer cette potion.",
     questGiver: {
       name: "Chevalier Gauvain",
       avatarUrl: gauvainAvatar
     },
     objectives: [
-      { itemId: 108, name: "Potion de bravoure", quantity: 1 }
+      { itemId: 108, name: "Potion de virilite", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 9,
@@ -197,14 +197,14 @@ export const GAME_QUESTS = [
     chapter: 3,
     chapterTitle: "Chapitre III",
     chapterSubtitle: "La Quête des Vertus",
-    title: "Le Mystère des Runes",
-    description: "Panoramix, le grand druide et barde, est aux prises avec un mystère entourant des runes anciennes. Pour déchiffrer les secrets cachés, il demande une potion de vérité. Préparez une potion à base de fleurs de vérité et de perles de sagesse pour aider Taliesin à révéler les secrets des runes.",
+    title: "Le Mystère de l'amour",
+    description: "Le jeune paysan Robert est amoureux de la belle Alixe, mais elle ne lui prête aucune attention. Timide et maladroit, Robert a désespérément besoin d'un filtre d'amour pour gagner son cœur. Il se tourne vers vous, l'alchimiste renommé, pour préparer une potion qui fera fondre le cœur de sa bien-aimée. Utilisez des pétales de rose enchantés et un soupçon de miel de fée pour concocter cet élixir.",
     questGiver: {
-      name: "Panoramix le Druide",
-      avatarUrl: lothAvatar
+      name: "Robert le Paysan",
+      avatarUrl: paysanAvatar
     },
     objectives: [
-      { itemId: 109, name: "Potion de vérité", quantity: 1 }
+      { itemId: 109, name: "Elixir d'Amour", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 10, // Transition vers le Chapitre IV
@@ -219,14 +219,14 @@ export const GAME_QUESTS = [
     chapter: 4,
     chapterTitle: "Chapitre IV",
     chapterSubtitle: "Destins Croisés",
-    title: "L'Héritier des Terres du Nord",
-    description: "Le chef de clan Bredon et sa femme désirent un enfant depuis des années, mais sans succès. Ils espèrent qu'une potion de fécondité pourrait les aider à concevoir un héritier pour leur clan. Utilisez des racines de vie et des baies d'éternité pour créer une potion qui réalisera leur rêve de famille.",
+    title: "Les chefs de clans",
+    description: "Pas de temps à perdre. Il me faut un distillat capable de plonger n'importe quel colosse dans le même état qu'après dix chopines d'hydromel, net et sans sommation. On doit faire signer un traité d'alliance crucial à une bande de chefs de clan réticents ce soir. S'ils sont trop lucides, ils vont négocier chaque arpent de terre jusqu'au petit matin.",
     questGiver: {
-      name: "Chef Bredon",
+      name: "Leodagan",
       avatarUrl: leodaganAvatar
     },
     objectives: [
-      { itemId: 110, name: "Potion de fécondité", quantity: 1 }
+      { itemId: 110, name: "Potion de l'alchimiste fou", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 11,
@@ -239,14 +239,14 @@ export const GAME_QUESTS = [
     chapter: 4,
     chapterTitle: "Chapitre IV",
     chapterSubtitle: "Destins Croisés",
-    title: "L'Élixir du Courage de Perceval",
-    description: "Perceval, chevalier aussi brave qu'ingénu, s'est porté volontaire pour affronter un dragon. Problème : il s'évanouit dès qu'il voit une flamme. Il te commande un élixir du courage pour dompter sa peur. Il insiste : « Pas trop fort ! » — la dernière potion qu'il a essayée l'a fait charger une vache en hurlant “Graal !”. Il faudra un équilibre parfait entre vigueur et raison… une alchimie délicate !",
+    title: "Fourberie royale",
+    description: "Il me faudrait une préparation un brin particulière, un élixir de métamorphose d'une discrétion absolue. C'est pour ma charmante épouse, la demi-sœur de notre très cher souverain. Elle nourrit des ambitions... fascinantes pour le royaume, et un changement d'apparence au moment opportun servirait grandement nos intérêts communs.",
     questGiver: {
-      name: "Chevalier Perceval",
-      avatarUrl: percevalAvatar
+      name: "Le roi Loth",
+      avatarUrl: lothAvatar
     },
     objectives: [
-      { itemId: 111, name: "Élixir du courage stable", quantity: 1 }
+      { itemId: 111, name: "Potion de metamorphose", quantity: 1 }
     ],
     rewards: {
       nextQuestId: 12,
@@ -259,14 +259,14 @@ export const GAME_QUESTS = [
     chapter: 4,
     chapterTitle: "Chapitre IV",
     chapterSubtitle: "Destins Croisés",
-    title: "Merlin et le Contre-Sort",
-    description: "Merlin, encore lui, a renversé une potion de métamorphose sur son hibou, qui parle désormais en vers et refuse de dormir. Il te demande un contre-élixir de stabilisation magique, mais sans en avertir Arthur, qui croit que le hibou est un démon. Ta réputation d'alchimiste pourrait bien en dépendre…",
+    title: "Un problème de succession",
+    description: "J'ai un contrat de premier ordre avec un client de la cour qui veut faire sauter un grand ponte de Camelot mais proprement. Pas de sang sur la tapisserie, pas de lame retrouvée sous un lit, une mort naturelle sur papier. Il me faut un poison foudroyant, indécelable même pour la garde du corps d'Arthur.",
     questGiver: {
-      name: "Merlin l'Enchanteur",
-      avatarUrl: merlinAvatar
+      name: "Venec le brigand",
+      avatarUrl: messagerAvatar
     },
     objectives: [
-      { itemId: 112, name: "Contre-élixir de stabilisation", quantity: 1 }
+      { itemId: 112, name: "Potion de mort", quantity: 1 }
     ],
     rewards: {
       nextQuestId: null, // dernière quête actuelle du jeu
