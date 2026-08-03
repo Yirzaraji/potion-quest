@@ -1,13 +1,13 @@
+import cauldronLayer from "@/assets/images/cauldron.png";
 import "./Craft.css";
-import Cauldron from "@/assets/images/cauldron.png";
 
-const Craft = () => { 
-
-    return(
-        <div className="cauldron">
-            <img className="test no-repeat bg-cover fixed bottom-[215px] right-[780px]" src={Cauldron} alt="" style={{ backgroundImage: `url(${Cauldron})`, width:'395px' }} />
-        </div>
-    );
-}
+const Craft = () => {
+  return (
+    <div className="cauldron-wrapper">
+      <div className="cauldron-layer" style={{ backgroundImage: `url(${cauldronLayer})` }}></div>
+      <button type="button" className="cauldron-btn" aria-label="Chaudron"></button>
+    </div>
+  );
+};
 
 export default Craft;

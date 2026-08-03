@@ -1,8 +1,36 @@
-.cauldron{
-	/* @apply
-		fixed 
-		w-[395px]
-		bottom-[24%]
-		left-[38%]
-	; */
+.cauldron-wrapper {
+  position: fixed;
+  inset: 0;
+}
+
+.cauldron-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: cauldron-glow-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes cauldron-glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(255, 120, 60, 0.35));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgb(255, 203, 60));
+  }
+}
+
+.cauldron-btn {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 200px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
 }
