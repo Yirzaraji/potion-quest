@@ -1,13 +1,14 @@
-import cauldronLayer from "@/assets/images/cauldron.png";
-import "./Craft.css";
+import Cauldron from './Cauldron';
+import Mortar from './Mortar';
+import './Craft.css';
 
 const Craft = () => {
   return (
-    <div className="cauldron-wrapper">
-      <div className="cauldron-layer" style={{ backgroundImage: `url(${cauldronLayer})` }}></div>
-      <button type="button" className="cauldron-btn" aria-label="Chaudron"></button>
+    <div className="craft-container">
+      <Mortar/>
+      <Cauldron/>
     </div>
   );
-};
+}
 
 export default Craft;

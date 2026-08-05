@@ -7,7 +7,6 @@ import GameData from "@/data/Items";
 import { GAME_QUESTS, isChapterUnlocked, getCurrentChapterIndex } from "@/data/Quests";
 import { getLevelFromXp, getXpProgressPercent, XP_PER_LEVEL } from "@/utils/playerProgress";
 import Menu from "@/components/Menu";
-import "./Game.css";
 import MusicPlayer from "@/components/MusicPlayer";
 import PlayerHud from "@/components/PlayerHud";
 import Craft from "@/components/Craft"
@@ -18,6 +17,7 @@ import { ToastStack } from "@/components/Toast/ToastStack";
 import { RecipeReminderProvider } from "@/context/RecipeReminderContext";
 import { RecipePinnedPanel } from "@/components/RecipeReminder/RecipePinnedPanel";
 import SfxListener from "@/components/Sfx/SfxListener";
+import "./Game.css";
 
 /* Cles localStorage dediees a la sauvegarde de progression (prefixees pour ne
 pas entrer en collision avec la clé "userDatas" du formulaire de creation) */
