@@ -102,17 +102,6 @@ const recipes = [
     ],
   },
   {
-    title: "Potion d'invisibilité",
-    icon: GiSnowBottle,
-    description: "Vous permet de voir dans la nuit",
-    instructions: `Un breuvage mystérieux qui accorde la vision des felines a quiconque l'absorbe dans l'obscurite. Les ombres deviennent translucides et la nuit la plus noire se transforme en un paysage clair. C'est l'outil indispensable des voleurs et des chasseurs nocturnes. <b>Versez le vin rouge dans la cuve du chaudron. Coupez les cepes en morceaux et jetez-les directement avec la griffe de chat dans le vin. Animez le foyer pour porter la mixture a ebullition sous une faible lueur. Accordez un temps de repos a la preparation puis versez au fond du flacon.</b>`,
-    ingredients: [
-      { name: "Vin", icon: GiWineBottle, quantity: 1 },
-      { name: "Romarin", icon: GiCat, quantity: 1, isCrush: 0 },
-      { name: "Cepe", icon: GiMushroom, quantity: 1, isCrush: 1 },
-    ],
-  },
-  {
     title: "Potion de virilite",
     icon: GiPotionBall,
     description: "Transformez-vous en male alpha",
