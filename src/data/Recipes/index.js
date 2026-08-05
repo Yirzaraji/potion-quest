@@ -65,7 +65,7 @@ const recipes = [
     ingredients: [
       { name: "Huile", icon: GiDrop, quantity: 1 },
       { name: "Feuille de Chene", icon: GiOakLeaf, quantity: 1, isCrush: 0 },
-      { name: "pétale de Noxsombre", icon: GiSkullCrossedBones, quantity: 1, isCrush: 0 },
+      { name: "Petale de Noxsombre", icon: GiSkullCrossedBones, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -109,7 +109,7 @@ const recipes = [
     ingredients: [
       { name: "Vin", icon: GiWineBottle, quantity: 1 },
       { name: "Feuille de gingembre", icon: GiPlantRoots, quantity: 1, isCrush: 0 },
-      { name: "Aubépine", icon: GiPlantRoots, quantity: 1, isCrush: 0 },
+      { name: "Aubepine", icon: GiPlantRoots, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -131,7 +131,7 @@ const recipes = [
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
       { name: "Belladona", icon: GiMushroomGills, quantity: 1, isCrush: 1 },
-      { name: "Achillée", icon: GiBoarTusks, quantity: 1, isCrush: 0 },
+      { name: "Achillee", icon: GiBoarTusks, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -152,8 +152,8 @@ const recipes = [
     instructions: `Cette potion repand la vie et la fertilite sur la terre la plus aride en un temps record. Les graines germent a une vitesse fulgurante et les fruits deviennent gigantesques et savoureux. Tres recherchee par les fermiers et les druides. <b>Versez la base d'eau dans le chaudron ancien. Coupez la carotte et la tomate en morceaux puis jetez-les directement dans l'eau sans passer par le mortier. Faites chauffer doucement au-dessus des braises. Laissez reposer le breuvage fertil puis versez-le dans son flacon.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Genévrier", icon: GiPlantRoots, quantity: 1, isCrush: 1 },
-      { name: "Églantier", icon: GiFlowerPot, quantity: 1, isCrush: 0 },
+      { name: "Genevrier", icon: GiPlantRoots, quantity: 1, isCrush: 1 },
+      { name: "Eglantier", icon: GiFlowerPot, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -185,8 +185,8 @@ const recipes = [
     instructions: `Cette mixture complexe modifie la chair et le visage pour prendre l'apparence d'une autre personne. La transformation est douloureuse mais le resultat est d'une fidelite troublante. Utilisee pour les tromperies et les infiltrations royales. <b>Versez l'eau pure au fond de votre chaudron. Jetez les petales de rose et l'essence de jasmin directement dans le liquide sans utiliser le mortier. Portez le tout a ebullition pour lier les essences. Attendez le repos complet du liquide avant de le verser en fiole.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Pétale de Rose", icon: GiRose, quantity: 1, isCrush: 1 },
-      { name: "Pétale de Jasmin", icon: GiLotus, quantity: 1, isCrush: 0 },
+      { name: "Petale de Rose", icon: GiRose, quantity: 1, isCrush: 1 },
+      { name: "Petale de Jasmin", icon: GiLotus, quantity: 1, isCrush: 0 },
     ],
   },
 ];

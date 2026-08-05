@@ -52,7 +52,11 @@ import { GiFlowerStar,
 ici avec un id donné, ne JAMAIS réutiliser ce même id pour un autre item
 (même après suppression)
 Plage 1-19 : items déjà en vente dans le shop actuel.
-Plage 101-112 : potions liees aux quetes (voir questPotions plus bas)*/
+Plage 30-44 : ingredients ajoutes lors de la 2e vague de recettes.
+Plage 45-54 : ingredients ajoutes lors de l'audit Recipes/Items (manquants).
+Plage 101-112 : potions liees aux quetes (voir questPotions plus bas).
+Les ids "broyes" (id + 1000) sont derives automatiquement, voir
+data/Items/crushedIngredient.js — ne pas creer d'entree statique pour eux ici. */
 const GameData = {
   items:{
     diluents: [
@@ -81,7 +85,7 @@ const GameData = {
     ingredients: [
       {
         id: 4,
-        name: "Pétale de rose",
+        name: "Petale de rose",
         price: 50,
         sellPrice: 25,
         icon: PiFlowerTulipFill,
@@ -137,7 +141,7 @@ const GameData = {
       },
       {
         id: 11,
-        name: "Essence de Noxsombre",
+        name: "Petale de Noxsombre",
         price: 50,
         sellPrice: 25,
         icon: GiDeathcab,
@@ -161,7 +165,7 @@ const GameData = {
       },
       {
         id: 14,
-        name: "Essence de Jasmin",
+        name: "Petale de Jasmin",
         price: 50,
         sellPrice: 25,
         icon: GiJasmine,
@@ -169,7 +173,7 @@ const GameData = {
       },
       {
         id: 30,
-        name: "Cèpe",
+        name: "Cepe",
         price: 50,
         sellPrice: 25,
         icon: GiMushroom,
@@ -193,7 +197,7 @@ const GameData = {
       },
       {
         id: 33,
-        name: "Essence de Ginseng",
+        name: "Petale de Ginseng",
         price: 50,
         sellPrice: 25,
         icon: GiPlantRoots,
@@ -209,7 +213,7 @@ const GameData = {
       },
       {
         id: 35,
-        name: "Pétale de Bellombre",
+        name: "Petale de Bellombre",
         price: 50,
         sellPrice: 25,
         icon: GiBleedingEye,
@@ -273,7 +277,7 @@ const GameData = {
       },
       {
         id: 43,
-        name: "Feuille de Chêne",
+        name: "Feuille de Chene",
         price: 50,
         sellPrice: 25,
         icon: GiOakLeaf,
@@ -285,6 +289,87 @@ const GameData = {
         price: 50,
         sellPrice: 25,
         icon: GiSkullCrossedBones,
+        isTransform: false,
+      },
+      // --- Ajouts suite a l'audit Recipes/Items (ingredients manquants) ---
+      {
+        id: 45,
+        name: "Busserole",
+        price: 50,
+        sellPrice: 25,
+        icon: GiFlowerStar,
+        isTransform: false,
+      },
+      {
+        id: 46,
+        name: "Camomille",
+        price: 50,
+        sellPrice: 25,
+        icon: RiFlowerFill,
+        isTransform: false,
+      },
+      {
+        id: 47,
+        name: "Menthe",
+        price: 50,
+        sellPrice: 25,
+        icon: GiFizzingFlask,
+        isTransform: false,
+      },
+      {
+        id: 48,
+        name: "Cassis",
+        price: 50,
+        sellPrice: 25,
+        icon: PiFlowerTulip,
+        isTransform: false,
+      },
+      {
+        id: 49,
+        name: "Aubepine",
+        price: 50,
+        sellPrice: 25,
+        icon: GiRoundBottomFlask,
+        isTransform: false,
+      },
+      {
+        id: 50,
+        name: "Armoise",
+        price: 50,
+        sellPrice: 25,
+        icon: GiSquareBottle,
+        isTransform: false,
+      },
+      {
+        id: 51,
+        name: "Achillee",
+        price: 50,
+        sellPrice: 25,
+        icon: GiStandingPotion,
+        isTransform: false,
+      },
+      {
+        id: 52,
+        name: "Genevrier",
+        price: 50,
+        sellPrice: 25,
+        icon: GiVial,
+        isTransform: false,
+      },
+      {
+        id: 53,
+        name: "Eglantier",
+        price: 50,
+        sellPrice: 25,
+        icon: GiTwoCoins,
+        isTransform: false,
+      },
+      {
+        id: 54,
+        name: "Coquelicot",
+        price: 50,
+        sellPrice: 25,
+        icon: GiGrass,
         isTransform: false,
       },
     ],
@@ -328,7 +413,7 @@ const GameData = {
       },
       {
         id: 106,
-        name: "Potion d'invisibilité",
+        name: "Potion d'invisibilite",
         price: 0,
         sellPrice: 0,
         icon: GiBrandyBottle,
