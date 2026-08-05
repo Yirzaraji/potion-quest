@@ -42,8 +42,8 @@ const recipes = [
     instructions: `Pour concocter cette potion de guerison des plaies, il vous faudra rassembler quelques elements essentiels : une eau pure et limpide, une feuille de reve delicate et un pissenlit reduit en une fine poussiere. Lorsque tous les ingredients seront reunis, suivez le rituel ancestral. <b>Commencez par verser l'eau pure au fond de votre chaudron. Dans votre mortier, ecrasez le pissenlit en fine poudre, puis jetez-le dans la cuve avec la feuillereve entiere. Faites chauffer le melange au-dessus d'un feu doux pour lier les essences. Laissez la preparation se reposer tranquillement puis remplissez votre fiole.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Feuillereve", icon: GiFairy, quantity: 1 },
-      { name: "Pissenlit", icon: GiLotus, quantity: 3 },
+      { name: "Feuillereve", icon: GiFairy, quantity: 1, isCrush: 0 },
+      { name: "Pissenlit", icon: GiLotus, quantity: 1, isCrush: 1 },
     ],
   },
   {
@@ -53,8 +53,8 @@ const recipes = [
     instructions: `Dans une fiole nacree repose une liqueur argentee, douce comme la lumiere d'un clair de lune. Elle semble vibrer au rythme des marees, emettant une lueur calme et hypnotique. Son parfum evoque la lavande, la menthe glacee et un soupcon de pluie nocturne. Distillee sous la pleine lune, elle ne peut etre preparee qu'entre minuit et l'aube. <b>Versez l'eau claire au fond du recipient. Effeuillez delicatement les petales de rose et jetez-les directement dans l'eau avec la racine de mandragore entiere. Incorporez le tout dans la cuve et faites mijoter sous une chaleur constante. Laissez refroidir la mixture au calme avant d'enfermer le liquide dans sa fiole.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Racine de Mandragore", icon: GiPlantRoots, quantity: 1 },
-      { name: "Petale de rose", icon: GiRose, quantity: 3 },
+      { name: "Busserole", icon: GiPlantRoots, quantity: 1, isCrush: 1 },
+      { name: "Petale de rose", icon: GiRose, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -64,8 +64,8 @@ const recipes = [
     instructions: `Opaque et visqueuse, cette potion semble absorber la lumiere. Son odeur est metallique, presque cendreuse, comme un feu eteint. Elle est nee dans les laboratoires interdits, loin des regards. Son usage est reserve aux assassins, aux espions, ou aux traitres. Le souffle devient court, le cœur s'emballe, l'esprit s'egare. <b>Versez l'huile epaisse dans le chaudron. Ecrasez vigoureusement la feuille de chene et l'essence de noxsombre au mortier pour former une poudre somptueuse. Jetez le melange broye dans l'huile et portez a ebullition intense. Laissez la vapeur se calmer puis coulez le poison dans la fiole.</b>`,
     ingredients: [
       { name: "Huile", icon: GiDrop, quantity: 1 },
-      { name: "Feuille de Chene", icon: GiOakLeaf, quantity: 1 },
-      { name: "Essence de Noxsombre", icon: GiSkullCrossedBones, quantity: 3 },
+      { name: "Feuille de Chene", icon: GiOakLeaf, quantity: 1, isCrush: 0 },
+      { name: "pétale de Noxsombre", icon: GiSkullCrossedBones, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -75,8 +75,8 @@ const recipes = [
     instructions: `Translucide avec des reflets rouges et or, elle semble vibrer d'energie. Elle est chaude au toucher, comme une braise sous la peau. Son parfum est celui du fer, du vent, et de la roche. Une gorgée suffit a faire taire la peur et a eveiller l'audace. Elle ne rend pas invincible, mais elle fait oublier le doute. <b>Commencez par verser le vin au fond de votre chaudron. Plongez la dent de lion et la fleur ardente directement dans le liquide sans les broyer. Attisez les flammes sous la cuve pour infuser les vegetaux intacts. Attendez que le bouillon s'apaise avant de remplir la fiole.</b>`,
     ingredients: [
       { name: "Vin", icon: GiWineBottle, quantity: 1 },
-      { name: "Dent de Lion", icon: GiLotus, quantity: 1 },
-      { name: "Fleur ardente", icon: GiFlame, quantity: 3 },
+      { name: "Camomille", icon: GiLotus, quantity: 1, isCrush: 1 },
+      { name: "Menthe", icon: GiFlame, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -86,8 +86,8 @@ const recipes = [
     instructions: `Une seule goutte sur les levres suffit a troubler les cœurs les plus froids. Mais mal utilise, il peut provoquer obsession, jalousie ou confusion sentimentale. Son effet est intense mais bref — une heure de passion, puis le retour au reel. On dit qu'il revele les verites du cœur. <b>Versez d'abord l'eau pure dans le receptacle. Pilez le jasmin dans le mortier mais ajoutez les petales de rose frais directement dans la cuve. Chauffez doucement le melange sur un feu ardent. Laissez le tourbillon d'amour reposer tranquillement puis scellez le flacon.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Petale de Rose", icon: GiRose, quantity: 1 },
-      { name: "Essence de Jasmin", icon: GiLotus, quantity: 3 },
+      { name: "Petale de Rose", icon: GiRose, quantity: 1, isCrush: 1 },
+      { name: "Cassis", icon: GiLotus, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -97,8 +97,8 @@ const recipes = [
     instructions: `Concue pour restaurer les fluides magiques des sorciers, cette mixture brille d'un bleu etincelant. Elle canalise les forces arcaniques et redonne le pouvoir d'invoquer les elements. Seuls les mages aguerris connaissent le secret de son brassage parfait. <b>Coulez l'eau claire dans le chaudron. Utilisez le mortier pour broyer la feuillereve et le pissenlit en une fine poussiere magique. Jetez le tout dans le fond du vase et faites chauffer jusqu'a l'apparition d'etincelles. Laissez refroidir ce condense de puissance avant de remplir la fiole.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Feuillereve", icon: GiFairy, quantity: 1 },
-      { name: "pissenlit", icon: GiLotus, quantity: 3 },
+      { name: "Feuillereve", icon: GiFairy, quantity: 1, isCrush: 1 },
+      { name: "pissenlit", icon: GiLotus, quantity: 1, isCrush: 1 },
     ],
   },
   {
@@ -108,8 +108,8 @@ const recipes = [
     instructions: `Un breuvage mystérieux qui accorde la vision des felines a quiconque l'absorbe dans l'obscurite. Les ombres deviennent translucides et la nuit la plus noire se transforme en un paysage clair. C'est l'outil indispensable des voleurs et des chasseurs nocturnes. <b>Versez le vin rouge dans la cuve du chaudron. Coupez les cepes en morceaux et jetez-les directement avec la griffe de chat dans le vin. Animez le foyer pour porter la mixture a ebullition sous une faible lueur. Accordez un temps de repos a la preparation puis versez au fond du flacon.</b>`,
     ingredients: [
       { name: "Vin", icon: GiWineBottle, quantity: 1 },
-      { name: "Griffe de chat", icon: GiCat, quantity: 1 },
-      { name: "Cepe", icon: GiMushroom, quantity: 3 },
+      { name: "Romarin", icon: GiCat, quantity: 1, isCrush: 0 },
+      { name: "Cepe", icon: GiMushroom, quantity: 1, isCrush: 1 },
     ],
   },
   {
@@ -119,8 +119,8 @@ const recipes = [
     instructions: `Un nectar puissant dessine pour decoupler l'energie brute, la prestance et l'assurance de celui qui le consomme. Sa couleur somptueuse et son odeur epicee eveillent immediatement les sens du guerrier. Elle insffle une vigueur incomparable. <b>Versez le vin chaud dans le fond du receptacle. Ecrasez le ginseng dans le mortier pour obtenir une poudre et jetez la feuille de gingembre entiere dans le chaudron. Ravivez les flammes sous la cuve. Laissez reposer le bouillon d'energie puis remplissez votre fiole.</b>`,
     ingredients: [
       { name: "Vin", icon: GiWineBottle, quantity: 1 },
-      { name: "Feuille de gingembre", icon: GiPlantRoots, quantity: 1 },
-      { name: "Essence de Ginseng", icon: GiPlantRoots, quantity: 3 },
+      { name: "Feuille de gingembre", icon: GiPlantRoots, quantity: 1, isCrush: 0 },
+      { name: "Aubépine", icon: GiPlantRoots, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -130,8 +130,8 @@ const recipes = [
     instructions: `Cette potion fait disparaitre quiconque la boit aux yeux des mortels, fondant le corps dans le decor. Le silence devient votre allie et l'air semble s'ouvrir sur votre passage sans laisser de trace. Tres prisee par les espions et les roublards. <b>Deversez le vin au fond de votre chaudron. Utilisez votre mortier pour broyer la griffe de lynx et la bellombre en une poussiere imperceptible. Jetez la poudre dans le recipient et faites chauffer doucement. Attendez le repos complet du liquide avant de transvaser dans la fiole.</b>`,
     ingredients: [
       { name: "Vin", icon: GiWineBottle, quantity: 1 },
-      { name: "Griffe de Lynx", icon: GiLynxHead, quantity: 1 },
-      { name: "Petale de Bellombre", icon: GiBleedingEye, quantity: 3 },
+      { name: "Armoise", icon: GiLynxHead, quantity: 1, isCrush: 0 },
+      { name: "Petale de Bellombre", icon: GiBleedingEye, quantity: 1, isCrush: 1 },
     ],
   },
   {
@@ -141,8 +141,8 @@ const recipes = [
     instructions: `Un breuvage epais qui gonfle les muscles et decuple la puissance physique en un instant. Elle permet de briser des chaines, d'enfoncer des portes en bois massif ou de porter des charges colossales. La sensation de puissance est immediate. <b>Commencez par verser l'eau pure dans votre cuve. Broyez vigoureusement la corne de sanglier dans le mortier et jetez la belladona entiere dans le liquide. Faites chauffer le melange a tres haute temperature. Permettez a la préparation de refroidir au calme puis remplissez la flasque.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Belladona", icon: GiMushroomGills, quantity: 1 },
-      { name: "Corne de sanglier", icon: GiBoarTusks, quantity: 3 },
+      { name: "Belladona", icon: GiMushroomGills, quantity: 1, isCrush: 1 },
+      { name: "Achillée", icon: GiBoarTusks, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -152,8 +152,8 @@ const recipes = [
     instructions: `Un melange instable confectionne par un esprit derange aux connaissances interdictes. Nul ne peut predire ce qui arrivera apres une gorgee : pouvoir divin ou malediction atroce. Son aspect change sans cesse de couleur. <b>Remplissez d'abord le chaudron avec de l'eau limpide. Pilez la dent de requin au mortier mais jetez les orties piquantes intactes dans le bouillon. Portez le tout a ebullition sous un feu imprevisible. Laissez reposer la folie du bouillon puis coulez dans la fiole.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Dent de requin", icon: GiSharkFin, quantity: 1 },
-      { name: "Ortie", icon: GiGrass, quantity: 3 },
+      { name: "Coquelicot", icon: GiSharkFin, quantity: 1, isCrush: 0 },
+      { name: "Ortie", icon: GiGrass, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -163,8 +163,8 @@ const recipes = [
     instructions: `Cette potion repand la vie et la fertilite sur la terre la plus aride en un temps record. Les graines germent a une vitesse fulgurante et les fruits deviennent gigantesques et savoureux. Tres recherchee par les fermiers et les druides. <b>Versez la base d'eau dans le chaudron ancien. Coupez la carotte et la tomate en morceaux puis jetez-les directement dans l'eau sans passer par le mortier. Faites chauffer doucement au-dessus des braises. Laissez reposer le breuvage fertil puis versez-le dans son flacon.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Carotte", icon: GiPlantRoots, quantity: 1 },
-      { name: "Tomate", icon: GiFlowerPot, quantity: 3 },
+      { name: "Genévrier", icon: GiPlantRoots, quantity: 1, isCrush: 1 },
+      { name: "Églantier", icon: GiFlowerPot, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -174,8 +174,8 @@ const recipes = [
     instructions: `Un filtre apaisant qui referme les coupures et neutralise les infections du corps rapidement. Il procure une sensation de fraicheur immediate et stoppe les saignements profonds. Utilise par tous les soigneurs de campagne. <b>Coulez l'eau claire au fond du chaudron. Ecrasez soigneusement la lavande et le pissenlit au mortier pour en faire une poudre verte. Jetez les vegetaux broyes dans l'eau et faites mijoter le tout a feu doux. Laissez la potion refroidir au calme avant de la conserver en fiole.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Lavande", icon: GiLotus, quantity: 1 },
-      { name: "Pissenlit", icon: GiLotus, quantity: 3 },
+      { name: "Lavande", icon: GiLotus, quantity: 1, isCrush: 1 },
+      { name: "Pissenlit", icon: GiLotus, quantity: 1, isCrush: 1 },
     ],
   },
   {
@@ -185,8 +185,8 @@ const recipes = [
     instructions: `Un breuvage noir comme le neant, concu dans le seul but d'eteindre la vie sans laisser de trace. Il fige le sang dans les veines et arrete le cœur en quelques secondes seulement. Reservé aux rituels sombres et aux executions secretes. <b>Versez l'huile noire au fond de votre receptacle. Pilez l'obsidienne au mortier jusqu'a obtenir une poudre minerale et plongez la belladona entiere dans le liquide. Portez le tout a ebullition sur un feu sombre. Laissez reposer cette liqueur mortelle puis remplissez votre fiole.</b>`,
     ingredients: [
       { name: "Huile", icon: GiDrop, quantity: 1 },
-      { name: "Belladona", icon: GiMushroomGills, quantity: 1 },
-      { name: "Obsidienne", icon: GiSkullCrossedBones, quantity: 3 },
+      { name: "Belladona", icon: GiMushroomGills, quantity: 1, isCrush: 0 },
+      { name: "Menthe", icon: GiSkullCrossedBones, quantity: 1, isCrush: 0 },
     ],
   },
   {
@@ -196,8 +196,8 @@ const recipes = [
     instructions: `Cette mixture complexe modifie la chair et le visage pour prendre l'apparence d'une autre personne. La transformation est douloureuse mais le resultat est d'une fidelite troublante. Utilisee pour les tromperies et les infiltrations royales. <b>Versez l'eau pure au fond de votre chaudron. Jetez les petales de rose et l'essence de jasmin directement dans le liquide sans utiliser le mortier. Portez le tout a ebullition pour lier les essences. Attendez le repos complet du liquide avant de le verser en fiole.</b>`,
     ingredients: [
       { name: "Eau", icon: GiWaterFlask, quantity: 1 },
-      { name: "Pétale de Rose", icon: GiRose, quantity: 1 },
-      { name: "Essence de Jasmin", icon: GiLotus, quantity: 3 },
+      { name: "Pétale de Rose", icon: GiRose, quantity: 1, isCrush: 1 },
+      { name: "Pétale de Jasmin", icon: GiLotus, quantity: 1, isCrush: 0 },
     ],
   },
 ];
