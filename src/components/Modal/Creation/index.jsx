@@ -14,7 +14,7 @@ const getClassColor = (name) =>
   GameDatas.find((classeData) => classeData.name === name)?.color ||
   "var(--yirsa-deep-yellow)";
 
-const Creation = () => {
+const Creation = ({ onCreateCharacter }) => {
   const [step, setStep] = useState(STEPS.WELCOME);
   const [pseudo, setPseudo] = useState("");
   const [selectedClasse, setSelectedClasse] = useState(null); // index de la classe choisie
@@ -47,12 +47,7 @@ const Creation = () => {
   useEffect(() => {
     if (!isSubmit || !canSubmit) return;
 
-    const userDatas = {
-      pseudo: pseudo.trim(),
-      classe: selectedClasseData.name,
-    };
-    localStorage.setItem("userDatas", JSON.stringify(userDatas));
-    console.log("Saved to localStorage:", userDatas);
+    onCreateCharacter(pseudo.trim(), selectedClasseData.name);
 
     // Laisse le temps a la transition CSS (fondu + flou, voir .creation-leaving)
     const timeout = setTimeout(

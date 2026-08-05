@@ -10,6 +10,11 @@
   background-position: center;
   background-repeat: no-repeat;
   animation: cauldron-glow-pulse 2.4s ease-in-out infinite;
+  
+}
+
+.cauldron-layer:hover {
+  /* filter: drop-shadow(0 0 8px rgba(255, 215, 94, 1)); */
 }
 
 @keyframes cauldron-glow-pulse {

@@ -37,6 +37,18 @@ const getSavedXp = () => {
   return (level - 1) * XP_PER_LEVEL;
 };
 
+const getSavedPlayerIdentity = () => {
+  try {
+    const stored = JSON.parse(localStorage.getItem("userDatas"));
+    return {
+      pseudo: stored?.pseudo || null,
+      classe: stored?.classe || null,
+    };
+  } catch {
+    return { pseudo: null, classe: null };
+  }
+};
+
 const Game = () => {
 
   const [isBgLoaded, setIsBgLoaded] = useState(false);
@@ -107,6 +119,13 @@ const Game = () => {
   // stockes a part : ce sont des vues pures sur ce seul nombre (voir
   // utils/playerProgress), pour ne jamais pouvoir se desynchroniser.
   const [playerXp, setPlayerXp] = useState(getSavedXp);
+  const [playerIdentity, setPlayerIdentity] = useState(getSavedPlayerIdentity);
+
+  const handleCreateCharacter = (pseudo, classe) => {
+    const identity = { pseudo, classe };
+    localStorage.setItem("userDatas", JSON.stringify(identity));
+    setPlayerIdentity(identity);
+  };
 
   // --- Progression du joueur : toujours DERIVEE, jamais stockee a part ---
   const currentChapterIndex = getCurrentChapterIndex(completedQuestIds);
@@ -292,7 +311,7 @@ const Game = () => {
           >
             <ToastStack />
             <RecipePinnedPanel />
-            <Creation />
+            <Creation onCreateCharacter={handleCreateCharacter} />
             <MusicPlayer />
             <EndGame
               show={showEndGame}
@@ -304,11 +323,15 @@ const Game = () => {
               playerLevel={playerLevel}
               xpPercent={xpProgressPercent}
               currentChapterIndex={currentChapterIndex}
+              pseudo={playerIdentity.pseudo}
+              classe={playerIdentity.classe}
             />
             <SfxListener />
             <Menu
               playerLevel={playerLevel}
               xpProgressPercent={xpProgressPercent}
+              playerPseudo={playerIdentity.pseudo}
+              playerClasse={playerIdentity.classe}
               shopCoins={shopCoins}
               handleCoinsChange={handleCoinsChange}
               liftInventoryItems={inventoryItems}

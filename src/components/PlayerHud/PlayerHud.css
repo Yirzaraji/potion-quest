@@ -50,7 +50,7 @@
     rounded-full
     bg-cover
     bg-center
-    border-[3px] border-[#451e6b]
+    border-[3px] border-[var(--classe-accent,#451e6b)]
     shadow-[0_0_12px_rgba(0,0,0,0.48)]
 
     xl:w-[84px]

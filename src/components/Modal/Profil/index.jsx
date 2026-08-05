@@ -5,21 +5,12 @@ import CharacterData from "@/data/Character";
 import { CHAPTERS, getCurrentChapterIndex } from "@/data/Quests";
 import "./Profil.css";
 
-const Profil = ({ playerLevel, xpPercent, completedQuestIds = [] }) => {
-  // Lecture defensive : on evite un plantage si le joueur arrive ici sans
-  // avoir encore de donnees enregistrees dans le localStorage.
-  let pseudo = "Aventurier";
-  let classe = "Inconnue";
-  try {
-    const userDatas = JSON.parse(localStorage.getItem("userDatas"));
-    pseudo = userDatas?.pseudo || pseudo;
-    classe = userDatas?.classe || classe;
-  } catch {
-    // valeurs par defaut deja en place
-  }
+const Profil = ({ playerLevel, xpPercent, completedQuestIds = [], pseudo, classe }) => {
+  const displayPseudo = pseudo || "Aventurier";
+  const displayClasse = classe || "Inconnue";
 
   const level = playerLevel || 1;
-  const classeData = CharacterData.find((entry) => entry.name === classe);
+  const classeData = CharacterData.find((entry) => entry.name === displayClasse);
   const avatarImage = classeData?.avatar || CharacterData[0].avatar;
 
   // Chapitre courant : derive de completedQuestIds, jamais stocke a part
@@ -32,15 +23,15 @@ const Profil = ({ playerLevel, xpPercent, completedQuestIds = [] }) => {
           <div className="profil-avatar-wrapper">
             <div
               className="profil-avatar img-avatar"
-              style={{ backgroundImage: `url(${avatarImage})` }}
+              style={{ backgroundImage: `url(${avatarImage})`, "--classe-accent": classeData?.color, }}
             ></div>
             <div className="profil-level-badge">
               <span className="profil-level-number">{level}</span>
             </div>
           </div>
           <div className="profil-identity">
-            <h5 className="profil-classe uppercase">{classe}</h5>
-            <h2 className="profil-pseudo">{pseudo}</h2>
+            <h5 className="profil-classe uppercase">{displayClasse}</h5>
+            <h2 className="profil-pseudo">{displayPseudo}</h2>
             <div className="profil-xp-bar">
               <div
                 className="profil-xp-fill"
@@ -56,7 +47,7 @@ const Profil = ({ playerLevel, xpPercent, completedQuestIds = [] }) => {
             Biographie
           </h4>
           <div className="profil-bio text-justify">
-            Magicien hors pair, <b>{pseudo}</b> connut la renommee durant ses
+            Magicien hors pair, <b>{displayPseudo}</b> connut la renommee durant ses
             etudes a la prestigieuse Academie de Magie de Dalaran. Son talent
             exceptionnel pour les arcanes fut decouvert tres tot, attirant
             l'attention des plus grands Archimages de la cite.

@@ -9,22 +9,15 @@ import "./PlayerHud.css";
  * Widget affiche portrait, niveau, classe et
  * progression a travers les chapitres.
  *
- * Composant presentationnel : la lecture du pseudo/de la classe dans le
- * localStorage suit exactement le meme motif deja utilise dans Modal/Profil
+ * Composant presentationnel pur : pseudo/classe arrivent en props depuis
+ * Game (source unique de verite), plus de lecture directe du localStorage.
  */
-const PlayerHud = ({ playerLevel, xpPercent, currentChapterIndex }) => {
-  let pseudo = "Aventurier";
-  let classe = "Inconnue";
-  try {
-    const userDatas = JSON.parse(localStorage.getItem("userDatas"));
-    pseudo = userDatas?.pseudo || pseudo;
-    classe = userDatas?.classe || classe;
-  } catch {
-    // valeurs par defaut deja en place
-  }
+const PlayerHud = ({ playerLevel, xpPercent, currentChapterIndex, pseudo, classe }) => {
+  const displayPseudo = pseudo || "Aventurier";
+  const displayClasse = classe || "Inconnue";
 
   const level = playerLevel || 1;
-  const classeData = CharacterData.find((entry) => entry.name === classe);
+  const classeData = CharacterData.find((entry) => entry.name === displayClasse);
   const avatarImage = classeData?.avatar || CharacterData[0].avatar;
 
   return (
@@ -32,9 +25,8 @@ const PlayerHud = ({ playerLevel, xpPercent, currentChapterIndex }) => {
       <div className="player-hud-main tw-player-hud-main">
         {/* Portrait, mis en avant : plus grand que le reste du widget */}
         <div className="player-hud-avatar-wrap tw-player-hud-avatar-wrap">
-          <div
-            className="player-hud-avatar tw-player-hud-avatar"
-            style={{ backgroundImage: `url(${avatarImage})` }}
+          <div className="player-hud-avatar tw-player-hud-avatar"
+            style={{ backgroundImage: `url(${avatarImage})`,"--classe-accent": classeData?.color, }}
           ></div>
           <div className="player-hud-level-badge tw-player-hud-level-badge">
             <span>{level}</span>
@@ -43,8 +35,8 @@ const PlayerHud = ({ playerLevel, xpPercent, currentChapterIndex }) => {
 
         {/* Identite + barre d'XP, reprise de Profil */}
         <div className="player-hud-identity">
-          <h5 className="player-hud-classe tw-player-hud-classe">{classe}</h5>
-          <h2 className="player-hud-pseudo tw-player-hud-pseudo">{pseudo}</h2>
+          <h5 className="player-hud-classe tw-player-hud-classe">{displayClasse}</h5>
+          <h2 className="player-hud-pseudo tw-player-hud-pseudo">{displayPseudo}</h2>
           <div className="player-hud-xp-bar tw-player-hud-xp-bar">
             <div
               className="player-hud-xp-fill"

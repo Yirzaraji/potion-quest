@@ -17,7 +17,7 @@
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  border: 3px solid #451e6b;
+  border: 3px solid var(--classe-accent, #451e6b);
   box-shadow: 0 0 12px rgba(69, 30, 107, 0.6);
 }
 

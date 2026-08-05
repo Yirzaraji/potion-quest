@@ -28,6 +28,8 @@ const MENU_ITEMS = [
 const Menu = ({
   playerLevel,
   xpProgressPercent,
+  playerPseudo,
+  playerClasse,
   shopCoins,
   handleCoinsChange,
   liftInventoryItems,
@@ -147,7 +149,15 @@ const Menu = ({
           />
         );
       case 4:
-        return <Profil playerLevel={playerLevel} xpPercent={xpProgressPercent} completedQuestIds={completedQuestIds} />;
+        return (
+          <Profil
+            playerLevel={playerLevel}
+            xpPercent={xpProgressPercent}
+            completedQuestIds={completedQuestIds}
+            pseudo={playerPseudo}
+            classe={playerClasse}
+          />
+        );
       case 5:
         return <Helps />;
       default:

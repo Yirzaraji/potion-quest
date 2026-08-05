@@ -26,8 +26,12 @@
   opacity: 0.97;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
   filter: blur(0px);
-  max-height: 90vh; /* par defaut : mobile portrait, petit ecran */
   transition: opacity 0.5s ease, filter 0.5s ease;
+  
+  @apply
+    max-h-[90vh] 
+    xl:h-[800px]
+  ;
 }
 
 .creation-modal.creation-leaving {
