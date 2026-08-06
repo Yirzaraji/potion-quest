@@ -77,34 +77,32 @@ const Game = () => {
 
   const [buyItems, setBuyItems] = useState([]);
   const [shopCoins, setShopCoins] = useState(10000);
-  const [inventoryCoins, setInventoryCoins] = useState(getSavedGold);  const [inventoryItems, setInventoryItems] = useState([
-      {
-        id: 0,
-        name: "Vin",
-        price: 50,
-        sellPrice: 25,
-        icon: FaWineBottle,
-      },
-      {
-        id: 1,
-        name: "Pétale de rose",
-        price: 50,
-        sellPrice: 25,
-        icon: PiFlowerTulipFill,
-        isTransform: false,
-      },
-      {
-        id: 2,
-        name: "Flacon vide",
-        price: 50,
-        sellPrice: 25,
-        icon: GiClothJar,
-        isTransform: false,
-      },
-      // TODO(dev): seed temporaire pour tester le drag&drop des quetes sans
-      // attendre le systeme de craft. A retirer une fois le Chaudron code.
-      ...GameData.items.questPotions.map((potion) => ({ ...potion, quantity: 1 })),
-    ]);
+  const [inventoryCoins, setInventoryCoins] = useState(getSavedGold);  
+  const [inventoryItems, setInventoryItems] = useState([
+    {
+      id: 1,
+      name: "Vin",
+      price: 50,
+      sellPrice: 25,
+      icon: FaWineBottle,
+    },
+    {
+      id: 4,
+      name: "Petale de rose",
+      price: 50,
+      sellPrice: 25,
+      icon: PiFlowerTulipFill,
+      isTransform: false,
+    },
+    {
+      id: 5,
+      name: "Flacon vide",
+      price: 50,
+      sellPrice: 25,
+      icon: GiClothJar,
+      isTransform: false,
+    },
+  ]);
 
   // --- Progression du joueur (leve depuis Modal/Quests, qui n'a plus de
   // state a lui : ce sont des VIEWS pilotees d'ici, comme inventoryItems). ---
