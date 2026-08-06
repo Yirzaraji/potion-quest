@@ -36,7 +36,7 @@ import { RiMedicineBottleFill } from "react-icons/ri";
 
 const recipes = [
   {
-    title: "Potion de Vie",
+    title: "Potion de soin",
     icon: GiHeartBottle,
     description: "Soigne blessures & maladies",
     instructions: `Pour concocter cette potion de guerison des plaies, il vous faudra rassembler quelques elements essentiels : une eau pure et limpide, une feuille de reve delicate et un pissenlit reduit en une fine poussiere. Lorsque tous les ingredients seront reunis, suivez le rituel ancestral. <b>Commencez par verser l'eau pure au fond de votre chaudron. Dans votre mortier, ecrasez le pissenlit en fine poudre, puis jetez-le dans la cuve avec la feuillereve entiere. Faites chauffer le melange au-dessus d'un feu doux pour lier les essences. Laissez la preparation se reposer tranquillement puis remplissez votre fiole.</b>`,

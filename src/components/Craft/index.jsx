@@ -2,13 +2,24 @@ import Cauldron from './Cauldron';
 import Mortar from './Mortar';
 import './Craft.css';
 
-const Craft = () => {
+const Craft = ({
+  cauldronItems,
+  onDropInCauldron,
+  onRemoveFromCauldron,
+  onLightFire,
+  onDropInMortar,
+}) => {
   return (
     <div className="craft-container">
-      <Mortar/>
-      <Cauldron/>
+      <Mortar onDropIngredient={onDropInMortar} />
+      <Cauldron
+        cauldronItems={cauldronItems}
+        onDropIngredient={onDropInCauldron}
+        onRemoveIngredient={onRemoveFromCauldron}
+        onLightFire={onLightFire}
+      />
     </div>
   );
-}
+};
 
 export default Craft;

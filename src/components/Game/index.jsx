@@ -1,5 +1,8 @@
 import { Fragment, useState, useEffect } from "react";
 import gameBackground from "@/assets/game-extended.png";
+import { getCrushedIngredient } from "@/data/Items/crushedIngredient";
+import { attemptCraft } from "@/utils/craftMatching";
+import CraftResult from "@/components/Craft/CraftResult";
 import { FaWineBottle } from "react-icons/fa";
 import { PiFlowerTulipFill } from "react-icons/pi";
 import { GiClothJar, GiPotionBall } from "react-icons/gi";
@@ -119,7 +122,13 @@ const Game = () => {
   // stockes a part : ce sont des vues pures sur ce seul nombre (voir
   // utils/playerProgress), pour ne jamais pouvoir se desynchroniser.
   const [playerXp, setPlayerXp] = useState(getSavedXp);
+
   const [playerIdentity, setPlayerIdentity] = useState(getSavedPlayerIdentity);
+  // Contenu actuel du chaudron : liste d'items { id, name, icon, quantity }
+  const [cauldronItems, setCauldronItems] = useState([]);
+
+  // null | { success: true, potionName } | { success: false }
+  const [craftResult, setCraftResult] = useState(null);
 
   const handleCreateCharacter = (pseudo, classe) => {
     const identity = { pseudo, classe };
@@ -289,6 +298,80 @@ const Game = () => {
     setPlayerXp((prev) => prev + (quest.rewards?.xp || 0));
   };
 
+  // Depot d'un ingredient (brut ou broye) dans le chaudron, par drag&drop
+  // depuis l'inventaire. Meme logique que handleDepositQuestItem : un seul
+  // point qui touche a la fois inventoryItems ET cauldronItems.
+  const handleDropInCauldron = (draggedItem) => {
+    const item = inventoryItems.find(
+      (invItem) => invItem && invItem.id === draggedItem.itemId
+    );
+    if (!item) return;
+
+    const amountToMove = Math.min(draggedItem.quantity || 1, item.quantity || 1);
+    if (amountToMove <= 0) return;
+
+    removeItemFromInventory(item.id, amountToMove);
+    setCauldronItems((prev) => {
+      const existingIndex = prev.findIndex((cItem) => cItem.id === item.id);
+      if (existingIndex !== -1) {
+        const updated = [...prev];
+        updated[existingIndex] = {
+          ...updated[existingIndex],
+          quantity: updated[existingIndex].quantity + amountToMove,
+        };
+        return updated;
+      }
+      return [...prev, { ...item, quantity: amountToMove }];
+    });
+  };
+
+  // Retire un ingredient du chaudron (clic sur l'item dans la fenetre d'info),
+  // le rend a l'inventaire.
+  const handleRemoveFromCauldron = (itemId) => {
+    const item = cauldronItems.find((cItem) => cItem.id === itemId);
+    if (!item) return;
+
+    addItemToInventory(item);
+    setCauldronItems((prev) => {
+      const index = prev.findIndex((cItem) => cItem.id === itemId);
+      if (index === -1) return prev;
+      const current = prev[index];
+      if (current.quantity > 1) {
+        const updated = [...prev];
+        updated[index] = { ...current, quantity: current.quantity - 1 };
+        return updated;
+      }
+      return prev.filter((_, i) => i !== index);
+    });
+  };
+
+  // Broyage au mortier : consomme 1 exemplaire brut, ajoute sa version broyee.
+  // id < 100 exclut les potions (101-112), qui n'ont pas de sens a broyer.
+  const handleDropInMortar = (rawItemId) => {
+    const rawItem = inventoryItems.find(
+      (item) => item && item.id === rawItemId && item.id < 100
+    );
+    if (!rawItem) return;
+
+    removeItemFromInventory(rawItemId, 1);
+    addItemToInventory(getCrushedIngredient(rawItem));
+  };
+
+  // Allume le feu : verifie le contenu du chaudron contre les recettes.
+  // Le chaudron se vide dans tous les cas (reussite ou echec).
+  const handleLightFire = () => {
+    const result = attemptCraft(cauldronItems);
+
+    if (result.success) {
+      addItemToInventory(result.outputItem);
+      setCraftResult({ success: true, potionName: result.outputItem.name });
+    } else {
+      setCraftResult({ success: false });
+    }
+
+    setCauldronItems([]);
+  };
+
   return (
     <Fragment>
       <ToastProvider>
@@ -318,7 +401,14 @@ const Game = () => {
               onClose={() => setShowEndGame(false)}
               onRestart={handleRestartProgress}
             />
-            <Craft/>
+            <Craft
+              cauldronItems={cauldronItems}
+              onDropInCauldron={handleDropInCauldron}
+              onRemoveFromCauldron={handleRemoveFromCauldron}
+              onLightFire={handleLightFire}
+              onDropInMortar={handleDropInMortar}
+            />
+            <CraftResult result={craftResult} onClose={() => setCraftResult(null)} />
             <PlayerHud
               playerLevel={playerLevel}
               xpPercent={xpProgressPercent}

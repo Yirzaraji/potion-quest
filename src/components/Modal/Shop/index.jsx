@@ -23,7 +23,7 @@ const Shop = ({ shopCoins, handleCoinsChange, inventoryCoins, inventoryCoinsChan
   const { showToast } = useToast();
   const [shopItems, setShopItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [shopSlots] = useState(Array.from({ length: 36 }));
+  const [shopSlots] = useState(Array.from({ length: 40 }));
   // Figée au montage : la réplique ne change pas tant que la fenêtre reste ouverte
   const merchantGreeting = useMemo(
     () => MERCHANT_GREETINGS[Math.floor(Math.random() * MERCHANT_GREETINGS.length)],

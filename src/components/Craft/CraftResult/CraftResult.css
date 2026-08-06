@@ -1,0 +1,67 @@
+.craft-result-backdrop {
+  position: fixed;
+  inset: 0;
+  /* voir la carte des z-index de l'app : sous EndGame/Tooltip (100000),
+     au-dessus de Recipes/RecipeReminder (95000) */
+  z-index: 97000;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.craft-result-card {
+  width: 320px;
+  background-color: var(--yirsa-dark-grey);
+  border: 1px solid var(--yirsa-border-grey);
+  border-radius: 10px;
+  padding: 28px 24px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.craft-result-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.craft-result-icon-success {
+  color: var(--yirsa-deep-yellow);
+}
+
+.craft-result-icon-fail {
+  color: #b3441f;
+}
+
+.craft-result-title {
+  font-family: "new rocker";
+  font-size: 1.4rem;
+  color: #fff;
+  margin: 0 0 10px 0;
+}
+
+.craft-result-text {
+  font-family: "Oswald";
+  font-size: 0.9rem;
+  color: var(--yirsa-text-grey);
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.craft-result-close-btn {
+  font-family: "oswald";
+  text-transform: uppercase;
+  background-color: var(--yirsa-deep-yellow);
+  color: var(--yirsa-dark-grey);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.craft-result-close-btn:hover {
+  background-color: var(--yirsa-yellow-hover);
+}
