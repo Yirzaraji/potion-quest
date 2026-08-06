@@ -1,0 +1,185 @@
+.cauldron-wrapper {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cauldron-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: filter 0.2s ease;
+}
+
+/* Halo au survol (ou au drag-over) du chaudron : un seul point d'entree,
+   :has() permet de reagir a l'etat du bouton sans dupliquer la regle en JS. */
+.cauldron-wrapper:has(.cauldron-btn:hover) .cauldron-layer,
+.cauldron-wrapper:has(.cauldron-btn-hover) .cauldron-layer {
+  filter: drop-shadow(0 0 18px rgb(255, 219, 60));
+}
+
+.cauldron-btn {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 200px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* --- Fenetre d'info : contenu actuel du chaudron --- */
+
+.cauldron-panel {
+  position: absolute;
+  top: 55%;
+  left: calc(50% + 220px);
+  transform: translateY(-50%);
+  width: 190px;
+  pointer-events: auto;
+  padding: 8px 4px 8px 14px;
+}
+
+.cauldron-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "new rocker";
+  font-size: 1.2rem;
+  color: var(--yirsa-deep-yellow);
+ /*  background-color: var(--yirsa-deep-yellow); */
+  padding: 5px;
+}
+
+.cauldron-panel-gear {
+  font-size: 1.2rem;
+  animation: cauldron-gear-spin 3s linear infinite;
+}
+
+@keyframes cauldron-gear-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cauldron-panel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cauldron-panel-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* padding: 5px 2px; */
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.15s ease;
+    background-color: #080d0e63;
+    padding: 5px;
+    border-radius: 2px;
+    border-left: 2px solid var(--yirsa-deep-yellow);
+    margin-bottom: 1px;
+}
+
+.cauldron-panel-item + .cauldron-panel-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cauldron-panel-item:hover {
+  opacity: 1;
+}
+
+.cauldron-panel-icon {
+  font-size: 1.2rem;
+  color: var(--yirsa-deep-yellow);
+  flex-shrink: 0;
+}
+
+.cauldron-panel-name {
+  font-family: "Oswald";
+  font-size: 0.90rem;
+  color: #fff;
+  flex: 1;
+}
+
+.cauldron-panel-qty {
+  font-family: "Oswald";
+  font-size: 0.8rem;
+  color: var(--yirsa-muted-grey);
+}
+
+/* --- Bouton "allumer le feu", sous le chaudron --- */
+
+.cauldron-fire-zone {
+  position: absolute;
+  top: 83%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.cauldron-fire-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  background-color: #1a1a1ae1;
+  color: #fff;
+  font-size: 2.3rem;
+
+  transition: background-color 0.15s ease, transform 0.15s ease,
+    box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.cauldron-fire-btn:hover:not(:disabled) {
+  background-color: #1a1a1ae1;
+  transform: scale(1.08);
+  /* box-shadow: 0 0 14px rgb(255, 187, 2); */
+  color:var(--yirsa-deep-yellow);
+}
+
+.cauldron-fire-btn-active {
+  color: var(--yirsa-deep-yellow);
+  box-shadow: 0 0 16px rgba(255, 215, 94, 1);
+}
+
+.cauldron-fire-btn:disabled {
+  opacity: 1;
+  cursor: not-allowed;
+  color:var(--yirsa-deep-yellow);
+}
+
+.cauldron-fire-label {
+  font-family: "Oswald";
+  font-size: 1rem;
+  color: white;
+  text-align: center;
+  margin: 0;
+  max-width: 240px;
+  background-color: rgba(0, 0, 0, 0.459);
+  padding: 2%;
+  border-left: 2px solid var(--yirsa-deep-yellow);
+  border-radius: 3px;
+  transition: 0.3s;
+}
