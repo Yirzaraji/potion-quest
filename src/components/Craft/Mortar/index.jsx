@@ -1,4 +1,5 @@
 import { useState } from "react";
+import mortarLayer from "@/assets/images/mortar.png";
 import "./Mortar.css";
 
 const Mortar = ({ onDropIngredient }) => {
@@ -30,6 +31,10 @@ const Mortar = ({ onDropIngredient }) => {
 
   return (
     <div className="mortar-wrapper">
+      <div
+        className="mortar-layer"
+        style={{ backgroundImage: `url(${mortarLayer})` }}
+      ></div>
       <button
         type="button"
         className={`mortar-btn ${isDragOver ? "mortar-btn-hover" : ""}`}
