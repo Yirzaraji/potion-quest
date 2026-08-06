@@ -39,13 +39,15 @@ const findMatchingRecipe = (cauldronItems) => {
   );
 };
 
-// Retrouve l'item "potion" correspondant au titre de la recette, dans
-// questPotions. Renvoie null si la recette n'a pas (encore) d'item associe
-// (cas des recettes du point C : orphelines, volontairement non fonctionnelles).
-const findOutputItem = (recipe) =>
-  GameData.items.questPotions.find((potion) => potion.name === recipe.title) ||
-  null;
-
+/* Retrouve l'id de la "potion" correspondante a l'id "potionId" de la recette
+dans questPotions. Renvoie null si la recette n'a pas (encore) d'item associe */
+const findOutputItem = (recipe) => {
+  if (!recipe.potionId) return null;
+  return (
+    GameData.items.questPotions.find((potion) => potion.id === recipe.potionId) ||
+    null
+  );
+};
 /**
  * Tente de crafter a partir du contenu actuel du chaudron.
  * Renvoie { success: false } si aucune recette ne correspond, ou si la
